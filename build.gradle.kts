@@ -53,7 +53,7 @@ publishing {
             this.artifactId = "karibu-tools"
             version = project.version.toString()
             pom {
-                description.set("Karibu-Tools: The Vaadin Missing Helpers")
+                description.set("Karibu-Tools: The Vaadin Missing Utilities")
                 name.set("Karibu-Tools")
                 url.set("https://github.com/mvysny/karibu-tools")
                 licenses {
