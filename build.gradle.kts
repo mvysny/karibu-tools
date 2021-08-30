@@ -40,6 +40,7 @@ dependencies {
                 .forEach { exclude(group = it) }
     }
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.20")
+    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v10:1.3.1")
 }
 
 // following https://dev.to/kengotoda/deploying-to-ossrh-with-gradle-in-2020-1lhi
