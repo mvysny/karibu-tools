@@ -9,7 +9,7 @@ Utility functions missing from Vaadin.
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-Copyright 2017-2018 Martin Vysny
+Copyright 2021-2022 Martin Vysny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this software except in compliance with the License.
