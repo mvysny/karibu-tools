@@ -9,7 +9,7 @@ plugins {
 
 defaultTasks("clean", "build")
 
-group = "com.gitub.mvysny.karibu-tools"
+group = "com.github.mvysny.karibu-tools"
 version = "0.1-SNAPSHOT"
 
 repositories {
