@@ -11,6 +11,7 @@ defaultTasks("clean", "build")
 
 group = "com.github.mvysny.karibu-tools"
 version = "0.1-SNAPSHOT"
+val vaadin_version = "14.6.8"
 
 repositories {
     mavenCentral()
@@ -22,6 +23,22 @@ kotlin {
 
 dependencies {
     api(kotlin("stdlib-jdk8")) // don't use -jdk8 to stay compatible with Android
+    // Vaadin 14
+    compileOnly("com.vaadin:vaadin-core:${vaadin_version}") {
+        // Webjars are only needed when running in Vaadin 13 compatibility mode
+        listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
+                "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
+                "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
+                .forEach { exclude(group = it) }
+    }
+
+    testImplementation("com.vaadin:vaadin-core:${vaadin_version}") {
+        // Webjars are only needed when running in Vaadin 13 compatibility mode
+        listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
+                "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
+                "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
+                .forEach { exclude(group = it) }
+    }
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.20")
 }
 
