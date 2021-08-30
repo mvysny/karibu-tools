@@ -3,7 +3,55 @@
 [![GitHub tag](https://img.shields.io/github/tag/mvysny/karibu-tools.svg)](https://github.com/mvysny/karibu-tools/tags)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mvysny.karibu-tools/karibu-tools/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mvysny.karibu-tools/karibu-tools)
 
-Utility functions missing from Vaadin.
+Utility functions missing from Vaadin 14+.
+
+## General Vaadin Utilities
+
+A set of general Vaadin utilities applicable to all components.
+
+### Obtaining Vaadin version at runtime
+
+* Retrieve the `VaadinVersion.get` property to get the Vaadin version such as 14.7.0
+* call `VaadinVersion.flow` to obtain the Vaadin Flow `flow-server.jar` version: for example 2.6.7 for Vaadin 14.6.8.
+
+### Events
+
+* Call `component.fireEvent()` to fire any event on the component (a shortcut to `ComponentUtil.fireEvent()`).
+* Call `ClickNotifier.serverClick()` to notify all click listeners (to fire a `ClickEvent`).
+
+### Component hierarchy
+
+* Call `Component.findAncestor()` or `Component.findAncestorOrSelf` to discover component's
+  ancestor which satisfies given predicate.
+* call `Component.removeFromParent()` to remove the component from its parent.
+* call `Component.isNestedIn(potentialAncestor: Component)` to discover whether a component
+  is nested within given potential ancestor.
+* query `Component.isAttached()` to see whether this component is currently attached to an UI.
+  Vote for [flow #7911](https://github.com/vaadin/flow/issues/7911).
+* call `HasOrderedComponents<*>.insertBefore()` to insert a component before given component.
+* query `HasComponents.isNotEmpty` or `HasComponents.isEmpty` to see whether a component
+  has any children.
+
+### Misc Component
+
+* get/set `component.textAlign` to read/write the `text-align` CSS property
+* get/set `component.tooltip` to read/write the hovering tooltip (the `title` CSS property)
+* call `Component.addContextMenuListener()` to add the right-click context listener to a component.
+  Also causes the right-click browser menu not to be shown on this component.
+* query `UI.currentViewLocation` to return the location of the currently shown view.
+
+### Misc Element
+
+* call `ClassList.toggle` to set or remove given CSS class.
+* call `Element.setOrRemoveAttribute` to set an attribute to given value, or remove the
+  attribute if the value is null.
+
+### Router
+
+* call `queryParameters["foo"]` to obtain the value of the `?foo=bar` query parameter.
+* call `queryParameters.getValues("foo")` to get all values of the `foo` query parameter.
+* call the `QueryParameters("foo=bar")` factory method to parse the query part of the URL
+  to the Vaadin `QueryParameters` class.
 
 # License
 
