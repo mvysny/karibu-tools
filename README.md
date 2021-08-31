@@ -109,6 +109,25 @@ The following functions are applicable to any field that edits text, e.g.
 * `treeGrid.getRootItems()` will fetch the root items
 * `treeGrid.expandAll()` will expand all nodes; may invoke massive data loading.
 
+### Keyboard Shortcuts
+
+Make sure you use these imports:
+
+```kotlin
+import com.github.mvysny.kaributools.ModifierKey.*
+import com.vaadin.flow.component.Key.*
+```
+
+Then:
+
+* `button.addClickShortcut(Alt + Ctrl + KEY_C)` clicks the button when Alt+Ctrl+C is pressed.
+* `button.addFocusShortcut(Alt + Ctrl + KEY_C)` focuses the button when Alt+Ctrl+C is pressed.
+* `route.addShortcut(Alt + Ctrl + KEY_C) { println("Foo") }` will cause Vaadin to run
+  given block when Alt+Ctrl+C is pressed. Ideal targets are therefore: views (for creating a view-wide shortcut), modal dialogs.
+
+Make sure to read the [Safe JavaScript Keyboard shortcuts](https://mvysny.github.io/safe-javascript-shortcuts/) article
+before designing shortcuts for your app.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
