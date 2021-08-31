@@ -1,7 +1,146 @@
 package com.github.mvysny.kaributools
 
-import com.vaadin.flow.router.Location
-import com.vaadin.flow.router.QueryParameters
+import com.vaadin.flow.component.Component
+import com.vaadin.flow.component.UI
+import com.vaadin.flow.router.*
+import com.vaadin.flow.server.VaadinService
+import java.util.*
+import kotlin.reflect.KClass
+
+/**
+ * Navigates to given route: `navigateTo<AdminRoute>()`
+ */
+public inline fun <reified T: Component> navigateTo() {
+    navigateTo(T::class)
+}
+
+/**
+ * Navigates to given view: `navigateTo(AdminRoute::class)`
+ */
+public fun navigateTo(route: KClass<out Component>) {
+    UI.getCurrent().navigate(route.java)
+}
+
+/**
+ * Navigates to given route with parameters: `navigateTo(DocumentRoute::class, 25L)`.
+ * @param param typically a non-null parameter, but may be null in case of route's optional parameter.
+ */
+public fun <C, T> navigateTo(route: KClass<out T>, param: C?) where T: Component, T: HasUrlParameter<C> {
+    // don't use this fun with reified C - when there is a parameter T, that would require the user to write something like this:
+    // navigateToView<Long, EditArticleView>(article.id!!)   // note the Long
+    UI.getCurrent().navigate(route.java, param)
+}
+
+/**
+ * Returns [RouteConfiguration] for this router.
+ */
+public val Router.configuration: RouteConfiguration get() = RouteConfiguration.forRegistry(registry)
+
+/**
+ * Calculates a URL to given [route], with given [routeParameters] and
+ * [queryParameters]. Useful in combination with [navigateTo].
+ */
+public fun getRouteUrl(
+    route: KClass<out Component>,
+    routeParameters: RouteParameters = RouteParameters.empty(),
+    queryParameters: QueryParameters = QueryParameters.empty()
+): String {
+    val ui = UI.getCurrent()!!
+    val configuration: RouteConfiguration = ui.internals.router.configuration
+    var url = configuration.getUrl(route.java, routeParameters)
+    if (queryParameters.isNotEmpty) {
+        url += "?" + queryParameters.queryString
+    }
+    return url
+}
+
+/**
+ * Calculates a URL to given [route], with given [queryParameters]. Useful in combination with [navigateTo].
+ *
+ * Examples:
+ *
+ * * `navigateTo(getRouteUrl(AdminRoute::class, "lang=en"))` will construct something like `admin?lang=en`.
+ */
+public fun getRouteUrl(
+    route: KClass<out Component>,
+    queryParameters: String
+): String {
+    var url = getRouteUrl(route)
+    if (queryParameters.isNotBlank()) {
+        url += "?" + queryParameters.trim()
+    }
+    return url
+}
+
+/**
+ * Navigates to any kind of link within the current UI, including optional query parameters:
+ *
+ * * "" (empty string) - the root view.
+ * * `foo/bar` - navigates to a view
+ * * `foo/25` - navigates to a view with parameters
+ * * `foo/25?token=bar` - any view with parameters and query parameters
+ * * `?token=foo` - the root view with query parameters
+ *
+ * Tip: Use [getRouteUrl] to construct the [location] string.
+ */
+public fun navigateTo(location: String) {
+    val ui = UI.getCurrent()!!
+    ui.internals.router.navigate(ui, Location(location), NavigationTrigger.UI_NAVIGATE)
+}
+
+/**
+ * Navigates to the target of this link; this only works for links within this app.
+ */
+public fun RouterLink.navigateTo() {
+    navigateTo(href)
+}
+
+/**
+ * Returns [UI.getRouter]/[VaadinService.router], whichever returns a non-null value.
+ */
+private fun getRouter(): Router {
+    var router: Router? = UI.getCurrent()?.router
+    if (router == null) {
+        router = VaadinService.getCurrent().router
+    }
+    if (router == null) {
+        throw IllegalStateException("Implicit router instance is not available. Use overloaded method with explicit router parameter.")
+    }
+    return router
+}
+
+/**
+ * Set the [navigationTarget] for this link.
+ */
+public fun RouterLink.setRoute(navigationTarget: KClass<out Component>) {
+    setRoute(getRouter(), navigationTarget.java)
+}
+
+/**
+ * Set the [navigationTarget] for this link.
+ * @param parameter url parameter for navigation target
+ * @param T url parameter type
+ * @param C navigation target type
+ */
+public fun <T, C> RouterLink.setRoute(navigationTarget: KClass<out C>, parameter: T) where C: Component, C: HasUrlParameter<T> {
+    setRoute(getRouter(), navigationTarget.java, parameter)
+}
+
+/**
+ * Returns the navigated-to route class.
+ */
+public val AfterNavigationEvent.routeClass: Class<out Component> get() =
+    (activeChain.first() as Component).javaClass
+
+/**
+ * Finds a view mapped to this location.
+ * @param router router to use, defaults to [UI.getRouter]/[VaadinService.router].
+ */
+public fun Location.getRouteClass(router: Router = getRouter()): Class<out Component>? {
+    val navigationTarget: Optional<NavigationState> =
+        router.resolveNavigationTarget("/$path", queryParameters.parameters.mapValues { it.value.toTypedArray() })
+    return navigationTarget.orElse(null)?.navigationTarget
+}
 
 /**
  * Returns the singleton value associated with given [parameterName].
@@ -32,3 +171,13 @@ public fun QueryParameters(query: String): QueryParameters = when {
     query.isBlank() -> QueryParameters.empty()
     else -> Location("?${query.trim('?')}").queryParameters
 }
+
+/**
+ * Checks whether there are any query parameters.
+ */
+public val QueryParameters.isEmpty: Boolean get() = parameters.isEmpty()
+
+/**
+ * Checks whether there are no query parameters.
+ */
+public inline val QueryParameters.isNotEmpty: Boolean get() = !isEmpty

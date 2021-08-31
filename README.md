@@ -48,6 +48,16 @@ A set of general Vaadin utilities applicable to all components.
 
 ### Router
 
+Navigating:
+
+* Call `navigateTo<AdminRoute>()` or `navigateTo(AdminRoute::class)` or `navigateTo(DocumentRoute::class, 25L)`.
+* Call `navigateTo(String)` to navigate anywhere within the app
+* Call `navigateTo(getRouteUrl(AdminRoute::class, "lang=en"))` to navigate to `admin?lang=en`.
+* To obtain the route class from `AfterNavigationEvent`, query `event.routeClass`
+* To obtain the route class from a `Location`, call `location.getRouteClass()`
+
+QueryParameters:
+
 * call `queryParameters["foo"]` to obtain the value of the `?foo=bar` query parameter.
 * call `queryParameters.getValues("foo")` to get all values of the `foo` query parameter.
 * call the `QueryParameters("foo=bar")` factory method to parse the query part of the URL
