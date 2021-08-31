@@ -79,6 +79,26 @@ The following functions are applicable to any field that edits text, e.g.
 * Use `Person::name.asc`/`Person::name.desc` to create a `QuerySortOrder` which is useful with DataProvider's `Query.sortOrders`
   or `Grid.sort()`.
 
+### Grid
+
+* Use `Grid.refresh()` to call `DataProvider.refreshAll()`
+* Check `Grid.isMultiSelect` to see whether a grid is configured as multi-select.
+* Check `Grid.isSingleSelect` to see whether a grid is configured as single-select.
+* Multitude overloaded `Grid.addColumnFor()` which allow you to create a column
+  using given converter or renderer to format a value. Allows both for passing in `KProperty`
+  or a property by name. For example, `grid.addColumnFor(Person::name)` will create a
+  sortable column displaying a name of a person, setting the column header to "Name".
+* `Grid.getColumnBy(Person::name)` retrieves a column created via `grid.addColumnFor(Person::name)`.
+* `HeaderRow.getCell(Person::name)` retrieves header cell for given column.
+* Similarly, `FooterRow.getCell(Person::name)` retrieves footer cell for given column.
+* `HeaderCell.component`/`FooterCell.component` sets or returns a component set
+  to given cell.
+* `grid.sort()` sorts the grid:
+  * `grid.sort(nameColumn.asc)` sorts ascending by given column;
+  * `grid.sort(Person::name.asc)` sorts ascending by column created via `grid.addColumnFor(Person::name)`
+* `treeGrid.getRootItems()` will fetch the root items
+* `treeGrid.expandAll()` will expand all nodes; may invoke massive data loading.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
