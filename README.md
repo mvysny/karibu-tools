@@ -31,6 +31,8 @@ A set of general Vaadin utilities applicable to all components.
 * call `HasOrderedComponents<*>.insertBefore()` to insert a component before given component.
 * query `HasComponents.isNotEmpty` or `HasComponents.isEmpty` to see whether a component
   has any children.
+* `Component.walk()` will return an `Iterable<Component>` which walks the component child tree,
+  depth-first: first the component, then its descendants, then its next sibling.
 
 ### Misc Component
 
