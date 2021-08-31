@@ -73,6 +73,12 @@ The following functions are applicable to any field that edits text, e.g.
 * Call `field.setCursorLocation()` to place the cursor at given character
 * Call `field.select(range)` to select a range within the text.
 
+### DataProviders
+
+* Use `dataProvider.fetchAll()` to fetch all items provided by this data provider as an eager list. Careful with larger data!
+* Use `Person::name.asc`/`Person::name.desc` to create a `QuerySortOrder` which is useful with DataProvider's `Query.sortOrders`
+  or `Grid.sort()`.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
