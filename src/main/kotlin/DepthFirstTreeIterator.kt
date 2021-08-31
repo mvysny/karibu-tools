@@ -7,6 +7,8 @@ import kotlin.streams.toList
 /**
  * Walks the child tree, depth-first: first the node, then its descendants,
  * then its next sibling.
+ * @param root start here.
+ * @param children fetches children of given node.
  */
 public class DepthFirstTreeIterator<out T>(root: T, private val children: (T) -> List<T>) : Iterator<T> {
     private val queue: Deque<T> = LinkedList(listOf(root))
