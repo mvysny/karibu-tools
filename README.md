@@ -123,7 +123,8 @@ Then:
 * `button.addClickShortcut(Alt + Ctrl + KEY_C)` clicks the button when Alt+Ctrl+C is pressed.
 * `button.addFocusShortcut(Alt + Ctrl + KEY_C)` focuses the button when Alt+Ctrl+C is pressed.
 * `route.addShortcut(Alt + Ctrl + KEY_C) { println("Foo") }` will cause Vaadin to run
-  given block when Alt+Ctrl+C is pressed. Ideal targets are therefore: views (for creating a view-wide shortcut), modal dialogs.
+  given block when Alt+Ctrl+C is pressed. Ideal targets are therefore: routes (for creating a route-wide shortcut), modal dialogs,
+  root layouts, UI.
 
 Make sure to read the [Safe JavaScript Keyboard shortcuts](https://mvysny.github.io/safe-javascript-shortcuts/) article
 before designing shortcuts for your app.

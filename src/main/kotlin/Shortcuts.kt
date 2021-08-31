@@ -43,7 +43,8 @@ public fun Focusable<*>.addFocusShortcut(shortcut: KeyShortcut): ShortcutRegistr
 
 /**
  * Attaches a keyboard shortcut to given component receiver. The keyboard shortcut is only active when the component is visible
- * and attached to the UI. Ideal targets are therefore: views (for creating a view-wide shortcut), modal dialogs.
+ * and attached to the UI. Ideal targets are therefore: routes (for creating a route-wide shortcut), modal dialogs,
+ * root layouts, UI.
  *
  * Example: `addShortcut(ModifierKey.Ctrl + ModifierKey.Alt + Key.KEY_C) { print("hello!") }`.
  *
