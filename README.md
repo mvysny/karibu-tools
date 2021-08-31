@@ -63,6 +63,16 @@ call `BrowserTimeZone.get` to get the browser's time zone instantly.
 
 * Call `BrowserTimeZone.currentDateTime` to get the current date time at browser's current time zone.
 
+### Text selection utils
+
+The following functions are applicable to any field that edits text, e.g.
+`TextField`, `TextArea`, `EmailField`:
+
+* Call `field.selectAll()` to select all text within the field.
+* Call `field.selectNone()` to select no text
+* Call `field.setCursorLocation()` to place the cursor at given character
+* Call `field.select(range)` to select a range within the text.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
