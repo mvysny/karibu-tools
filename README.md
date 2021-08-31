@@ -53,6 +53,16 @@ A set of general Vaadin utilities applicable to all components.
 * call the `QueryParameters("foo=bar")` factory method to parse the query part of the URL
   to the Vaadin `QueryParameters` class.
 
+### Time Zone
+
+In order to properly display `LocalDate` and `LocalDateTime` on client's machine, you need
+to fetch the browser's TimeZone first. You can achieve that simply by calling `BrowserTimeZone.fetch()`,
+for example when the session is being initialized. `fetch()` will request the information from
+the browser and will store it into the session. Afterwards, simply
+call `BrowserTimeZone.get` to get the browser's time zone instantly.
+
+* Call `BrowserTimeZone.currentDateTime` to get the current date time at browser's current time zone.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)

@@ -31,6 +31,7 @@ dependencies {
                 "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
                 .forEach { exclude(group = it) }
     }
+    compileOnly("javax.servlet:javax.servlet-api:3.1.0")
 
     testImplementation("com.vaadin:vaadin-core:${vaadin_version}") {
         // Webjars are only needed when running in Vaadin 13 compatibility mode
@@ -41,6 +42,7 @@ dependencies {
     }
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.20")
     testImplementation("com.github.mvysny.kaributesting:karibu-testing-v10:1.3.1")
+    testImplementation("org.slf4j:slf4j-simple:1.7.32")
 }
 
 // following https://dev.to/kengotoda/deploying-to-ossrh-with-gradle-in-2020-1lhi
