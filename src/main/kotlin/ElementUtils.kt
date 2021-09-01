@@ -2,6 +2,10 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.dom.ClassList
 import com.vaadin.flow.dom.Element
+import com.vaadin.flow.dom.ElementUtil
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Node
+import org.jsoup.nodes.TextNode
 
 /**
  * Either calls [Element.setAttribute] (if the [value] is not null), or
@@ -34,3 +38,19 @@ public fun Element.insertBefore(newNode: Element, existingNode: Element) {
     require(parent == this) { "$existingNode is not nested in $this" }
     insertChild(indexOfChild(existingNode), newNode)
 }
+
+/**
+ * This function actually works, as opposed to [Element.getTextRecursively].
+ */
+public val Element.textRecursively2: String
+    get() {
+        // remove when this is fixed: https://github.com/vaadin/flow/issues/3668
+        val node = ElementUtil.toJsoup(Document(""), this)
+        return node.textRecursively
+    }
+
+public val Node.textRecursively: String
+    get() = when (this) {
+        is TextNode -> this.text()
+        else -> childNodes().joinToString(separator = "", transform = { it.textRecursively })
+    }

@@ -64,6 +64,8 @@ A set of general Vaadin utilities applicable to all components.
   attribute if the value is null.
 * `Element.insertBefore()` to insert a child element before another child. A counterpart for JavaScript DOM
   `Node.insertBefore()`.
+* `Element.textRecursively2` returns all the text recursively present in the element. Vote for
+  [flow #3668](https://github.com/vaadin/flow/issues/3668).
 
 ### Router
 
