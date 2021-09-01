@@ -69,7 +69,8 @@ QueryParameters:
 
 In order to properly display `LocalDate` and `LocalDateTime` on client's machine, you need
 to fetch the browser's TimeZone first. You can achieve that simply by calling `BrowserTimeZone.fetch()`,
-for example when the session is being initialized. `fetch()` will request the information from
+for example when the [Vaadin Session is being initialized](https://vaadin.com/docs/v14/flow/advanced/tutorial-application-lifecycle.html).
+`fetch()` will request the information from
 the browser and will store it into the session. Afterwards, simply
 call `BrowserTimeZone.get` to get the browser's time zone instantly.
 
