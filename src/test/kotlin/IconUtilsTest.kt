@@ -1,5 +1,6 @@
 package com.github.mvysny.kaributools
 
+import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.vaadin.flow.component.icon.Icon
@@ -7,7 +8,7 @@ import com.vaadin.flow.component.icon.IronIcon
 import com.vaadin.flow.component.icon.VaadinIcon
 import kotlin.test.expect
 
-class IconUtilsTest : DynaTest({
+fun DynaNodeGroup.iconUtilsTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }
 
@@ -53,4 +54,4 @@ class IconUtilsTest : DynaTest({
             expect(null) { icon.iconName }
         }
     }
-})
+}

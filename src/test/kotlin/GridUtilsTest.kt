@@ -1,5 +1,6 @@
 package com.github.mvysny.kaributools
 
+import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.MockVaadin
@@ -13,7 +14,7 @@ import com.vaadin.flow.data.provider.SortDirection
 import kotlin.streams.toList
 import kotlin.test.expect
 
-class GridUtilsTest : DynaTest({
+fun DynaNodeGroup.gridUtilsTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }
 
@@ -138,7 +139,7 @@ class GridUtilsTest : DynaTest({
             }
         }
     }
-})
+}
 
 fun <T> Grid<T>.setItems2(items: Collection<T>) {
     dataProvider = ListDataProvider2(items)

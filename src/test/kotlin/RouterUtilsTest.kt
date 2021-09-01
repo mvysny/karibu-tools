@@ -1,5 +1,6 @@
 package com.github.mvysny.kaributools
 
+import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.dynatest.expectThrows
@@ -9,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.*
 import kotlin.test.expect
 
-class RouterUtilsTest : DynaTest({
+fun DynaNodeGroup.routerUtilsTests() {
     group("QueryParameters") {
         test("get") {
             expect(null) { QueryParameters.empty()["foo"] }
@@ -192,7 +193,7 @@ class RouterUtilsTest : DynaTest({
             expectedLocationBefore = "testing"
         }
     }
-})
+}
 
 class AppLayout : VerticalLayout(), RouterLayout
 @Route("")

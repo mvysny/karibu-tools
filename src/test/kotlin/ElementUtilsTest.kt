@@ -1,5 +1,6 @@
 package com.github.mvysny.kaributools
 
+import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
 import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.html.Span
@@ -7,7 +8,7 @@ import com.vaadin.flow.dom.Element
 import kotlin.streams.toList
 import kotlin.test.expect
 
-class ElementUtilsTest : DynaTest({
+fun DynaNodeGroup.elementUtilsTests() {
     test("setOrRemoveAttribute") {
         val t = Div().element
         expect(null) { t.getAttribute("foo") }
@@ -41,4 +42,4 @@ class ElementUtilsTest : DynaTest({
         l.insertBefore(Span("third").element, first)
         expect("second, third, first") { l.children.toList().joinToString { it.text } }
     }
-})
+}

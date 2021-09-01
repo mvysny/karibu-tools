@@ -1,9 +1,10 @@
 package com.github.mvysny.kaributools
 
+import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10.MockVaadin
 
-class BrowserTimeZoneTest : DynaTest({
+fun DynaNodeGroup.browserTimeZoneTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }
 
@@ -13,4 +14,4 @@ class BrowserTimeZoneTest : DynaTest({
         BrowserTimeZone.extendedClientDetails
         BrowserTimeZone.currentDateTime
     }
-})
+}

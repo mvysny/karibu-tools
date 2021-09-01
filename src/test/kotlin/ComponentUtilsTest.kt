@@ -1,5 +1,6 @@
 package com.github.mvysny.kaributools
 
+import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._text
@@ -14,7 +15,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import kotlin.streams.toList
 import kotlin.test.expect
 
-class ComponentUtilsTest : DynaTest({
+fun DynaNodeGroup.componentUtilsTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }
 
@@ -146,4 +147,4 @@ class ComponentUtilsTest : DynaTest({
         val div = Div().apply { addClassNames2("foo  bar    baz") }
         expect(true) { div.classNames.containsAll(listOf("foo", "bar", "baz")) }
     }
-})
+}

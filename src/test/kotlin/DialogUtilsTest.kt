@@ -8,7 +8,7 @@ import com.github.mvysny.kaributesting.v10._expectNone
 import com.github.mvysny.kaributesting.v10._expectOne
 import com.vaadin.flow.component.dialog.Dialog
 
-fun DynaNodeGroup.dialogsTest() {
+fun DynaNodeGroup.dialogUtilsTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }
 
