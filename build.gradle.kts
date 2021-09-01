@@ -11,7 +11,6 @@ defaultTasks("clean", "build")
 
 group = "com.github.mvysny.karibu-tools"
 version = "0.1-SNAPSHOT"
-val vaadin_version = "14.6.8"
 
 repositories {
     mavenCentral()
@@ -24,7 +23,7 @@ kotlin {
 dependencies {
     api(kotlin("stdlib-jdk8")) // don't use -jdk8 to stay compatible with Android
     // Vaadin 14
-    compileOnly("com.vaadin:vaadin-core:${vaadin_version}") {
+    compileOnly("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
         // Webjars are only needed when running in Vaadin 13 compatibility mode
         listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
                 "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
@@ -33,16 +32,16 @@ dependencies {
     }
     compileOnly("javax.servlet:javax.servlet-api:3.1.0")
 
-    testImplementation("com.vaadin:vaadin-core:${vaadin_version}") {
+    testImplementation("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
         // Webjars are only needed when running in Vaadin 13 compatibility mode
         listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
                 "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
                 "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
                 .forEach { exclude(group = it) }
     }
-    testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.20")
-    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v10:1.3.1")
-    testImplementation("org.slf4j:slf4j-simple:1.7.32")
+    testImplementation("com.github.mvysny.dynatest:dynatest-engine:${properties["dynatest_version"]}")
+    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v10:${properties["karibu_testing_version"]}")
+    testImplementation("org.slf4j:slf4j-simple:${properties["slf4j_version"]}")
 }
 
 // following https://dev.to/kengotoda/deploying-to-ossrh-with-gradle-in-2020-1lhi
