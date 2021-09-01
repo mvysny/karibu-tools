@@ -133,6 +133,10 @@ Then:
 Make sure to read the [Safe JavaScript Keyboard shortcuts](https://mvysny.github.io/safe-javascript-shortcuts/) article
 before designing shortcuts for your app.
 
+### MenuBar
+
+* Call `MenuBar.close()` to close the submenu popup. Vote for [#102](https://github.com/vaadin/vaadin-menu-bar/issues/102).
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
