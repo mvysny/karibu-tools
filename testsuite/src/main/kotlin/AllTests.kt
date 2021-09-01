@@ -2,6 +2,8 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
+import java.io.File
+import java.util.*
 
 fun DynaNodeGroup.allTests() {
     group("Browser Time Zone") {
@@ -40,4 +42,10 @@ fun DynaNodeGroup.allTests() {
     group("Text Field Utils") {
         textFieldUtilsTests()
     }
+}
+
+fun File.loadAsProperties(): Properties {
+    val p = Properties()
+    absoluteFile.reader().use { p.load(it.buffered()) }
+    return p
 }
