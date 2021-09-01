@@ -41,6 +41,7 @@ A set of general Vaadin utilities applicable to all components.
 * call `Component.addContextMenuListener()` to add the right-click context listener to a component.
   Also causes the right-click browser menu not to be shown on this component.
 * query `UI.currentViewLocation` to return the location of the currently shown view.
+* call `div.addClassNames2("  foo bar   baz")` to add multiple class names. Vote for [flow #11709](https://github.com/vaadin/flow/issues/11709).
 
 ### Misc Element
 

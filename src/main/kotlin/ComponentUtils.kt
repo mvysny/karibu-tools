@@ -133,3 +133,13 @@ public val HasComponents.isNotEmpty: Boolean get() = (this as Component).childre
  * True when the component has no children.
  */
 public val HasComponents.isEmpty: Boolean get() = !isNotEmpty
+
+/**
+ * Splits [classNames] by whitespaces to obtain individual class names, then
+ * calls [HasStyle.addClassName] on each class name. Does nothing if the string
+ * is blank.
+ */
+public fun HasStyle.addClassNames2(classNames: String) {
+    // workaround for https://github.com/vaadin/flow/issues/11709
+    classNames.splitByWhitespaces().forEach { addClassName(it) }
+}
