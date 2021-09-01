@@ -2,6 +2,9 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaTest
 import com.vaadin.flow.component.html.Div
+import com.vaadin.flow.component.html.Span
+import com.vaadin.flow.dom.Element
+import kotlin.streams.toList
 import kotlin.test.expect
 
 class ElementUtilsTest : DynaTest({
@@ -26,5 +29,16 @@ class ElementUtilsTest : DynaTest({
             t.classNames.toggle("test")
             expect(setOf<String>()) { t.classNames }
         }
+    }
+
+    test("insertBefore") {
+        val l = Div().element
+        val first: Element = Span("first").element
+        l.appendChild(first)
+        val second: Element = Span("second").element
+        l.insertBefore(second, first)
+        expect("second, first") { l.children.toList().joinToString { it.text } }
+        l.insertBefore(Span("third").element, first)
+        expect("second, third, first") { l.children.toList().joinToString { it.text } }
     }
 })

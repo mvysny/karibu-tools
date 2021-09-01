@@ -48,6 +48,8 @@ A set of general Vaadin utilities applicable to all components.
 * call `ClassList.toggle` to set or remove given CSS class.
 * call `Element.setOrRemoveAttribute` to set an attribute to given value, or remove the
   attribute if the value is null.
+* `Element.insertBefore()` to insert a child element before another child. A counterpart for JavaScript DOM
+  `Node.insertBefore()`.
 
 ### Router
 
@@ -143,6 +145,12 @@ TODO how to register new icon collection?
 
 * `icon.iconName` and `ironIcon.iconName` provides a type-safe access to setting icons.
 * `icon.setIcon(VaadinIcon)`/`ironIcon.setIcon(VaadinIcon)` adds the missing API of setting icons.
+
+### Dialogs
+
+* `getAllDialogs()` will return all dialogs attached to the UI. There may be closed dialogs
+  since they are cleaned up lately by Vaadin.
+* `dialog.center()` centers the dialog within the screen. Vote for [#220](https://github.com/vaadin/vaadin-dialog/issues/220)
 
 # License
 

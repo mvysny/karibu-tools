@@ -24,3 +24,13 @@ public fun ClassList.toggle(className: String) {
     require(!className.containsWhitespace()) { "'$className' cannot contain whitespace" }
     set(className, !contains(className))
 }
+
+/**
+ * Inserts [newNode] as a child, right before an [existingNode].
+ * A counterpart for JavaScript DOM `Node.insertBefore()`.
+ */
+public fun Element.insertBefore(newNode: Element, existingNode: Element) {
+    val parent: Element = requireNotNull(existingNode.parent) { "$existingNode has no parent element" }
+    require(parent == this) { "$existingNode is not nested in $this" }
+    insertChild(indexOfChild(existingNode), newNode)
+}
