@@ -9,11 +9,31 @@ plugins {
 
 defaultTasks("clean", "build")
 
-group = "com.github.mvysny.karibu-tools"
-version = "0.1-SNAPSHOT"
+allprojects {
+    group = "com.github.mvysny.karibu-tools"
+    version = "0.1-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+    apply {
+        plugin("kotlin")
+    }
+
+    repositories {
+        mavenCentral()
+        maven(url = "https://maven.vaadin.com/vaadin-prereleases/")
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+        testLogging {
+            // to see the exceptions of failed tests in Travis-CI console.
+            exceptionFormat = TestExceptionFormat.FULL
+        }
+    }
 }
 
 kotlin {
@@ -40,7 +60,6 @@ dependencies {
                 .forEach { exclude(group = it) }
     }
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:${properties["dynatest_version"]}")
-    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v10:${properties["karibu_testing_version"]}")
     testImplementation("org.slf4j:slf4j-simple:${properties["slf4j_version"]}")
 }
 
@@ -48,8 +67,6 @@ dependencies {
 java {
     withJavadocJar()
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks.withType<Javadoc> {
@@ -100,12 +117,4 @@ publishing {
 
 signing {
     sign(publishing.publications["mavenJava"])
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-    testLogging {
-        // to see the exceptions of failed tests in Travis-CI console.
-        exceptionFormat = TestExceptionFormat.FULL
-    }
 }

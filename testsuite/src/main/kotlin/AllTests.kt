@@ -41,7 +41,3 @@ fun DynaNodeGroup.allTests() {
         textFieldUtilsTests()
     }
 }
-
-class AllTest : DynaTest({
-    allTests()
-})
