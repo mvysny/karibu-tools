@@ -1,12 +1,11 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._fetch
 import com.github.mvysny.kaributesting.v10.caption
-import com.github.mvysny.kaributesting.v10.header2
+import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.data.provider.ListDataProvider
@@ -137,6 +136,29 @@ fun DynaNodeGroup.gridUtilsTests() {
                 val tf = grid.footerRows.last().getCell(Person::fullName).component
                 (tf as TextField).caption
             }
+        }
+    }
+
+    group("header2") {
+        test("simple column") {
+            val grid: Grid<Person> = Grid(Person::class.java)
+            expect("") { grid.addColumn(Person::fullName).header2 }
+            expect("Foo") { grid.addColumn(Person::fullName).apply { setHeader("Foo") }.header2 }
+            expect("") { grid.addColumn(Person::fullName).apply { setHeader(Text("Foo")) }.header2 }
+            expect("Foo") { grid.addColumn(Person::fullName).apply { setHeader("Foo"); setSortProperty("name") }.header2 }
+        }
+
+        test("joined columns") {
+            lateinit var col1: Grid.Column<Person>
+            lateinit var col2: Grid.Column<Person>
+            Grid(Person::class.java).apply {
+                col1 = addColumn(Person::fullName).setHeader("foo")
+                col2 = addColumn(Person::fullName).setHeader("bar")
+                appendHeaderRow()
+                prependHeaderRow().join(col1, col2).setComponent(TextField("Filter:"))
+            }
+            expect("foo") { col1.header2 }
+            expect("bar") { col2.header2 }
         }
     }
 }

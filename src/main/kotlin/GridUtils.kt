@@ -396,3 +396,39 @@ public fun <T> TreeGrid<T>.getRootItems(): List<T> =
 public fun <T> TreeGrid<T>.expandAll(depth: Int = 100) {
     expandRecursively(getRootItems(), depth)
 }
+
+private fun Any.gridAbstractHeaderGetHeader(): String {
+    // nasty reflection. Added a feature request to have this: https://github.com/vaadin/vaadin-grid-flow/issues/567
+    val e: Renderer<*>? = _AbstractColumn_getHeaderRenderer.invoke(this) as Renderer<*>?
+    return e?.template ?: ""
+}
+
+/**
+ * Sets and retrieves the column header as set by [Grid.Column.setHeader] (String).
+ * The result value is undefined if a component has been set as the header.
+ */
+public var <T> Grid.Column<T>.header2: String
+    get() {
+        // nasty reflection. Added a feature request to have this: https://github.com/vaadin/vaadin-grid-flow/issues/567
+        var result: String = gridAbstractHeaderGetHeader()
+        if (result.isEmpty()) {
+            // in case of grouped cells, the header is stored in a parent ColumnGroup.
+            val parent: Component? = parent.orElse(null)
+            if (parent != null && parent.javaClass.name == "com.vaadin.flow.component.grid.ColumnGroup" && parent.children.count() == 1L) {
+                result = parent.gridAbstractHeaderGetHeader()
+            }
+        }
+        return result
+    }
+    set(value) {
+        setHeader(value)
+    }
+
+private val _Column_getInternalId: Method =
+    Grid.Column::class.java.getDeclaredMethod("getInternalId").apply { isAccessible = true }
+
+/**
+ * Returns the column's Internal ID.
+ */
+public val Grid.Column<*>._internalId: String
+    get() =_Column_getInternalId.invoke(this) as String

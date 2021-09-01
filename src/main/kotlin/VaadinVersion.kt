@@ -83,9 +83,9 @@ public object VaadinVersion {
     public val get: SemanticVersion by lazy(LazyThreadSafetyMode.PUBLICATION) {
         // for Vaadin 14+ the version can be detected from the VaadinCoreShrinkWrap class.
         // This doesn't work for Vaadin 13 or lower, but nevermind - we only support Vaadin 14+ anyway.
-        val annotation: NpmPackage = checkNotNull(
-            VaadinCoreShrinkWrap::class.java.getAnnotation(NpmPackage::class.java),
-            { "This version of Karibu-Testing only supports Vaadin 14 and higher" })
+        val annotation: NpmPackage = checkNotNull(VaadinCoreShrinkWrap::class.java.getAnnotation(NpmPackage::class.java)) {
+            "Only Vaadin 14 and higher is supported"
+        }
         val version: String = annotation.version
         SemanticVersion.fromString(version)
     }

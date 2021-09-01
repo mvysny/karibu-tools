@@ -128,6 +128,8 @@ The following functions are applicable to any field that edits text, e.g.
   * `grid.sort(Person::name.asc)` sorts ascending by column created via `grid.addColumnFor(Person::name)`
 * `treeGrid.getRootItems()` will fetch the root items
 * `treeGrid.expandAll()` will expand all nodes; may invoke massive data loading.
+* `column.header2` returns the header set via the `setHeader()` function.
+* `basicRenderer.valueProvider` returns the `ValueProvider` set to the renderer.
 
 ### Keyboard Shortcuts
 

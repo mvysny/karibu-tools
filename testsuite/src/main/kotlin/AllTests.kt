@@ -42,6 +42,9 @@ fun DynaNodeGroup.allTests() {
     group("Text Field Utils") {
         textFieldUtilsTests()
     }
+    group("Renderers") {
+        renderersTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {
