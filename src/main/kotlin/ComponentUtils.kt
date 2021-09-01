@@ -22,7 +22,7 @@ public fun Component.fireEvent(event: ComponentEvent<*>) {
  * @param button see [ClickEvent.getButton], defaults to 0.
  * @param clickCount see [ClickEvent.getClickCount], defaults to 1.
  */
-public fun <R> R.serverClick(
+public fun <T: ClickNotifier<*>> T.serverClick(
     fromClient: Boolean = true,
     button: Int = 0,
     clickCount: Int = 1,
@@ -30,8 +30,9 @@ public fun <R> R.serverClick(
     ctrlKey: Boolean = false,
     altKey: Boolean = false,
     metaKey: Boolean = false
-) where R : Component, R : ClickNotifier<R> {
-    fireEvent(ClickEvent<R>(this, fromClient, -1, -1, -1, -1, clickCount, button, ctrlKey, shiftKey, altKey, metaKey))
+) {
+    (this as Component).fireEvent(ClickEvent<Component>(this,
+        fromClient, -1, -1, -1, -1, clickCount, button, ctrlKey, shiftKey, altKey, metaKey))
 }
 
 /**
