@@ -52,7 +52,7 @@ public fun Focusable<*>.addFocusShortcut(shortcut: KeyShortcut): ShortcutRegistr
  */
 public fun Component.addShortcut(shortcut: KeyShortcut, block: ()->Unit): ShortcutRegistration =
         Shortcuts.addShortcutListener(this, Command { block() }, shortcut.key, *shortcut.vaadinModifiers)
-                .listenOn(this)
+                .listenOn(*arrayOf(this))  // keep the spread operator to call `listenOn(Component...)` since Vaadin20+ doesn't contain `listenOn(Component)` anymore
 
 /**
  * Allows adding shortcut on a single key, e.g.
