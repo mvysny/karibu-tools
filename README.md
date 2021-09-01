@@ -5,6 +5,20 @@
 
 Utility functions missing from Vaadin 14+.
 
+The jar is in Maven Central, so it's easy to add this library to your project.
+
+Gradle:
+```groovy
+repositories {
+  mavenCentral()
+}
+dependencies {
+  api("com.github.mvysny.karibu-tools:karibu-tools:x.y")
+}
+```
+
+See the tag above for the latest version.
+
 ## General Vaadin Utilities
 
 A set of general Vaadin utilities applicable to all components.
