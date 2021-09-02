@@ -2,8 +2,10 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
+import com.github.mvysny.dynatest.expectThrows
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._text
+import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.button.Button
@@ -12,6 +14,8 @@ import com.vaadin.flow.component.html.Label
 import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.orderedlayout.FlexLayout
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
+import com.vaadin.flow.component.textfield.TextArea
+import com.vaadin.flow.component.textfield.TextField
 import kotlin.streams.toList
 import kotlin.test.expect
 
@@ -146,5 +150,21 @@ fun DynaNodeGroup.componentUtilsTests() {
     test("addClassNames2") {
         val div = Div().apply { addClassNames2("foo  bar    baz") }
         expect(true) { div.classNames.containsAll(listOf("foo", "bar", "baz")) }
+    }
+
+    test("placeholder") {
+        var c: Component = TextField().apply { placeholder = "foo" }
+        expect("foo") { c.placeholder }
+        c.placeholder = ""
+        expect("") { c.placeholder }
+        c = TextArea().apply { placeholder = "foo" }
+        expect("foo") { c.placeholder }
+        c.placeholder = ""
+        expect("") { c.placeholder }
+        c = Button() // doesn't support placeholder
+        expect(null) { c.placeholder }
+        expectThrows(IllegalStateException::class, "Button doesn't support setting placeholder") {
+            c.placeholder = "foo"
+        }
     }
 }

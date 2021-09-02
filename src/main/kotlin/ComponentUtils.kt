@@ -1,6 +1,12 @@
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.*
+import com.vaadin.flow.component.combobox.ComboBox
+import com.vaadin.flow.component.datepicker.DatePicker
+import com.vaadin.flow.component.html.Input
+import com.vaadin.flow.component.textfield.PasswordField
+import com.vaadin.flow.component.textfield.TextArea
+import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.dom.ClassList
 import com.vaadin.flow.dom.DomEventListener
 import com.vaadin.flow.dom.DomListenerRegistration
@@ -144,3 +150,31 @@ public fun HasStyle.addClassNames2(classNames: String) {
     // workaround for https://github.com/vaadin/flow/issues/11709
     classNames.splitByWhitespaces().forEach { addClassName(it) }
 }
+
+/**
+ * A component placeholder, usually shown when there's no value selected.
+ * Not all components support a placeholder; those that don't will return null.
+ */
+public var Component.placeholder: String?
+    // modify when this is fixed: https://github.com/vaadin/flow/issues/4068
+    get() = when (this) {
+        is TextField -> placeholder
+        is TextArea -> placeholder
+        is PasswordField -> placeholder
+        is ComboBox<*> -> this.placeholder  // https://youtrack.jetbrains.com/issue/KT-24275
+        is DatePicker -> placeholder
+        is Input -> placeholder.orElse(null)
+        else -> null
+    }
+    set(value) {
+        when (this) {
+            is TextField -> placeholder = value
+            is TextArea -> placeholder = value
+            is PasswordField -> placeholder = value
+            is ComboBox<*> -> this.placeholder = value
+            is DatePicker -> placeholder = value
+            is Input -> setPlaceholder(value)
+            else -> throw IllegalStateException("${javaClass.simpleName} doesn't support setting placeholder")
+        }
+    }
+
