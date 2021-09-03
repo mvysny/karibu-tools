@@ -2,6 +2,7 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
+import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.dynatest.expectThrows
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._text
@@ -194,5 +195,11 @@ fun DynaNodeGroup.componentUtilsTests() {
         val fl = FormLayout()
         c = fl.addFormItem(Button(), "foo")
         expect("foo") { c.caption }
+    }
+
+    test("setPrimary") {
+        val b = Button()
+        b.setPrimary()
+        expectList("primary") { b.themeNames.toList() }
     }
 }

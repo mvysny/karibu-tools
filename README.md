@@ -175,6 +175,10 @@ TODO how to register new icon collection?
   since they are cleaned up lately by Vaadin.
 * `dialog.center()` centers the dialog within the screen. Vote for [#220](https://github.com/vaadin/vaadin-dialog/issues/220)
 
+### Button
+
+* `button.setPrimary()` adds the `ButtonVariant.LUMO_PRIMARY` theme.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)

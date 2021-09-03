@@ -2,6 +2,7 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.*
 import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.button.ButtonVariant
 import com.vaadin.flow.component.checkbox.Checkbox
 import com.vaadin.flow.component.combobox.ComboBox
 import com.vaadin.flow.component.datepicker.DatePicker
@@ -232,3 +233,10 @@ public var Component.caption: String
             else -> label = value
         }
     }
+
+/**
+ * Sets the button as primary. It effectively adds the [ButtonVariant.LUMO_PRIMARY] theme variant.
+ */
+public fun Button.setPrimary() {
+    addThemeVariants(ButtonVariant.LUMO_PRIMARY)
+}
