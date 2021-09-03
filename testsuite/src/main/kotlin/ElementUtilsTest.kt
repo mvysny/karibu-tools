@@ -2,7 +2,12 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
+import com.github.mvysny.kaributesting.v10.MockVaadin
+import com.github.mvysny.kaributesting.v10.expectList
+import com.github.mvysny.kaributesting.v10.getVirtualChildren
 import com.vaadin.flow.component.Text
+import com.vaadin.flow.component.UI
+import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.html.Paragraph
 import com.vaadin.flow.component.html.Span
@@ -11,6 +16,9 @@ import kotlin.streams.toList
 import kotlin.test.expect
 
 fun DynaNodeGroup.elementUtilsTests() {
+    beforeEach { MockVaadin.setup() }
+    afterEach { MockVaadin.tearDown() }
+
     test("setOrRemoveAttribute") {
         val t = Div().element
         expect(null) { t.getAttribute("foo") }
@@ -53,5 +61,23 @@ fun DynaNodeGroup.elementUtilsTests() {
             div.element.textRecursively2
         }
         expect("foo") { Element("div").apply { setProperty("innerHTML", "foo") }.textRecursively2 }
+    }
+
+    group("getVirtualChildren()") {
+        test("initially empty") {
+            expectList() { Div().element.getVirtualChildren() }
+            expectList() { Span().element.getVirtualChildren() }
+            expectList() {
+                val b = Button()
+                UI.getCurrent().add(b)
+                b.element.getVirtualChildren()
+            }
+        }
+        test("add virtual child") {
+            val span = Span().element
+            val parent = Div()
+            parent.element.appendVirtualChild(span)
+            expectList(span) { parent.element.getVirtualChildren() }
+        }
     }
 }

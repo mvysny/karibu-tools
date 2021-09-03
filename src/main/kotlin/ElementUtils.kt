@@ -3,6 +3,8 @@ package com.github.mvysny.kaributools
 import com.vaadin.flow.dom.ClassList
 import com.vaadin.flow.dom.Element
 import com.vaadin.flow.dom.ElementUtil
+import com.vaadin.flow.internal.StateNode
+import com.vaadin.flow.internal.nodefeature.VirtualChildrenList
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Node
 import org.jsoup.nodes.TextNode
@@ -54,3 +56,23 @@ public val Node.textRecursively: String
         is TextNode -> this.text()
         else -> childNodes().joinToString(separator = "", transform = { it.textRecursively })
     }
+
+/**
+ * Returns all virtual child elements added via [Element.appendVirtualChild].
+ */
+public fun Element.getVirtualChildren(): List<Element> {
+    if (node.hasFeature(VirtualChildrenList::class.java)) {
+        val virtualChildrenList: VirtualChildrenList? =
+            node.getFeatureIfInitialized(VirtualChildrenList::class.java)
+                .orElse(null)
+        if (virtualChildrenList != null) {
+            return virtualChildrenList.iterator().asSequence().map { it.element } .toList()
+        }
+    }
+    return listOf()
+}
+
+/**
+ * Gets the element mapped to the given state node.
+ */
+public val StateNode.element: Element get() = Element.get(this)

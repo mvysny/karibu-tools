@@ -71,6 +71,8 @@ A set of general Vaadin utilities applicable to all components.
   `Node.insertBefore()`.
 * `Element.textRecursively2` returns all the text recursively present in the element. Vote for
   [flow #3668](https://github.com/vaadin/flow/issues/3668).
+* `Element.getVirtualChildren()` Returns all virtual child elements added via `Element.appendVirtualChild`.
+* `StateNode.element` returns `Element` for that `StateNode`.
 
 ### Router
 
