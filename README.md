@@ -179,6 +179,12 @@ TODO how to register new icon collection?
 
 * `button.setPrimary()` adds the `ButtonVariant.LUMO_PRIMARY` theme.
 
+### Notification
+
+* `notification.getText()` returns the text set to the notification. Vote for [#2446](https://github.com/vaadin/web-components/issues/2446).
+* `notification.addCloseButton()` adds a close button, which makes the notification closeable by the user
+  (and the duration of `0` starts making sense). Vote for [#438](https://github.com/vaadin/web-components/issues/438).
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
