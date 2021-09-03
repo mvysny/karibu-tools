@@ -58,6 +58,9 @@ A set of general Vaadin utilities applicable to all components.
 * call `div.addClassNames2("  foo bar   baz")` to add multiple class names. Vote for [flow #11709](https://github.com/vaadin/flow/issues/11709).
 * `component.placeholder` unifies the various component placeholders, usually shown when there's no value selected.
   Vote for [flow #4068](https://github.com/vaadin/flow/issues/4068).
+* `component.caption` unifies component captions. Caption is displayed directly on the component (e.g. the Button text),
+  while label is displayed next to the component in a layout (e.g. form layout).
+* `component.label` unifies component labels. Vote for [flow #3241](https://github.com/vaadin/flow/issues/3241).
 
 ### Misc Element
 

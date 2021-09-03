@@ -9,6 +9,8 @@ import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.checkbox.Checkbox
+import com.vaadin.flow.component.formlayout.FormLayout
 import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.html.Label
 import com.vaadin.flow.component.html.Span
@@ -166,5 +168,30 @@ fun DynaNodeGroup.componentUtilsTests() {
         expectThrows(IllegalStateException::class, "Button doesn't support setting placeholder") {
             c.placeholder = "foo"
         }
+    }
+
+    test("label") {
+        var c: Component = TextField().apply { label = "foo" }
+        expect("foo") { c.label }
+        c.label = ""
+        expect("") { c.label }
+        c = Checkbox().apply { label = "foo" }
+        expect("foo") { c.label }
+        c.label = ""
+        expect("") { c.label }
+    }
+
+    test("caption") {
+        var c: Component = Button("foo")
+        expect("foo") { c.caption }
+        c.caption = ""
+        expect("") { c.caption }
+        c = Checkbox().apply { caption = "foo" }
+        expect("foo") { c.caption }
+        c.caption = ""
+        expect("") { c.caption }
+        val fl = FormLayout()
+        c = fl.addFormItem(Button(), "foo")
+        expect("foo") { c.caption }
     }
 }

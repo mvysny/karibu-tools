@@ -1,8 +1,11 @@
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.*
+import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.checkbox.Checkbox
 import com.vaadin.flow.component.combobox.ComboBox
 import com.vaadin.flow.component.datepicker.DatePicker
+import com.vaadin.flow.component.formlayout.FormLayout
 import com.vaadin.flow.component.html.Input
 import com.vaadin.flow.component.textfield.PasswordField
 import com.vaadin.flow.component.textfield.TextArea
@@ -13,6 +16,7 @@ import com.vaadin.flow.dom.DomListenerRegistration
 import com.vaadin.flow.dom.Element
 import com.vaadin.flow.router.Location
 import com.vaadin.flow.router.QueryParameters
+import kotlin.streams.toList
 
 /**
  * Fires given event on the component.
@@ -178,3 +182,49 @@ public var Component.placeholder: String?
         }
     }
 
+/**
+ * Concatenates texts from all elements placed in the `label` slot. This effectively
+ * returns whatever was provided in the String label via [FormLayout.addFormItem].
+ */
+public val FormLayout.FormItem.caption: String get() {
+    val captions: List<Component> = children.toList().filter { it.element.getAttribute("slot") == "label" }
+    return captions.joinToString("") { (it as? HasText)?.text ?: "" }
+}
+
+/**
+ * Determines the component's `label` (usually it's the HTML element's `label` property, but it's [Checkbox.getLabel] for checkbox).
+ * Intended to be used for fields such as [TextField].
+ *
+ * Vote for https://github.com/vaadin/flow/issues/3241
+ */
+public var Component.label: String
+    get() = when (this) {
+        is Checkbox -> label
+        else -> element.getProperty("label") ?: ""
+    }
+    set(value) {
+        when (this) {
+            is Checkbox -> label = value
+            else -> element.setProperty("label", value.ifBlank { null })
+        }
+    }
+
+/**
+ * The Component's caption: [Button.getText] for [Button], [label] for fields such as [TextField].
+ *
+ * For FormItem: Concatenates texts from all elements placed in the `label` slot. This effectively
+ * returns whatever was provided in the String label via [FormLayout.addFormItem].
+ */
+public var Component.caption: String
+    get() = when (this) {
+        is Button -> text
+        is FormLayout.FormItem -> this.caption
+        else -> label
+    }
+    set(value) {
+        when (this) {
+            is Button -> text = value
+            is FormLayout.FormItem -> throw IllegalArgumentException("Setting the caption of FormItem is currently unsupported")
+            else -> label = value
+        }
+    }
