@@ -195,6 +195,8 @@ public val FormLayout.FormItem.caption: String get() {
  * Determines the component's `label` (usually it's the HTML element's `label` property, but it's [Checkbox.getLabel] for checkbox).
  * Intended to be used for fields such as [TextField].
  *
+ * [caption] is displayed directly on the component (e.g. the Button text),
+ * while label is displayed next to the component in a layout (e.g. form layout).
  * Vote for https://github.com/vaadin/flow/issues/3241
  */
 public var Component.label: String
@@ -212,6 +214,8 @@ public var Component.label: String
 /**
  * The Component's caption: [Button.getText] for [Button], [label] for fields such as [TextField].
  *
+ * Caption is displayed directly on the component (e.g. the Button text),
+ * while [label] is displayed next to the component in a layout (e.g. form layout).
  * For FormItem: Concatenates texts from all elements placed in the `label` slot. This effectively
  * returns whatever was provided in the String label via [FormLayout.addFormItem].
  */
