@@ -142,6 +142,11 @@ public val UI.currentViewLocation: Location get() = internals.activeViewLocation
 public val HasComponents.isNotEmpty: Boolean get() = (this as Component).children.findFirst().isPresent
 
 /**
+ * True when the component has any children. Alias for [isNotEmpty].
+ */
+public val HasComponents.hasChildren: Boolean get() = isNotEmpty
+
+/**
  * True when the component has no children.
  */
 public val HasComponents.isEmpty: Boolean get() = !isNotEmpty
