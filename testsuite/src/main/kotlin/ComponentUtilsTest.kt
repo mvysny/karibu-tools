@@ -40,6 +40,14 @@ fun DynaNodeGroup.componentUtilsTests() {
             expect(null) { label.parent.orElse(null) }
             expect(0) { fl.componentCount }
         }
+        test("reattach") {
+            val fl = FlexLayout().apply { add(Label("foo")) }
+            val label = fl.getComponentAt(0)
+            label.removeFromParent()
+            fl.add(label)
+            expect(fl) { label.parent.orElse(null) }
+            expect(1) { fl.componentCount }
+        }
     }
 
     test("serverClick()") {
