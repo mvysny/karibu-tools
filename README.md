@@ -187,6 +187,24 @@ TODO how to register new icon collection?
 * `notification.addCloseButton()` adds a close button, which makes the notification closeable by the user
   (and the duration of `0` starts making sense). Vote for [#438](https://github.com/vaadin/web-components/issues/438).
 
+### PageConfigurator
+
+`PageConfigurator` is now deprecated, the suggestion is to use `BootstrapListener` but there
+are no utility methods to add meta tags etc! Therefore we introduce the following utility methods (see examples below):
+
+* `Element.addMetaTag()` (since 0.5) adds a `<meta name="foo" content="baz">` element to the html head.
+
+```kotlin
+class MyServiceInitListener : VaadinServiceInitListener {
+    override fun serviceInit(event: ServiceInitEvent) {
+        event.addBootstrapListener {
+            it.document.head().addMetaTag("apple-mobile-web-app-capable", "yes")
+            it.document.head().addMetaTag("apple-mobile-web-app-status-bar-style", "black")
+        }
+    }
+}
+```
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
