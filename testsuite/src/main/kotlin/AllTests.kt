@@ -47,6 +47,9 @@ fun DynaNodeGroup.allTests() {
     group("Notifications") {
         notificationsTests()
     }
+    group("Upload") {
+        uploadTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {
