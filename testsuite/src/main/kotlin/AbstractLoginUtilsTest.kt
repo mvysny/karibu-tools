@@ -23,6 +23,7 @@ fun DynaNodeGroup.abstractLoginUtilsTests() {
         // and there is no point in setting null i18n...
         val form = LoginForm()
         form.i18n = null
+        expect(null) { form.i18n }
         form.setErrorMessage("title", "msg")
         expect(true) { form.isError }
         expect("title") { form.i18n!!.errorMessage.title }
