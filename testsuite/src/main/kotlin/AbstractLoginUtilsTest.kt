@@ -18,6 +18,17 @@ fun DynaNodeGroup.abstractLoginUtilsTests() {
         expect("msg") { form.i18n!!.errorMessage.message }
     }
 
+    test("null i18n") {
+        // a bit of a corner-case since LoginForm sets the LoginI18n.createDefault()
+        // and there is no point in setting null i18n...
+        val form = LoginForm()
+        form.i18n = null
+        form.setErrorMessage("title", "msg")
+        expect(true) { form.isError }
+        expect("title") { form.i18n!!.errorMessage.title }
+        expect("msg") { form.i18n!!.errorMessage.message }
+    }
+
     test("setting title+message preserves other values") {
         val form = LoginForm()
         form.i18n = LoginI18n().apply {
@@ -26,7 +37,9 @@ fun DynaNodeGroup.abstractLoginUtilsTests() {
             }
         }
         form.setErrorMessage("title", "msg")
+        // check that the header/title is preserved
         expect("foo title") { form.i18n!!.header.title }
+        // check that the new error message has been applied.
         expect("title") { form.i18n!!.errorMessage.title }
         expect("msg") { form.i18n!!.errorMessage.message }
     }
