@@ -50,6 +50,9 @@ fun DynaNodeGroup.allTests() {
     group("Upload") {
         uploadTests()
     }
+    group("AbstractLogin") {
+        abstractLoginUtilsTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {

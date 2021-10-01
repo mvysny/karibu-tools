@@ -210,6 +210,11 @@ class MyServiceInitListener : VaadinServiceInitListener {
 * `Upload.isEnabled` (since 0.5) allows you to enable or disable the upload component.
   Vote for [flow-components ticket](https://github.com/vaadin/flow-components/issues?q=is%3Aissue+upload+hasenabled+)
 
+### LoginForm/LoginOverlay
+
+* `AbstractLogin.setErrorMessage(title: String?, message: String?)` (since 0.5)
+  shows an error message and sets `setError(true)`. Vote for [issue #1525](https://github.com/vaadin/flow-components/issues/1525)
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)

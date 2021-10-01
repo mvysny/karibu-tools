@@ -1,5 +1,7 @@
 package com.github.mvysny.kaributools
 
+import elemental.json.JsonNull
+import elemental.json.JsonValue
 import java.beans.Introspector
 import java.beans.PropertyDescriptor
 import java.lang.reflect.Method
@@ -34,3 +36,9 @@ public fun <T> Class<T>.getPropertyComparator(propertyName: String): Comparator<
  */
 public inline val <reified T> KProperty1<T, *>.comparator: Comparator<T>
     get() = T::class.java.getPropertyComparator(name)
+
+/**
+ * Checks whether `this` is either null or [JsonNull].
+ */
+public val JsonValue?.isNull: Boolean
+    get() = this == null || this is JsonNull

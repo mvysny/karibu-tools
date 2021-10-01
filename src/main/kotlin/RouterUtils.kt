@@ -99,6 +99,7 @@ public fun RouterLink.navigateTo() {
  * Returns [UI.getRouter]/[VaadinService.router], whichever returns a non-null value.
  */
 private fun getRouter(): Router {
+    @Suppress("DEPRECATION")
     var router: Router? = UI.getCurrent()?.router
     if (router == null) {
         router = VaadinService.getCurrent().router

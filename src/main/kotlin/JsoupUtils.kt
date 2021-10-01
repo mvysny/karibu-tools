@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.server.InitialPageSettings
