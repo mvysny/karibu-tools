@@ -217,7 +217,7 @@ class MyServiceInitListener : VaadinServiceInitListener {
 
 ### RadioButtonGroup
 
-* `setItemLabelGenerator()` sets the item label generator. See+vote for [ticket #1681](https://github.com/vaadin/flow-components/issues/1681).
+* `setItemLabelGenerator()` sets the item label generator. See+vote for [ticket #1681](https://github.com/vaadin/flow-components/issues/1681). Since 0.6.
 
 # License
 
