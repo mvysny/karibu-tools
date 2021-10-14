@@ -215,6 +215,10 @@ class MyServiceInitListener : VaadinServiceInitListener {
 * `AbstractLogin.setErrorMessage(title: String?, message: String?)` (since 0.5)
   shows an error message and sets `setError(true)`. Vote for [issue #1525](https://github.com/vaadin/flow-components/issues/1525)
 
+### RadioButtonGroup
+
+* `setItemLabelGenerator()` sets the item label generator. See+vote for [ticket #1681](https://github.com/vaadin/flow-components/issues/1681).
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)

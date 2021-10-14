@@ -2,7 +2,6 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.*
 import com.vaadin.flow.component.button.Button
-import com.vaadin.flow.component.button.ButtonVariant
 import com.vaadin.flow.component.checkbox.Checkbox
 import com.vaadin.flow.component.combobox.ComboBox
 import com.vaadin.flow.component.datepicker.DatePicker
@@ -11,12 +10,9 @@ import com.vaadin.flow.component.html.Input
 import com.vaadin.flow.component.textfield.PasswordField
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
-import com.vaadin.flow.dom.ClassList
 import com.vaadin.flow.dom.DomEventListener
 import com.vaadin.flow.dom.DomListenerRegistration
-import com.vaadin.flow.dom.Element
 import com.vaadin.flow.router.Location
-import com.vaadin.flow.router.QueryParameters
 import kotlin.streams.toList
 
 /**
@@ -238,10 +234,3 @@ public var Component.caption: String
             else -> label = value
         }
     }
-
-/**
- * Sets the button as primary. It effectively adds the [ButtonVariant.LUMO_PRIMARY] theme variant.
- */
-public fun Button.setPrimary() {
-    addThemeVariants(ButtonVariant.LUMO_PRIMARY)
-}

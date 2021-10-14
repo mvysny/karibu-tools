@@ -11,6 +11,9 @@ fun DynaNodeGroup.allTests() {
     group("Component Utils") {
         componentUtilsTests()
     }
+    group("Buttons") {
+        buttonsTests()
+    }
     group("Data Provider Utils") {
         dataProviderUtilsTests()
     }
@@ -52,6 +55,9 @@ fun DynaNodeGroup.allTests() {
     }
     group("AbstractLogin") {
         abstractLoginUtilsTests()
+    }
+    group("radio button") {
+        radioButtonsTests()
     }
 }
 
