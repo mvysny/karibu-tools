@@ -174,7 +174,7 @@ fun DynaNodeGroup.routerUtilsTests() {
         }
 
         test("UI.currentViewLocation") {
-            var expectedLocation = if (VaadinMeta.version > 14) "" else "."
+            var expectedLocation = if (VaadinVersion.get.major > 14) "" else "."
             var expectedLocationBefore = expectedLocation
             UI.getCurrent().addBeforeLeaveListener {
                 expect(expectedLocationBefore) { UI.getCurrent().currentViewLocation.pathWithQueryParameters }

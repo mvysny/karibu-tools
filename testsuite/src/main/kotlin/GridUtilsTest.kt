@@ -4,10 +4,10 @@ import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._fetch
-import com.github.mvysny.kaributesting.v10.caption
 import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.textfield.TextField
+import com.vaadin.flow.data.binder.HasDataProvider
 import com.vaadin.flow.data.provider.ListDataProvider
 import com.vaadin.flow.data.provider.SortDirection
 import kotlin.streams.toList
@@ -164,7 +164,8 @@ fun DynaNodeGroup.gridUtilsTests() {
 }
 
 fun <T> Grid<T>.setItems2(items: Collection<T>) {
-    dataProvider = ListDataProvider2(items)
+    // this way it's also compatible with Vaadin 18.
+    setDataProvider(ListDataProvider2(items))
 }
 
 /**

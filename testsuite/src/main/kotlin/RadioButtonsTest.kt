@@ -10,9 +10,14 @@ fun DynaNodeGroup.radioButtonsTests() {
 
     test("setItemLabelGenerator") {
         val b = RadioButtonGroup<Int>()
-        b.setItems(1, 2, 3)
+        b.setItems2(listOf(1, 2, 3))
         b.setItemLabelGenerator { "Item #$it" }
-        // uncomment once Karibu-Testing 1.3.5 is integrated
+        // todo uncomment once Karibu-Testing 1.3.5 is integrated
 //        expectList("Item #1", "Item #2", "Item #3") { b.getItemLabels() }
     }
+}
+
+fun <T> RadioButtonGroup<T>.setItems2(items: Collection<T>) {
+    // this way it's also compatible with Vaadin 18.
+    dataProvider = ListDataProvider2(items)
 }
