@@ -75,7 +75,7 @@ public fun getRouteUrl(
 /**
  * Navigates to any kind of link within the current UI, including optional query parameters:
  *
- * * "" (empty string) - the root view.
+ * * `""` (empty string) - the root view.
  * * `foo/bar` - navigates to a view
  * * `foo/25` - navigates to a view with parameters
  * * `foo/25?token=bar` - any view with parameters and query parameters
