@@ -9,22 +9,30 @@ fun DynaNodeGroup.uploadTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }
 
-    test("enabled by default") {
-        val upload = Upload()
-        upload.maxFiles = 1
-        expect(true) { upload.isEnabled }
+    group("isEnabled") {
+        test("enabled by default") {
+            val upload = Upload()
+            upload.maxFiles = 1
+            expect(true) { upload.isEnabled }
+        }
+
+        test("disable sets max files to 0") {
+            val upload = Upload()
+            upload.isEnabled = false
+            expect(false) { upload.isEnabled }
+            expect(0) { upload.maxFiles }
+            upload.isEnabled = true
+            expect(true) { upload.isEnabled }
+            expect(1) { upload.maxFiles }
+            upload.isEnabled = false
+            expect(false) { upload.isEnabled }
+            expect(0) { upload.maxFiles }
+        }
     }
 
-    test("disable sets max files to 0") {
-        val upload = Upload()
-        upload.isEnabled = false
-        expect(false) { upload.isEnabled }
-        expect(0) { upload.maxFiles }
-        upload.isEnabled = true
-        expect(true) { upload.isEnabled }
-        expect(1) { upload.maxFiles }
-        upload.isEnabled = false
-        expect(false) { upload.isEnabled }
-        expect(0) { upload.maxFiles }
+    group("clear") {
+        test("smoke") {
+            Upload().clear()
+        }
     }
 }

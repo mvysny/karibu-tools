@@ -213,7 +213,9 @@ class MyServiceInitListener : VaadinServiceInitListener {
 ### Upload
 
 * `Upload.isEnabled` (since 0.5) allows you to enable or disable the upload component.
-  Vote for [flow-components ticket](https://github.com/vaadin/flow-components/issues?q=is%3Aissue+upload+hasenabled+)
+  Vote for [#2182](https://github.com/vaadin/flow-components/issues/2182)
+* `Upload.clear()` (since 0.6) clears the list of uploaded files.
+  Vote for [#1572](https://github.com/vaadin/flow-components/issues/1572).
 
 ### LoginForm/LoginOverlay
 
