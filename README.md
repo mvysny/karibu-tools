@@ -35,7 +35,7 @@ A set of general Vaadin utilities applicable to all components.
 
 ### Component hierarchy
 
-* Call `Component.findAncestor()` or `Component.findAncestorOrSelf` to discover component's
+* Call `Component.findAncestor()` or `Component.findAncestorOrSelf()` to discover component's
   ancestor which satisfies given predicate.
 * call `Component.removeFromParent()` to remove the component from its parent.
 * call `Component.isNestedIn(potentialAncestor: Component)` to discover whether a component
