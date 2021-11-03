@@ -226,6 +226,11 @@ class MyServiceInitListener : VaadinServiceInitListener {
 
 * `setItemLabelGenerator()` sets the item label generator. See+vote for [ticket #1681](https://github.com/vaadin/flow-components/issues/1681). Since 0.6.
 
+### HTML
+
+The `HtmlSpan` component (since 0.6) has an advantage over Vaadin-provided `Html` -
+it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` element.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
