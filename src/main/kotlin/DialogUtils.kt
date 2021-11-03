@@ -17,7 +17,7 @@ public fun getAllDialogs(): List<Dialog> = UI.getCurrent().getAllDialogs()
 public fun UI.getAllDialogs(): List<Dialog> = children.toList().filterIsInstance<Dialog>()
 
 /**
- * Centers the dialog on-screen.
+ * Re-centers the dialog on-screen after the width/height have been changed.
  */
 public fun Dialog.center() {
     // https://github.com/vaadin/vaadin-dialog/issues/220
