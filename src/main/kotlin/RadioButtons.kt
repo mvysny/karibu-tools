@@ -12,5 +12,6 @@ import com.vaadin.flow.data.renderer.TextRenderer
  * Setting [RadioButtonGroup.setRenderer] removes any generator set via this function.
  */
 public fun <T> RadioButtonGroup<T>.setItemLabelGenerator(generator: ItemLabelGenerator<T>) {
+    // workaround for https://github.com/vaadin/flow-components/issues/1681
     setRenderer(TextRenderer(generator))
 }
