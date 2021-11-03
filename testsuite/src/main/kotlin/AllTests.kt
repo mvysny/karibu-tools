@@ -59,6 +59,9 @@ fun DynaNodeGroup.allTests() {
     group("radio button") {
         radioButtonsTests()
     }
+    group("HtmlSpan") {
+        htmlSpanTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {
