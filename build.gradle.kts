@@ -51,6 +51,8 @@ dependencies {
                 .forEach { exclude(group = it) }
     }
     compileOnly("javax.servlet:javax.servlet-api:3.1.0")
+    // IDEA language injections
+    api("org.jetbrains:annotations:22.0.0")
 
     testImplementation("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
         // Webjars are only needed when running in Vaadin 13 compatibility mode

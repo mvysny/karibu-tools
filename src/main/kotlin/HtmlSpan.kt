@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.html.Span
+import org.intellij.lang.annotations.Language
 
 /**
  * Populates its contents with given html snippet. The advantage over [com.vaadin.flow.component.Html]
@@ -17,10 +18,12 @@ import com.vaadin.flow.component.html.Span
  * [innerHTML].
  * @param innerHTML the HTML snippet to populate the span with.
  */
-public class HtmlSpan(innerHTML: String = "") : Span() {
+public class HtmlSpan(@Language("html") innerHTML: String = "") : Span() {
     /**
      * Sets the inner html. Removes any children added via [add].
      */
+    @get:Language("html")
+    @set:Language("html")
     public var innerHTML: String
         get() = element.getProperty("innerHTML", "")
         set(value) {
