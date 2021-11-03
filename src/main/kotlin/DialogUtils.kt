@@ -18,6 +18,8 @@ public fun UI.getAllDialogs(): List<Dialog> = children.toList().filterIsInstance
 
 /**
  * Re-centers the dialog on-screen after the width/height have been changed.
+ *
+ * The dialog is centered by default; there's no need to call this on every dialog construction.
  */
 public fun Dialog.center() {
     // https://github.com/vaadin/vaadin-dialog/issues/220
