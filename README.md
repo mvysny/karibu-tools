@@ -2,6 +2,7 @@
 
 [![GitHub tag](https://img.shields.io/github/tag/mvysny/karibu-tools.svg)](https://github.com/mvysny/karibu-tools/tags)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mvysny.karibu-tools/karibu-tools/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mvysny.karibu-tools/karibu-tools)
+[![CI](https://github.com/mvysny/karibu-tools/actions/workflows/gradle.yml/badge.svg)](https://github.com/mvysny/karibu-tools/actions/workflows/gradle.yml)
 
 Utility functions missing from Vaadin 14+.
 
