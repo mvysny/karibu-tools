@@ -1,10 +1,7 @@
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.Component
-import com.vaadin.flow.component.grid.FooterRow
-import com.vaadin.flow.component.grid.Grid
-import com.vaadin.flow.component.grid.GridSortOrder
-import com.vaadin.flow.component.grid.HeaderRow
+import com.vaadin.flow.component.grid.*
 import com.vaadin.flow.component.treegrid.TreeGrid
 import com.vaadin.flow.data.provider.QuerySortOrder
 import com.vaadin.flow.data.provider.SortDirection
@@ -30,12 +27,44 @@ public fun Grid<*>.refresh() {
  * Checks whether the grid is configured as multi-select. Returns false if the
  * grid is single-select or the selection is disabled.
  */
-public val Grid<*>.isMultiSelect: Boolean get() = selectionModel is SelectionModel.Multi<*, *>
+public val Grid<*>.isMultiSelect: Boolean get() = selectionModel.isMultiSelect
 /**
  * Checks whether the grid is configured as single-select. Returns false if the
  * grid is multi-select or the selection is disabled.
  */
-public val Grid<*>.isSingleSelect: Boolean get() = selectionModel is SelectionModel.Single<*, *>
+public val Grid<*>.isSingleSelect: Boolean get() = selectionModel.isSingleSelect
+
+/**
+ * Checks whether this model is multi-select.
+ */
+public val SelectionModel<*, *>.isMultiSelect: Boolean get() = this is SelectionModel.Multi<*, *>
+/**
+ * Checks whether this model is single-select.
+ */
+public val SelectionModel<*, *>.isSingleSelect: Boolean get() = this is SelectionModel.Single<*, *>
+
+/**
+ * Sets or returns the current [Grid.SelectionMode].
+ */
+public var Grid<*>.selectionMode: Grid.SelectionMode
+    get() = when {
+        isSingleSelect -> Grid.SelectionMode.SINGLE
+        isMultiSelect -> Grid.SelectionMode.MULTI
+        else -> Grid.SelectionMode.NONE
+    }
+    set(value) {
+        setSelectionMode(value)
+    }
+
+/**
+ * If true, nothing is selected.
+ */
+public val GridSelectionModel<*>.isEmpty: Boolean get() = !firstSelectedItem.isPresent
+
+/**
+ * If true, nothing is selected.
+ */
+public val Grid<*>.isSelectionEmpty: Boolean get() = selectionModel.isEmpty
 
 /**
  * Checks whether the new selection is empty.

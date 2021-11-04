@@ -161,10 +161,55 @@ fun DynaNodeGroup.gridUtilsTests() {
             expect("bar") { col2.header2 }
         }
     }
+
+    group("selection") {
+        group("mode") {
+            test("single/multi select") {
+                val g = Grid<String>()
+                g.setSelectionMode(Grid.SelectionMode.NONE)
+                expect(false) { g.isMultiSelect }
+                expect(false) { g.isSingleSelect }
+                g.setSelectionMode(Grid.SelectionMode.SINGLE)
+                expect(false) { g.isMultiSelect }
+                expect(true) { g.isSingleSelect }
+                g.setSelectionMode(Grid.SelectionMode.MULTI)
+                expect(true) { g.isMultiSelect }
+                expect(false) { g.isSingleSelect }
+            }
+            test("mode") {
+                val g = Grid<String>()
+                g.selectionMode = Grid.SelectionMode.NONE
+                expect(Grid.SelectionMode.NONE) { g.selectionMode }
+                g.selectionMode = Grid.SelectionMode.SINGLE
+                expect(Grid.SelectionMode.SINGLE) { g.selectionMode }
+                g.selectionMode = Grid.SelectionMode.MULTI
+                expect(Grid.SelectionMode.MULTI) { g.selectionMode }
+            }
+        }
+        group("isEmpty") {
+            test("initially empty") {
+                val g = Grid<String>()
+                g.setSelectionMode(Grid.SelectionMode.NONE)
+                expect(true) { g.isSelectionEmpty }
+                g.setSelectionMode(Grid.SelectionMode.SINGLE)
+                expect(true) { g.isSelectionEmpty }
+                g.setSelectionMode(Grid.SelectionMode.MULTI)
+                expect(true) { g.isSelectionEmpty }
+            }
+            test("false on selection") {
+                val g = Grid<String>()
+                g.setSelectionMode(Grid.SelectionMode.SINGLE)
+                g.select("foo")
+                expect(false) { g.isSelectionEmpty }
+                g.deselectAll()
+                expect(true) { g.isSelectionEmpty }
+            }
+        }
+    }
 }
 
 fun <T> Grid<T>.setItems2(items: Collection<T>) {
-    // this way it's also compatible with Vaadin 18.
+    // this way it's compatible both with Vaadin 14 and  Vaadin 20+.
     setDataProvider(ListDataProvider2(items))
 }
 
