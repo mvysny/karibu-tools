@@ -149,6 +149,7 @@ The following functions are applicable to any field that edits text, e.g.
 * `treeGrid.expandAll()` will expand all nodes; may invoke massive data loading.
 * `column.header2` returns the header set via the `setHeader()` function.
 * `basicRenderer.valueProvider` returns the `ValueProvider` set to the renderer.
+* `ItemClickEvent.isDoubleClick`
 
 ### Keyboard Shortcuts
 

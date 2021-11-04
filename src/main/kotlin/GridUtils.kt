@@ -461,3 +461,6 @@ private val _Column_getInternalId: Method =
  */
 public val Grid.Column<*>._internalId: String
     get() =_Column_getInternalId.invoke(this) as String
+
+public val ItemClickEvent<*>.isDoubleClick: Boolean
+    get() = clickCount >= 2
