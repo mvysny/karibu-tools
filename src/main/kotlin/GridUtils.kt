@@ -44,6 +44,11 @@ public val SelectionModel<*, *>.isMultiSelect: Boolean get() = this is Selection
 public val SelectionModel<*, *>.isSingleSelect: Boolean get() = this is SelectionModel.Single<*, *>
 
 /**
+ * Checks whether this is either [isMultiSelect] or [isSingleSelect].
+ */
+public val SelectionModel<*, *>.isSelectionAllowed: Boolean get() = isMultiSelect || isSingleSelect
+
+/**
  * Sets or returns the current [Grid.SelectionMode].
  */
 public var Grid<*>.selectionMode: Grid.SelectionMode
@@ -55,6 +60,11 @@ public var Grid<*>.selectionMode: Grid.SelectionMode
     set(value) {
         setSelectionMode(value)
     }
+
+/**
+ * Checks whether this is either [isMultiSelect] or [isSingleSelect].
+ */
+public val Grid<*>.isSelectionAllowed: Boolean get() = selectionModel.isSelectionAllowed
 
 /**
  * If true, nothing is selected.

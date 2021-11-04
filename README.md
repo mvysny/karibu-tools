@@ -133,6 +133,7 @@ The following functions are applicable to any field that edits text, e.g.
   * Check `Grid.isSingleSelect` to see whether a grid is configured as single-select.
   * `Grid.isSelectionEmpty` returns true if there's nothing selected in the grid.
   * `Grid.selectionMode` allows you to read/write the current selection mode.
+  * `Grid.isSelectionAllowed` returns false if `Grid.SelectionMode.NONE` is currently set.
 * Multitude overloaded `Grid.addColumnFor()` which allow you to create a column
   using given converter or renderer to format a value. Allows both for passing in `KProperty`
   or a property by name. For example, `grid.addColumnFor(Person::name)` will create a

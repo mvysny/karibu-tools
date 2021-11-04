@@ -169,12 +169,15 @@ fun DynaNodeGroup.gridUtilsTests() {
                 g.setSelectionMode(Grid.SelectionMode.NONE)
                 expect(false) { g.isMultiSelect }
                 expect(false) { g.isSingleSelect }
+                expect(false) { g.isSelectionAllowed }
                 g.setSelectionMode(Grid.SelectionMode.SINGLE)
                 expect(false) { g.isMultiSelect }
                 expect(true) { g.isSingleSelect }
+                expect(true) { g.isSelectionAllowed }
                 g.setSelectionMode(Grid.SelectionMode.MULTI)
                 expect(true) { g.isMultiSelect }
                 expect(false) { g.isSingleSelect }
+                expect(true) { g.isSelectionAllowed }
             }
             test("mode") {
                 val g = Grid<String>()
