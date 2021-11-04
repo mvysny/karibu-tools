@@ -62,6 +62,9 @@ fun DynaNodeGroup.allTests() {
     group("HtmlSpan") {
         htmlSpanTests()
     }
+    group("Combobox") {
+        comboboxesTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {

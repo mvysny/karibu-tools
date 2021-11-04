@@ -235,6 +235,14 @@ class MyServiceInitListener : VaadinServiceInitListener {
 The `HtmlSpan` component (since 0.6) has an advantage over Vaadin-provided `Html` -
 it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` element.
 
+### ComboBox
+
+* Implemented `ComboBoxVariant`, `addThemeVariants()` and `removeThemeVariants()`.
+  See+vote for [issue #454](https://github.com/vaadin/flow-components/issues/454).
+* `ComboBox.isSmall` toggles the `small` theme
+* `ComboBox.isHelperAboveField` toggles the `helper-above-field` theme
+* `ComboBox.textAlign` toggles the `align-left`/`align-center`/`align-right` theme.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
