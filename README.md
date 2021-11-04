@@ -57,6 +57,7 @@ A set of general Vaadin utilities applicable to all components.
   Also causes the right-click browser menu not to be shown on this component.
 * query `UI.currentViewLocation` to return the location of the currently shown view.
 * call `div.addClassNames2("  foo bar   baz")` to add multiple class names. Vote for [flow #11709](https://github.com/vaadin/flow/issues/11709).
+  * also `div.removeClassNames2()` and `div.setClassNames2()`
 * `component.placeholder` unifies the various component placeholders, usually shown when there's no value selected.
   Vote for [flow #4068](https://github.com/vaadin/flow/issues/4068).
 * `component.caption` unifies component captions. Caption is displayed directly on the component (e.g. the Button text),

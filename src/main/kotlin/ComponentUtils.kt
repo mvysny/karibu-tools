@@ -158,6 +158,58 @@ public fun HasStyle.addClassNames2(classNames: String) {
 }
 
 /**
+ * Splits [classNames] by whitespaces to obtain individual class names, then
+ * calls [HasStyle.addClassName] on each class name. Does nothing if the string
+ * is blank.
+ */
+public fun HasStyle.addClassNames2(vararg classNames: String) {
+    // workaround for https://github.com/vaadin/flow/issues/11709
+    classNames.forEach { addClassNames2(it) }
+}
+
+/**
+ * Splits [classNames] by whitespaces to obtain individual class names, then
+ * calls [HasStyle.removeClassName] on each class name. Does nothing if the string
+ * is blank.
+ */
+public fun HasStyle.removeClassNames2(classNames: String) {
+    // workaround for https://github.com/vaadin/flow/issues/11709
+    classNames.splitByWhitespaces().forEach { removeClassName(it) }
+}
+
+/**
+ * Splits [classNames] by whitespaces to obtain individual class names, then
+ * calls [HasStyle.removeClassName] on each class name. Does nothing if the string
+ * is blank.
+ */
+public fun HasStyle.removeClassNames2(vararg classNames: String) {
+    // workaround for https://github.com/vaadin/flow/issues/11709
+    classNames.forEach { removeClassNames2(it) }
+}
+
+/**
+ * Splits [classNames] by whitespaces to obtain individual class names, then
+ * clears the class names and calls [HasStyle.addClassName] on each class name. Does nothing if the string
+ * is blank.
+ */
+public fun HasStyle.setClassNames2(classNames: String) {
+    // workaround for https://github.com/vaadin/flow/issues/11709
+    style.clear()
+    addClassNames2(classNames)
+}
+
+/**
+ * Splits [classNames] by whitespaces to obtain individual class names, then
+ * clears the class names and calls [HasStyle.addClassName] on each class name. Does nothing if the string
+ * is blank.
+ */
+public fun HasStyle.setClassNames2(vararg classNames: String) {
+    // workaround for https://github.com/vaadin/flow/issues/11709
+    style.clear()
+    addClassNames2(*classNames)
+}
+
+/**
  * A component placeholder, usually shown when there's no value selected.
  * Not all components support a placeholder; those that don't will return null.
  */
