@@ -41,7 +41,7 @@ kotlin {
 }
 
 dependencies {
-    api(kotlin("stdlib-jdk8")) // don't use -jdk8 to stay compatible with Android
+    api(kotlin("stdlib-jdk8"))
     // Vaadin 14
     compileOnly("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
         // Webjars are only needed when running in Vaadin 13 compatibility mode
