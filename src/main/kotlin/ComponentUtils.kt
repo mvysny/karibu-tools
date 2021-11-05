@@ -264,11 +264,13 @@ public val FormLayout.FormItem.label: String get() {
  * while label is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
  * Vote for [issue #3241](https://github.com/vaadin/flow/issues/3241).
  *
- * *WARNING:* the label is displayed by the component itself, rather than by the parent layout.
- * Therefore, setting this property to a component which doesn't contain necessary machinery
- * to display a label will do nothing. For example, setting a label to a [FormLayout]
- * nested within a [com.vaadin.flow.component.orderedlayout.VerticalLayout]
- * will show nothing.
+ * **WARNING:** the label is displayed by the component itself, rather than by the parent layout.
+ * If a component doesn't contain necessary machinery
+ * to display a label, setting this property will have no visual effect.
+ * For example, setting a label to a [FormLayout]
+ * nested within a `VerticalLayout`
+ * will show nothing since [FormLayout] doesn't display a label itself.
+ * See [LabelWrapper] for a list of possible solutions.
  */
 public var Component.label: String
     get() = when (this) {
@@ -287,17 +289,34 @@ public var Component.label: String
 /**
  * The Component's caption: [Button.getText] for [Button], [label] for fields such as [TextField].
  *
- * Caption is displayed directly on the component (e.g. the Button text),
+ * Caption is generally displayed directly on the component (e.g. the Button text),
  * while [label] is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
+ *
+ * **Deprecated:** this property was intended to unify captions and labels, but only managed to
+ * create confusion between the two concepts. Also, there's only a [Button] which
+ * has the notion of a caption. Will be removed with no replacement.
  */
+@Deprecated("don't use")
 public var Component.caption: String
     get() = when (this) {
-        is Button -> text
+        is Button -> caption
         else -> label
     }
     set(value) {
         when (this) {
-            is Button -> text = value
+            is Button -> caption = value
             else -> label = value
         }
+    }
+
+/**
+ * The Button's caption. Alias for [Button.getText].
+ *
+ * Caption is generally displayed directly on the component (e.g. the Button text),
+ * while [label] is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
+ */
+public var Button.caption: String
+    get() = text
+    set(value) {
+        text = value
     }
