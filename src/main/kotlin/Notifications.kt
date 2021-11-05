@@ -24,7 +24,7 @@ public val Notification._templateElement: Element
  * Vote for https://github.com/vaadin/web-components/issues/2446
  */
 public fun Notification.getText(): String {
-    if (isNotEmpty) {
+    if (hasChildren) {
         // adding components to the notification clears the notification text
         return ""
     }
