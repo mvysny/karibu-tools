@@ -12,9 +12,7 @@ import com.vaadin.flow.component.customfield.CustomField
  *
  * Whenever possible, you should add your components into a `FormLayout`
  * instead, via the `FormLayout.addFormItem()` which
- * supports labels.
- *
- * Alternatively, you can emulate labels by wrapping labels in a `H2`/`H3`/`H4`/`H5`/`H6`
+ * supports labels. Alternatively, you can emulate labels by wrapping labels in a `H2`/`H3`/`H4`/`H5`/`H6`
  * then styling them accordingly.
  */
 public class LabelWrapper(label: String) : CustomField<Void>(), HasComponents {
