@@ -2,6 +2,7 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.HasComponents
+import com.vaadin.flow.component.HasSize
 import com.vaadin.flow.component.customfield.CustomField
 
 /**
@@ -15,7 +16,7 @@ import com.vaadin.flow.component.customfield.CustomField
  * supports labels. Alternatively, you can emulate labels by wrapping labels in a `H2`/`H3`/`H4`/`H5`/`H6`
  * then styling them accordingly.
  */
-public class LabelWrapper(label: String) : CustomField<Void>(), HasComponents {
+public class LabelWrapper(label: String) : CustomField<Void>(), HasComponents, HasSize {
     init {
         setLabel(label)
     }
