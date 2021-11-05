@@ -240,7 +240,7 @@ public var Component.placeholder: String?
  * Concatenates texts from all elements placed in the `label` slot. This effectively
  * returns whatever was provided in the String label via [FormLayout.addFormItem].
  */
-public val FormLayout.FormItem.caption: String get() {
+public val FormLayout.FormItem.label: String get() {
     val captions: List<Component> = children.toList().filter { it.element.getAttribute("slot") == "label" }
     return captions.joinToString("") { (it as? HasText)?.text ?: "" }
 }
@@ -248,19 +248,30 @@ public val FormLayout.FormItem.caption: String get() {
 /**
  * Determines the component's `label` (usually it's the HTML element's `label` property, but it's [Checkbox.getLabel] for checkbox).
  * Intended to be used for fields such as [TextField].
+
+ * *For `FormItem`:* Concatenates texts from all elements placed in the `label` slot. This effectively
+ * returns whatever was provided in the String label via [FormLayout.addFormItem].
  *
- * [caption] is displayed directly on the component (e.g. the Button text),
- * while label is displayed next to the component in a layout (e.g. form layout).
- * Vote for https://github.com/vaadin/flow/issues/3241
+ * [Component.caption] is displayed directly on the component (e.g. the Button text),
+ * while label is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
+ * Vote for [issue #3241](https://github.com/vaadin/flow/issues/3241).
+ *
+ * *WARNING:* the label is displayed by the component itself, rather than by the parent layout.
+ * Therefore, setting this property to a component which doesn't contain necessary machinery
+ * to display a label will do nothing. For example, setting a label to a [FormLayout]
+ * nested within a [com.vaadin.flow.component.orderedlayout.VerticalLayout]
+ * will show nothing.
  */
 public var Component.label: String
     get() = when (this) {
         is Checkbox -> label
+        is FormLayout.FormItem -> this.label
         else -> element.getProperty("label") ?: ""
     }
     set(value) {
         when (this) {
             is Checkbox -> label = value
+            is FormLayout.FormItem -> throw IllegalArgumentException("Setting the caption of FormItem is currently unsupported")
             else -> element.setProperty("label", value.ifBlank { null })
         }
     }
@@ -269,20 +280,16 @@ public var Component.label: String
  * The Component's caption: [Button.getText] for [Button], [label] for fields such as [TextField].
  *
  * Caption is displayed directly on the component (e.g. the Button text),
- * while [label] is displayed next to the component in a layout (e.g. form layout).
- * For FormItem: Concatenates texts from all elements placed in the `label` slot. This effectively
- * returns whatever was provided in the String label via [FormLayout.addFormItem].
+ * while [label] is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
  */
 public var Component.caption: String
     get() = when (this) {
         is Button -> text
-        is FormLayout.FormItem -> this.caption
         else -> label
     }
     set(value) {
         when (this) {
             is Button -> text = value
-            is FormLayout.FormItem -> throw IllegalArgumentException("Setting the caption of FormItem is currently unsupported")
             else -> label = value
         }
     }

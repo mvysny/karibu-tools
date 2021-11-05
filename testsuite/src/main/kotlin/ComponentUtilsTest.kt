@@ -197,7 +197,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect("foo") { c.caption }
         c.caption = ""
         expect("") { c.caption }
-        expect("") { FormLayout.FormItem().caption }
+        expect("") { FormLayout.FormItem().label }
         val fl = FormLayout()
         c = fl.addFormItem(Button(), "foo")
         expect("foo") { c.caption }
