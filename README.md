@@ -44,8 +44,7 @@ A set of general Vaadin utilities applicable to all components.
 * query `Component.isAttached()` to see whether this component is currently attached to an UI.
   Vote for [flow #7911](https://github.com/vaadin/flow/issues/7911).
 * call `HasOrderedComponents<*>.insertBefore()` to insert a component before given component.
-* query `HasComponents.isNotEmpty` or `HasComponents.isEmpty` to see whether a component
-  has any children.
+* query `HasComponents.hasChildren` to see whether a component has any children.
 * `Component.walk()` will return an `Iterable<Component>` which walks the component child tree,
   depth-first: first the component, then its descendants, then its next sibling.
 
