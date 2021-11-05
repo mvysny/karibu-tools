@@ -249,4 +249,11 @@ fun DynaNodeGroup.componentUtilsTests() {
         c = fl.addFormItem(Button(), "foo")
         expect("foo") { c.caption }
     }
+
+    test("Button.caption") {
+        val c = Button("foo")
+        expect("foo") { c.caption }
+        c.caption = ""
+        expect("") { c.caption }
+    }
 }

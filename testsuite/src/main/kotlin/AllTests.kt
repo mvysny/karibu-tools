@@ -65,6 +65,9 @@ fun DynaNodeGroup.allTests() {
     group("Combobox") {
         comboboxesTests()
     }
+    group("LabelWrapper") {
+        labelWrapperTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {

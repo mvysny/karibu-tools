@@ -260,8 +260,9 @@ public val FormLayout.FormItem.label: String get() {
  * *For `FormItem`:* Concatenates texts from all elements placed in the `label` slot. This effectively
  * returns whatever was provided in the String label via [FormLayout.addFormItem].
  *
- * [Component.caption] is displayed directly on the component (e.g. the Button text),
+ * [Button.caption] is displayed directly on the component
  * while label is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
+ *
  * Vote for [issue #3241](https://github.com/vaadin/flow/issues/3241).
  *
  * **WARNING:** the label is displayed by the component itself, rather than by the parent layout.

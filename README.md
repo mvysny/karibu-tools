@@ -62,6 +62,8 @@ A set of general Vaadin utilities applicable to all components.
 * `component.caption` unifies component captions. Caption is displayed directly on the component (e.g. the Button text),
   while label is displayed next to the component in a layout (e.g. form layout).
 * `component.label` unifies component labels. Vote for [flow #3241](https://github.com/vaadin/flow/issues/3241).
+* Use `LabelWrapper` if you need to add a label on top of a component which doesn't support labels,
+   and you can't nest the component in a `FormLayout`.
 
 ### Misc Element
 
