@@ -448,7 +448,6 @@ private fun Any.gridAbstractHeaderGetHeader(): String {
  */
 public var <T> Grid.Column<T>.header2: String
     get() {
-        // nasty reflection. Added a feature request to have this: https://github.com/vaadin/vaadin-grid-flow/issues/567
         var result: String = gridAbstractHeaderGetHeader()
         if (result.isEmpty()) {
             // in case of grouped cells, the header is stored in a parent ColumnGroup.
