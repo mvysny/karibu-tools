@@ -138,6 +138,15 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect("second, third, first") { l.children.toList().map { it._text } .joinToString() }
     }
 
+    test("hasChildren") {
+        val l = HorizontalLayout()
+        expect(false) { l.hasChildren }
+        l.addComponentAsFirst(Span("first"))
+        expect(true) { l.hasChildren }
+        l.removeAll()
+        expect(false) { l.hasChildren }
+    }
+
     test("isNotEmpty") {
         val l = HorizontalLayout()
         expect(false) { l.isNotEmpty }
@@ -156,9 +165,47 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(true) { l.isEmpty }
     }
 
-    test("addClassNames2") {
-        val div = Div().apply { addClassNames2("foo  bar    baz") }
-        expect(true) { div.classNames.containsAll(listOf("foo", "bar", "baz")) }
+    group("classnames2") {
+        test("addClassNames2") {
+            val div = Div().apply { addClassNames2("foo  bar    baz") }
+            expect(true) {
+                div.classNames.containsAll(listOf("foo", "bar", "baz"))
+            }
+        }
+        test("addClassNames2(vararg)") {
+            val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
+            expect(true) {
+                div.classNames.containsAll(listOf("foo", "bar", "baz", "one", "two"))
+            }
+        }
+        test("setClassNames2") {
+            val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
+            div.setClassNames2("  three four  ")
+            expect(true) {
+                div.classNames.containsAll(listOf("three", "four"))
+            }
+        }
+        test("setClassNames2(vararg)") {
+            val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
+            div.setClassNames2("  three ", "four  ")
+            expect(true) {
+                div.classNames.containsAll(listOf("three", "four"))
+            }
+        }
+        test("removeClassNames2") {
+            val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
+            div.removeClassNames2("  bar baz  ")
+            expect(true) {
+                div.classNames.containsAll(listOf("foo", "one", "two"))
+            }
+        }
+        test("removeClassNames2(vararg)") {
+            val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
+            div.removeClassNames2("  bar ", "baz  ")
+            expect(true) {
+                div.classNames.containsAll(listOf("foo", "one", "two"))
+            }
+        }
     }
 
     test("placeholder") {

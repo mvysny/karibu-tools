@@ -133,19 +133,27 @@ public fun HasOrderedComponents<*>.insertBefore(newComponent: Component, existin
 public val UI.currentViewLocation: Location get() = internals.activeViewLocation
 
 /**
- * True when the component has any children.
+ * True when the component has any children. Alias for [hasChildren].
+ *
+ * Deprecated: poorly named. A `form.isNotEmpty` may be ambiguous - it may refer to
+ * whether the form has any children, or whether the form value is not empty, or something else.
  */
-public val HasComponents.isNotEmpty: Boolean get() = (this as Component).children.findFirst().isPresent
+@Deprecated("use hasChildren", replaceWith = ReplaceWith("hasChildren"))
+public val HasComponents.isNotEmpty: Boolean get() = hasChildren
 
 /**
- * True when the component has any children. Alias for [isNotEmpty].
+ * True when the component has any children.
  */
-public val HasComponents.hasChildren: Boolean get() = isNotEmpty
+public val HasComponents.hasChildren: Boolean get() = (this as Component).children.findFirst().isPresent
 
 /**
  * True when the component has no children.
+ *
+ * Deprecated: poorly named. A `form.isEmpty` may be ambiguous - it may refer to
+ * whether the form has any children, or whether the form value is empty, or something else.
  */
-public val HasComponents.isEmpty: Boolean get() = !isNotEmpty
+@Deprecated("use !hasChildren")
+public val HasComponents.isEmpty: Boolean get() = !hasChildren
 
 /**
  * Splits [classNames] by whitespaces to obtain individual class names, then
@@ -159,7 +167,7 @@ public fun HasStyle.addClassNames2(classNames: String) {
 
 /**
  * Splits [classNames] by whitespaces to obtain individual class names, then
- * calls [HasStyle.addClassName] on each class name. Does nothing if the string
+ * calls [addClassNames2] on each class name. Does nothing if the string
  * is blank.
  */
 public fun HasStyle.addClassNames2(vararg classNames: String) {
@@ -179,7 +187,7 @@ public fun HasStyle.removeClassNames2(classNames: String) {
 
 /**
  * Splits [classNames] by whitespaces to obtain individual class names, then
- * calls [HasStyle.removeClassName] on each class name. Does nothing if the string
+ * calls [removeClassNames2] on each class name. Does nothing if the string
  * is blank.
  */
 public fun HasStyle.removeClassNames2(vararg classNames: String) {
@@ -189,7 +197,7 @@ public fun HasStyle.removeClassNames2(vararg classNames: String) {
 
 /**
  * Splits [classNames] by whitespaces to obtain individual class names, then
- * clears the class names and calls [HasStyle.addClassName] on each class name. Does nothing if the string
+ * clears the class names and calls [addClassNames2] on each class name. Does nothing if the string
  * is blank.
  */
 public fun HasStyle.setClassNames2(classNames: String) {
@@ -200,7 +208,7 @@ public fun HasStyle.setClassNames2(classNames: String) {
 
 /**
  * Splits [classNames] by whitespaces to obtain individual class names, then
- * clears the class names and calls [HasStyle.addClassName] on each class name. Does nothing if the string
+ * clears the class names and calls [addClassNames2] on each class name. Does nothing if the string
  * is blank.
  */
 public fun HasStyle.setClassNames2(vararg classNames: String) {
