@@ -38,4 +38,12 @@ fun DynaNodeGroup.comboboxesTests() {
         expect(ComboBoxAlign.Left) { cb.textAlign }
         expect(false) { cb.isSmall }
     }
+    test("dropdownWidth") {
+        val cb = ComboBox<String>()
+        expect(null) { cb.dropdownWidth }
+        cb.dropdownWidth = "100px"
+        expect("100px") { cb.dropdownWidth }
+        cb.dropdownWidth = null
+        expect(null) { cb.dropdownWidth }
+    }
 }

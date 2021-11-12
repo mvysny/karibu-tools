@@ -71,3 +71,13 @@ public fun ComboBox<*>.addThemeVariants(vararg variants: ComboBoxVariant) {
 public fun ComboBox<*>.removeThemeVariants(vararg variants: ComboBoxVariant) {
     element.themeList.removeAll(variants.map { it.variantName })
 }
+
+/**
+ * Sets a custom dropdown popup overlay width. Examples `100px`, `30em` etc.
+ * Set to null to use the default dropdown width.
+ */
+public var ComboBox<*>.dropdownWidth: String?
+    get() = element.style.get("--vaadin-combo-box-overlay-width")
+    set(value) {
+        element.style.set("--vaadin-combo-box-overlay-width", value)
+    }
