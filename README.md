@@ -252,6 +252,14 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
    or `30em`. See+vote for [Issue #2331](https://github.com/vaadin/flow-components/issues/2331).
 * `ComboBox.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
 
+### DatePicker
+
+* `DatePicker.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
+
+### Select
+
+* `Select.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
