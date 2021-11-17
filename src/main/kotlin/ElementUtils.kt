@@ -8,6 +8,7 @@ import com.vaadin.flow.internal.nodefeature.VirtualChildrenList
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Node
 import org.jsoup.nodes.TextNode
+import kotlin.streams.toList
 
 /**
  * Either calls [Element.setAttribute] (if the [value] is not null), or
@@ -76,3 +77,9 @@ public fun Element.getVirtualChildren(): List<Element> {
  * Gets the element mapped to the given state node.
  */
 public val StateNode.element: Element get() = Element.get(this)
+
+/**
+ * Returns child elements with the `slot` attribute set to given [slotName].
+ */
+public fun Element.getChildrenInSlot(slotName: String): List<Element> =
+    children.filter { child -> child.getAttribute("slot") == slotName } .toList()

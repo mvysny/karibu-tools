@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.html.Paragraph
 import com.vaadin.flow.component.html.Span
+import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.dom.Element
 import kotlin.streams.toList
 import kotlin.test.expect
@@ -77,5 +78,11 @@ fun DynaNodeGroup.elementUtilsTests() {
             parent.element.appendVirtualChild(span)
             expectList(span) { parent.element.getVirtualChildren() }
         }
+    }
+
+    test("getChildrenInSlot") {
+        expectList() { TextField().element.getChildrenInSlot("prefix") }
+        val div = Div()
+        expectList(div.element) { TextField().apply { prefixComponent = div } .element.getChildrenInSlot("prefix") }
     }
 }

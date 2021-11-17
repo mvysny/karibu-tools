@@ -76,6 +76,7 @@ A set of general Vaadin utilities applicable to all components.
   [flow #3668](https://github.com/vaadin/flow/issues/3668).
 * `Element.getVirtualChildren()` Returns all virtual child elements added via `Element.appendVirtualChild`.
 * `StateNode.element` returns `Element` for that `StateNode`.
+* `Element.getChildrenInSlot("prefix")` will return all child elements nested in the `prefix` slot.
 
 ### Router
 
