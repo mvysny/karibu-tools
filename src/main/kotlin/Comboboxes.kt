@@ -1,5 +1,6 @@
 package com.github.mvysny.kaributools
 
+import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.button.ButtonVariant
 import com.vaadin.flow.component.combobox.ComboBox
 import java.util.stream.Collectors
@@ -80,4 +81,13 @@ public var ComboBox<*>.dropdownWidth: String?
     get() = element.style.get("--vaadin-combo-box-overlay-width")
     set(value) {
         element.style.set("--vaadin-combo-box-overlay-width", value)
+    }
+
+/**
+ * Sets a component to the `prefix` slot.
+ */
+public var ComboBox<*>.prefixComponent: Component?
+    get() = getChildComponentInSlot("prefix")
+    set(value) {
+        setChildComponentToSlot("prefix", value)
     }

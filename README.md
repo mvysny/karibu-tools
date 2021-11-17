@@ -250,6 +250,7 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 * `ComboBox.textAlign` toggles the `align-left`/`align-center`/`align-right` theme.
 * `ComboBox.dropdownWidth` sets a custom dropdown popup overlay width to e.g. `100px`
    or `30em`. See+vote for [Issue #2331](https://github.com/vaadin/flow-components/issues/2331).
+* `ComboBox.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
 
 # License
 
