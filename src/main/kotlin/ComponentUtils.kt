@@ -321,3 +321,14 @@ public var Button.caption: String
     set(value) {
         text = value
     }
+
+internal fun HasElement.getChildComponentInSlot(slotName: String): Component? =
+    element.getChildrenInSlot(slotName).firstOrNull()?.component?.get()
+
+internal fun HasElement.setChildComponentToSlot(slotName: String, component: Component?) {
+    element.clearSlot(slotName)
+    if (component != null) {
+        component.element.setAttribute("slot", slotName)
+        element.appendChild(component.element)
+    }
+}

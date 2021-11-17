@@ -83,3 +83,11 @@ public val StateNode.element: Element get() = Element.get(this)
  */
 public fun Element.getChildrenInSlot(slotName: String): List<Element> =
     children.filter { child -> child.getAttribute("slot") == slotName } .toList()
+
+/**
+ * Removes all child elements from given slot, leaving it empty.
+ */
+public fun Element.clearSlot(slotName: String) {
+    require(slotName.isNotBlank())
+    getChildrenInSlot(slotName).forEach { it.removeFromParent() }
+}

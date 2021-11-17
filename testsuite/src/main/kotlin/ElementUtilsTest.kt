@@ -85,4 +85,12 @@ fun DynaNodeGroup.elementUtilsTests() {
         val div = Div()
         expectList(div.element) { TextField().apply { prefixComponent = div } .element.getChildrenInSlot("prefix") }
     }
+
+    test("clearSlot") {
+        val tf = TextField()
+        tf.prefixComponent = Div()
+        tf.element.clearSlot("prefix")
+        expectList() { tf.element.getChildrenInSlot("prefix") }
+        expect(null) { tf.prefixComponent }
+    }
 }
