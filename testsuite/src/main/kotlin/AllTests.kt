@@ -68,6 +68,9 @@ fun DynaNodeGroup.allTests() {
     group("LabelWrapper") {
         labelWrapperTests()
     }
+    group("Select") {
+        selectsTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {

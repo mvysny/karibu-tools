@@ -258,6 +258,11 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 
 ### Select
 
+* Implemented `SelectVariant`, `addThemeVariants()` and `removeThemeVariants()`.
+  See+vote for [issue #1273](https://github.com/vaadin/flow-components/issues/1273).
+* `Select.isSmall` toggles the `small` theme
+* `Select.isHelperAboveField` toggles the `helper-above-field` theme
+* `Select.textAlign` toggles the `align-left`/`align-center`/`align-right` theme.
 * `Select.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
 
 # License

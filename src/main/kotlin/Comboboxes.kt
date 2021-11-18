@@ -70,7 +70,7 @@ public fun ComboBox<*>.addThemeVariants(vararg variants: ComboBoxVariant) {
  * Removes theme [variants] from the component.
  */
 public fun ComboBox<*>.removeThemeVariants(vararg variants: ComboBoxVariant) {
-    element.themeList.removeAll(variants.map { it.variantName })
+    element.themeList.removeAll(variants.map { it.variantName }.toSet())
 }
 
 /**
