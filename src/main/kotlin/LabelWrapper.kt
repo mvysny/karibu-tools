@@ -16,24 +16,25 @@ import com.vaadin.flow.component.customfield.CustomField
  * supports labels. Alternatively, you can emulate labels by wrapping labels in a `H2`/`H3`/`H4`/`H5`/`H6`
  * then styling them accordingly.
  */
-public class LabelWrapper(label: String) : CustomField<Void>(), HasComponents, HasSize {
+public class LabelWrapper(label: String) : CustomField<Void?>(), HasComponents, HasSize {
     init {
         setLabel(label)
     }
 
-    override fun setPresentationValue(newPresentationValue: Void) {
-        throw RuntimeException("No value - this component only serves to add a label to the wrapped contents")
+    override fun setPresentationValue(newPresentationValue: Void?) {
+        // ignore; this component only serves to add a label to the wrapped contents
     }
 
-    override fun generateModelValue(): Void {
-        throw RuntimeException("No value - this component only serves to add a label to the wrapped contents")
+    override fun generateModelValue(): Void? {
+        // ignore - this component only serves to add a label to the wrapped contents")
+        return null
     }
 
-    override fun add(vararg components: Component) {
+    public override fun add(vararg components: Component) {
         super<CustomField>.add(*components)
     }
 
-    override fun remove(vararg components: Component) {
+    public override fun remove(vararg components: Component) {
         super<CustomField>.remove(*components)
     }
 }
