@@ -71,6 +71,9 @@ fun DynaNodeGroup.allTests() {
     group("Select") {
         selectsTests()
     }
+    group("ListBox") {
+        listBoxTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {

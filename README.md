@@ -265,6 +265,10 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 * `Select.textAlign` toggles the `align-left`/`align-center`/`align-right` theme.
 * `Select.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
 
+### ListBox
+
+* `ListBox.setItemLabelGenerator()` sets the label generator. See+vote for [#2601](https://github.com/vaadin/platform/issues/2601).
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
