@@ -1,10 +1,7 @@
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.Component
-import com.vaadin.flow.component.button.ButtonVariant
 import com.vaadin.flow.component.combobox.ComboBox
-import java.util.stream.Collectors
-import java.util.stream.Stream
 
 public enum class ComboBoxAlign {
     Left, Center, Right
