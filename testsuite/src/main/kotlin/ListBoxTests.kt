@@ -3,12 +3,9 @@ package com.github.mvysny.kaributools
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.getRenderedItems
-import com.vaadin.flow.component.combobox.ComboBox
-import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.listbox.ListBox
 import com.vaadin.flow.component.listbox.ListBoxBase
 import com.vaadin.flow.component.listbox.MultiSelectListBox
-import kotlin.test.expect
 
 fun DynaNodeGroup.listBoxTests() {
     group("ListBox") {
