@@ -73,7 +73,8 @@ public object VaadinVersion {
         SemanticVersion(
             Version.getMajorVersion(),
             Version.getMinorVersion(),
-            Version.getRevision()
+            Version.getRevision(),
+            Version.getBuildIdentifier().takeIf { it.isNotBlank() }
         )
     }
 

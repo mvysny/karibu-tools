@@ -12,6 +12,7 @@ import kotlin.test.expect
 class AllTests : DynaTest({
     test("vaadin version") {
         expect(21) { VaadinVersion.get.major }
+        VaadinVersion.flow // smoke test that the call doesn't fail
     }
 
     test("vaadin version 2") {
