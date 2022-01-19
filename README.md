@@ -4,7 +4,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mvysny.karibu-tools/karibu-tools/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mvysny.karibu-tools/karibu-tools)
 [![CI](https://github.com/mvysny/karibu-tools/actions/workflows/gradle.yml/badge.svg)](https://github.com/mvysny/karibu-tools/actions/workflows/gradle.yml)
 
-Utility functions missing from Vaadin 14+.
+Utility functions missing from Vaadin 14+, for your [Kotlin](https://kotlinlang.org/)-based projects.
 
 The jar is in Maven Central, so it's easy to add this library to your project.
 
