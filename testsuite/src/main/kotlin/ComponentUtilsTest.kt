@@ -17,6 +17,9 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Method
+import java.lang.reflect.Proxy
 import kotlin.streams.toList
 import kotlin.test.expect
 
@@ -224,21 +227,23 @@ fun DynaNodeGroup.componentUtilsTests() {
         }
     }
 
-    test("label") {
-        var c: Component = TextField()
-        expect("") { c.label }
-        c.label = "foo"
-        expect("foo") { c.label }
-        c.label = ""
-        expect("") { c.label }
-
-        c = Checkbox().apply { label = "foo" }
-        expect("foo") { c.label }
-        c.label = ""
-        expect("") { c.label }
-
-        c = Checkbox()
-        expect("") { c.label }
+    group("label") {
+        test("TextField") {
+            val c: Component = TextField()
+            expect("") { c.label }
+            c.label = "foo"
+            expect("foo") { c.label }
+            c.label = ""
+            expect("") { c.label }
+        }
+        test("Checkbox") {
+            val c = Checkbox()
+            expect("") { c.label }
+            c.label = "foo"
+            expect("foo") { c.label }
+            c.label = ""
+            expect("") { c.label }
+        }
     }
 
     test("caption") {
