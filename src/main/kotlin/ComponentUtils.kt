@@ -13,6 +13,7 @@ import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.dom.DomEventListener
 import com.vaadin.flow.dom.DomListenerRegistration
 import com.vaadin.flow.router.Location
+import java.lang.reflect.Method
 import kotlin.streams.toList
 
 /**
@@ -254,6 +255,18 @@ public val FormLayout.FormItem.label: String get() {
 }
 
 /**
+ * The `HasLabel` interface has been introduced in Vaadin 21 but is missing in Vaadin 14.
+ * Use reflection.
+ */
+private val _HasLabel: Class<*>? = try {
+    Class.forName("com.vaadin.flow.component.HasLabel")
+} catch (ex: ClassNotFoundException) {
+    null
+}
+private val _HasLabel_getLabel: Method? = _HasLabel?.getDeclaredMethod("getLabel")
+private val _HasLabel_setLabel: Method? = _HasLabel?.getDeclaredMethod("setLabel", String::class.java)
+
+/**
  * Determines the component's `label` (usually it's the HTML element's `label` property, but it's [Checkbox.getLabel] for checkbox).
  * Intended to be used for fields such as [TextField].
 
@@ -274,15 +287,17 @@ public val FormLayout.FormItem.label: String get() {
  * See [LabelWrapper] for a list of possible solutions.
  */
 public var Component.label: String
-    get() = when (this) {
-        is Checkbox -> label ?: ""
-        is FormLayout.FormItem -> this.label
+    get() = when {
+        _HasLabel != null && _HasLabel.isInstance(this) -> _HasLabel_getLabel!!.invoke(this) as String? ?: ""
+        this is Checkbox -> label ?: ""
+        this is FormLayout.FormItem -> this.label
         else -> element.getProperty("label") ?: ""
     }
     set(value) {
-        when (this) {
-            is Checkbox -> label = value
-            is FormLayout.FormItem -> throw IllegalArgumentException("Setting the caption of FormItem is currently unsupported")
+        when {
+            _HasLabel != null && _HasLabel.isInstance(this) -> _HasLabel_setLabel!!.invoke(this, value)
+            this is Checkbox -> label = value
+            this is FormLayout.FormItem -> throw IllegalArgumentException("Setting the caption of FormItem is currently unsupported")
             else -> element.setProperty("label", value.ifBlank { null })
         }
     }
