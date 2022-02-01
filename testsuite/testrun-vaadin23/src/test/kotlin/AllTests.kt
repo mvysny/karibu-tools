@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools.v22
 
 import com.github.mvysny.dynatest.DynaTest
+import com.github.mvysny.dynatest.jvmVersion
 import com.github.mvysny.kaributesting.v10.VaadinMeta
 import com.github.mvysny.kaributools.VaadinVersion
 import com.github.mvysny.kaributools.allTests
@@ -21,5 +22,8 @@ class AllTests : DynaTest({
         expect(expectedVaadinVersion) { VaadinVersion.get.toString().replace('-', '.') }
     }
 
-    allTests()
+    if (jvmVersion >= 11) {
+        // Vaadin 23+ requires JDK 11+
+        allTests()
+    }
 })
