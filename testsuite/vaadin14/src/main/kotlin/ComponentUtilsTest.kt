@@ -234,7 +234,7 @@ fun DynaNodeGroup.componentUtilsTests() {
             expect("") { c.label }
         }
         test("Checkbox") {
-            val c = Checkbox()
+            val c: Component = Checkbox()
             expect("") { c.label }
             c.label = "foo"
             expect("foo") { c.label }

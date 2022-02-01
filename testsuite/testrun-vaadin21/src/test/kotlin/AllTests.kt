@@ -1,5 +1,6 @@
 package com.github.mvysny.kaributools.v21
 
+import allTests21
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10.VaadinMeta
 import com.github.mvysny.kaributools.VaadinVersion
@@ -21,5 +22,10 @@ class AllTests : DynaTest({
         expect(expectedVaadinVersion) { VaadinVersion.get.toString().replace('-', '.') }
     }
 
-    allTests()
+    group("vaadin14") {
+        allTests()
+    }
+    group("vaadin21+") {
+        allTests21()
+    }
 })
