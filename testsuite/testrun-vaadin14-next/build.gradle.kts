@@ -6,7 +6,7 @@ dependencies {
             "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
             .forEach { exclude(group = it) }
     }
-    testImplementation(project(":testsuite")) {
+    testImplementation(project(":testsuite:vaadin14")) {
         exclude(group = "com.vaadin")
     }
 }
