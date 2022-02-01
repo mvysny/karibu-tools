@@ -225,13 +225,19 @@ fun DynaNodeGroup.componentUtilsTests() {
     }
 
     test("label") {
-        var c: Component = TextField().apply { label = "foo" }
+        var c: Component = TextField()
+        expect("") { c.label }
+        c.label = "foo"
         expect("foo") { c.label }
         c.label = ""
         expect("") { c.label }
+
         c = Checkbox().apply { label = "foo" }
         expect("foo") { c.label }
         c.label = ""
+        expect("") { c.label }
+
+        c = Checkbox()
         expect("") { c.label }
     }
 

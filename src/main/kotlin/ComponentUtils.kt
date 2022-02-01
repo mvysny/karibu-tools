@@ -275,7 +275,7 @@ public val FormLayout.FormItem.label: String get() {
  */
 public var Component.label: String
     get() = when (this) {
-        is Checkbox -> label
+        is Checkbox -> label ?: ""
         is FormLayout.FormItem -> this.label
         else -> element.getProperty("label") ?: ""
     }
