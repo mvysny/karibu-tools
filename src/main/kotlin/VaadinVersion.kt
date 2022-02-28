@@ -3,6 +3,7 @@ package com.github.mvysny.kaributools
 import com.vaadin.flow.component.dependency.NpmPackage
 import com.vaadin.flow.server.Version
 import com.vaadin.shrinkwrap.VaadinCoreShrinkWrap
+import java.util.Optional
 
 /**
  * See https://semver.org/ for more details.
@@ -84,6 +85,26 @@ public object VaadinVersion {
     public val get: SemanticVersion by lazy(LazyThreadSafetyMode.PUBLICATION) {
         // for Vaadin 14+ the version can be detected from the VaadinCoreShrinkWrap class.
         // This doesn't work for Vaadin 13 or lower, but nevermind - we only support Vaadin 14+ anyway.
+
+        // for Vaadin 23 the way to obtain the version is different - VaadinCoreShrinkWrap no longer exists.
+        // see https://github.com/mvysny/karibu-tools/issues/4 for more info.
+        val platformClass: Class<*>? = try {
+            Class.forName("com.vaadin.flow.server.Platform")
+        } catch (ex: ClassNotFoundException) { null }
+        if (platformClass != null) {
+            val vaadinVer: Optional<String> = platformClass.getDeclaredMethod("getVaadinVersion").invoke(null) as Optional<String>
+            if (vaadinVer.isPresent) {
+                return@lazy SemanticVersion.fromString(vaadinVer.get())
+            }
+        }
+        // no luck.
+        // Starting from Vaadin 23, Flow & Vaadin share the same version - we can use that.
+        val flowVersion = flow
+        if (flowVersion.major >= 23) {
+            return@lazy flowVersion
+        }
+
+        // fallback for Vaadin 14..22
         val annotation: NpmPackage = checkNotNull(VaadinCoreShrinkWrap::class.java.getAnnotation(NpmPackage::class.java)) {
             "Only Vaadin 14 and higher is supported"
         }
