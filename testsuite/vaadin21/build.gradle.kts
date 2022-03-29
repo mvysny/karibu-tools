@@ -7,6 +7,6 @@ dependencies {
         exclude(module = "karibu-tools")
     }
 
-    api("com.vaadin:vaadin-core:${properties["vaadin21_version"]}")
+    api("com.vaadin:vaadin-core:${properties["vaadin22_version"]}")
     compileOnly("javax.servlet:javax.servlet-api:3.1.0")
 }
