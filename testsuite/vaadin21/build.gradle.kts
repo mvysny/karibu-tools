@@ -7,6 +7,8 @@ dependencies {
         exclude(module = "karibu-tools")
     }
 
-    api("com.vaadin:vaadin-core:${properties["vaadin22_version"]}")
+    api("com.vaadin:vaadin-core:${properties["vaadin22_version"]}") {
+        exclude(module = "fusion-endpoint") // exclude fusion: it brings tons of dependencies (including swagger)
+    }
     compileOnly("javax.servlet:javax.servlet-api:4.0.1")
 }
