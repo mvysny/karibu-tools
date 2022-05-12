@@ -3,26 +3,29 @@ package com.github.mvysny.kaributools
 import com.github.mvysny.dynatest.DynaTest
 import kotlin.test.expect
 
-/**
- * @author Martin Vysny <mavi@vaadin.com>
- */
+private val String.v: SemanticVersion get() = SemanticVersion.fromString(this)
+
 class SemanticVersionTest : DynaTest({
     test("toString") {
         expect("1.2.3") { SemanticVersion(1, 2, 3).toString() }
         expect("1.2.3-beta2") { SemanticVersion(1, 2, 3, "beta2").toString() }
+        expect("14.2.3-SNAPSHOT") { SemanticVersion(14, 2, 3, "SNAPSHOT").toString() }
     }
     test("fromString") {
-        expect(SemanticVersion(1, 2, 3)) { SemanticVersion.fromString("1.2.3") }
-        expect("1.2.3-beta2") { SemanticVersion.fromString("1.2.3-beta2").toString() }
-        expect("1.2.3-beta2") { SemanticVersion.fromString("1.2.3.beta2").toString() }
-        expect("1.2.3-SNAPSHOT") { SemanticVersion.fromString("1.2.3-SNAPSHOT").toString() }
-        expect("1.2.0-SNAPSHOT") { SemanticVersion.fromString("1.2-SNAPSHOT").toString() }
+        expect(SemanticVersion(1, 2, 3)) { "1.2.3".v }
+        expect("1.2.3-beta2") { "1.2.3-beta2".v.toString() }
+        expect("1.2.3-beta2") { "1.2.3.beta2".v.toString() }
+        expect("1.2.3-SNAPSHOT") { "1.2.3-SNAPSHOT".v.toString() }
+        expect("1.2.0-SNAPSHOT") { "1.2-SNAPSHOT".v.toString() }
     }
     test("compare to") {
-        expect(true) { SemanticVersion(14, 3, 0) > SemanticVersion(14, 2, 28) }
-        expect(true) { SemanticVersion(15, 0, 0) > SemanticVersion(14, 3, 0) }
-        expect(true) { SemanticVersion(17, 0, 0) > SemanticVersion(16, 0, 2) }
-        expect(true) { SemanticVersion(14, 3, 0) > SemanticVersion(14, 3, 0, "beta2") }
+        expect(true) { "14.2.28".v < "14.3.0".v }
+        expect(true) { "14.3.0".v < "15.0.0".v }
+        expect(true) { "16.0.2".v < "17.0.0".v }
+        expect(true) { "14.3.0-beta2".v < "14.3.0".v }
+        expect(true) { "1.2-SNAPSHOT".v < "1.2".v }
+        expect(true) { "1.2-SNAPSHOT".v < "1.2.0".v }
+        expect(true) { "1.2.0-SNAPSHOT".v < "1.2.0".v }
     }
     test("is at least major,minor") {
         expect(true) { SemanticVersion(14, 3, 0).isAtLeast(14, 2) }
