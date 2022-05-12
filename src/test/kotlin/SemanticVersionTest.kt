@@ -15,6 +15,8 @@ class SemanticVersionTest : DynaTest({
         expect(SemanticVersion(1, 2, 3)) { SemanticVersion.fromString("1.2.3") }
         expect("1.2.3-beta2") { SemanticVersion.fromString("1.2.3-beta2").toString() }
         expect("1.2.3-beta2") { SemanticVersion.fromString("1.2.3.beta2").toString() }
+        expect("1.2.3-SNAPSHOT") { SemanticVersion.fromString("1.2.3-SNAPSHOT").toString() }
+        expect("1.2.0-SNAPSHOT") { SemanticVersion.fromString("1.2-SNAPSHOT").toString() }
     }
     test("compare to") {
         expect(true) { SemanticVersion(14, 3, 0) > SemanticVersion(14, 2, 28) }
