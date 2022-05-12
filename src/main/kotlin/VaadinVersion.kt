@@ -79,11 +79,12 @@ public object VaadinVersion {
      * Returns a full Vaadin version.
      */
     public val get: SemanticVersion by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        // for Vaadin 14+ the version can be detected from the VaadinCoreShrinkWrap class.
+        // For Vaadin 14+ the version can be detected from the VaadinCoreShrinkWrap class.
         // This doesn't work for Vaadin 13 or lower, but nevermind - we only support Vaadin 14+ anyway.
 
-        // for Vaadin 23 the way to obtain the version is different - VaadinCoreShrinkWrap no longer exists.
-        // see https://github.com/mvysny/karibu-tools/issues/4 for more info.
+        // For Vaadin 23 the way to obtain the version is different - VaadinCoreShrinkWrap no longer exists.
+        // There's the `Platform.getVaadinVersion(): Optional<String>` function which we can use for Vaadin 23+.
+        // See https://github.com/mvysny/karibu-tools/issues/4 for more info.
         val platformClass: Class<*>? = try {
             Class.forName("com.vaadin.flow.server.Platform")
         } catch (ex: ClassNotFoundException) { null }
