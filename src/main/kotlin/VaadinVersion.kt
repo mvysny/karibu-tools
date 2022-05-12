@@ -2,6 +2,7 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.dependency.NpmPackage
 import com.vaadin.flow.server.Version
+import com.vaadin.flow.server.frontend.FrontendVersion
 import com.vaadin.shrinkwrap.VaadinCoreShrinkWrap
 import java.util.Optional
 
@@ -42,25 +43,20 @@ public data class SemanticVersion(
     public fun isAtLeast(major: Int): Boolean = this.major >= major
 
     public companion object {
-        private val VERSION_REGEX = Regex("(\\d+)\\.(\\d+)\\.(\\d+)([-.](.*))?")
 
         /**
-         * Parses the [version] string. Accepts the following formats:
-         * * `major.minor.bugfix[-prerelease]`
-         * * `major.minor.bugfix[.prerelease]`
+         * Parses the [version] string.
          *
          * Always able to parse the output of
          * [SemanticVersion.toString].
          */
         public fun fromString(version: String): SemanticVersion {
-            val match: MatchResult = requireNotNull(VERSION_REGEX.matchEntire(version)) {
-                "The version must be in the form of major.minor.bugfix but is $version"
-            }
+            val frontendVersion = FrontendVersion(version)
             return SemanticVersion(
-                match.groupValues[1].toInt(),
-                match.groupValues[2].toInt(),
-                match.groupValues[3].toInt(),
-                match.groupValues[5].takeIf { it.isNotBlank() }
+                frontendVersion.majorVersion,
+                frontendVersion.minorVersion,
+                frontendVersion.revision,
+                frontendVersion.buildIdentifier.takeIf { it.isNotEmpty() }
             )
         }
     }
