@@ -28,39 +28,39 @@ class SemanticVersionTest : DynaTest({
         expect(true) { "1.2.0-SNAPSHOT".v < "1.2.0".v }
     }
     test("is at least major,minor") {
-        expect(true) { SemanticVersion(14, 3, 0).isAtLeast(14, 2) }
-        expect(true) { SemanticVersion(14, 3, 0).isAtLeast(14, 3) }
-        expect(false) { SemanticVersion(14, 3, 0).isAtLeast(14, 4) }
-        expect(true) { SemanticVersion(14, 3, 1).isAtLeast(14, 2) }
-        expect(true) { SemanticVersion(14, 3, 1).isAtLeast(14, 3) }
-        expect(true) { SemanticVersion(14, 3, 0, "alpha1").isAtLeast(14, 2) }
-        expect(true) { SemanticVersion(14, 3, 0, "alpha1").isAtLeast(14, 3) }
+        expect(true) { "14.3.0".v.isAtLeast(14, 2) }
+        expect(true) { "14.3.0".v.isAtLeast(14, 3) }
+        expect(false) { "14.3.0".v.isAtLeast(14, 4) }
+        expect(true) { "14.3.1".v.isAtLeast(14, 2) }
+        expect(true) { "14.3.1".v.isAtLeast(14, 3) }
+        expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 2) }
+        expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 3) }
     }
     test("is at least major") {
-        expect(true) { SemanticVersion(14, 3, 0).isAtLeast(14) }
-        expect(true) { SemanticVersion(14, 3, 0).isAtLeast(13) }
-        expect(false) { SemanticVersion(14, 3, 0).isAtLeast(15) }
-        expect(true) { SemanticVersion(14, 3, 1).isAtLeast(14) }
-        expect(true) { SemanticVersion(14, 3, 1).isAtLeast(13) }
-        expect(true) { SemanticVersion(14, 3, 0, "alpha1").isAtLeast(14) }
-        expect(true) { SemanticVersion(14, 3, 0, "alpha1").isAtLeast(13) }
+        expect(true) { "14.3.0".v.isAtLeast(14) }
+        expect(true) { "14.3.0".v.isAtLeast(13) }
+        expect(false) { "14.3.0".v.isAtLeast(15) }
+        expect(true) { "14.3.1".v.isAtLeast(14) }
+        expect(true) { "14.3.1".v.isAtLeast(13) }
+        expect(true) { "14.3.0-alpha1".v.isAtLeast(14) }
+        expect(true) { "14.3.0-alpha1".v.isAtLeast(13) }
     }
     test("is exactly major") {
-        expect(true) { SemanticVersion(14, 3, 0).isExactly(14) }
-        expect(false) { SemanticVersion(14, 3, 0).isExactly(13) }
-        expect(false) { SemanticVersion(14, 3, 0).isExactly(15) }
-        expect(true) { SemanticVersion(14, 3, 1).isExactly(14) }
-        expect(false) { SemanticVersion(14, 3, 1).isExactly(13) }
-        expect(true) { SemanticVersion(14, 3, 0, "alpha1").isExactly(14) }
-        expect(false) { SemanticVersion(14, 3, 0, "alpha1").isExactly(13) }
+        expect(true) { "14.3.0".v.isExactly(14) }
+        expect(false) { "14.3.0".v.isExactly(13) }
+        expect(false) { "14.3.0".v.isExactly(15) }
+        expect(true) { "14.3.1".v.isExactly(14) }
+        expect(false) { "14.3.1".v.isExactly(13) }
+        expect(true) { "14.3.0-alpha1".v.isExactly(14) }
+        expect(false) { "14.3.0-alpha1".v.isExactly(13) }
     }
     test("is exactly major,minor") {
-        expect(true) { SemanticVersion(14, 3, 0).isExactly(14, 3) }
-        expect(false) { SemanticVersion(14, 3, 0).isExactly(14, 2) }
-        expect(false) { SemanticVersion(14, 3, 0).isExactly(15, 0) }
-        expect(true) { SemanticVersion(14, 3, 1).isExactly(14, 3) }
-        expect(false) { SemanticVersion(14, 3, 1).isExactly(14, 2) }
-        expect(true) { SemanticVersion(14, 3, 0, "alpha1").isExactly(14, 3) }
-        expect(false) { SemanticVersion(14, 3, 0, "alpha1").isExactly(14, 2) }
+        expect(true) { "14.3.0".v.isExactly(14, 3) }
+        expect(false) { "14.3.0".v.isExactly(14, 2) }
+        expect(false) { "14.3.0".v.isExactly(15, 0) }
+        expect(true) { "14.3.1".v.isExactly(14, 3) }
+        expect(false) { "14.3.1".v.isExactly(14, 2) }
+        expect(true) { "14.3.0-alpha1".v.isExactly(14, 3) }
+        expect(false) { "14.3.0-alpha1".v.isExactly(14, 2) }
     }
 })
