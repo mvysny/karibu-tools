@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version "1.7.0"
     `maven-publish`
     signing
 }
@@ -19,7 +19,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven(url = "https://maven.vaadin.com/vaadin-prereleases/")
     }
 
     java {
