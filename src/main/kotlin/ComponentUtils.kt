@@ -275,8 +275,6 @@ private val _HasLabel_setLabel: Method? = _HasLabel?.getDeclaredMethod("setLabel
  *
  * Button is special: it has no label; the caption can be retrieved via [Button.getText].
  *
- * Vote for [issue #3241](https://github.com/vaadin/flow/issues/3241).
- *
  * **WARNING:** the label is displayed by the component itself, rather than by the parent layout.
  * If a component doesn't contain necessary machinery
  * to display a label (for example doesn't respond to the JavaScript property 'label'), setting this property will have no visual effect.
