@@ -110,6 +110,7 @@ public fun Component.isNestedIn(potentialAncestor: Component): Boolean =
  *
  * Returns true for attached components even if the UI itself is closed.
  */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER") // Added in Vaadin 14.7.0; let's keep it here for older Vaadins.
 public fun Component.isAttached(): Boolean {
     // see https://github.com/vaadin/flow/issues/7911
     return element.node.isAttached
@@ -308,6 +309,7 @@ public var Component.label: String
  * create confusion between the two concepts. Also, there's only a [Button] which
  * has the notion of a caption. Will be removed with no replacement.
  */
+@Suppress("DEPRECATION")
 @Deprecated("don't use")
 public var Component.caption: String
     get() = when (this) {

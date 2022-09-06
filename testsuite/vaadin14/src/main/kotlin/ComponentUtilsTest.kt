@@ -20,6 +20,7 @@ import com.vaadin.flow.component.textfield.TextField
 import kotlin.streams.toList
 import kotlin.test.expect
 
+@Suppress("DEPRECATION")
 fun DynaNodeGroup.componentUtilsTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }

@@ -89,6 +89,7 @@ public object VaadinVersion {
             Class.forName("com.vaadin.flow.server.Platform")
         } catch (ex: ClassNotFoundException) { null }
         if (platformClass != null) {
+            @Suppress("UNCHECKED_CAST")
             val vaadinVer: Optional<String> = platformClass.getDeclaredMethod("getVaadinVersion").invoke(null) as Optional<String>
             if (vaadinVer.isPresent) {
                 return@lazy SemanticVersion.fromString(vaadinVer.get())
