@@ -8,12 +8,12 @@ import com.vaadin.flow.component.customfield.CustomField
 /**
  * Used to show a label on top of a component which doesn't show a [Component.label] itself.
  *
- * **Used in highly specific situations only:** for example if you need to add labeled
- * components into a `HorizontalLayout`.
+ * **Used in highly specific situations only:** for example when you need to add a label
+ * to a `HorizontalLayout`.
  *
  * Whenever possible, you should add your components into a `FormLayout`
  * instead, via the `FormLayout.addFormItem()` which
- * supports labels. Alternatively, you can emulate labels by wrapping labels in a `H2`/`H3`/`H4`/`H5`/`H6`
+ * supports labels for all components. Alternatively, you can emulate labels by wrapping labels in a `H2`/`H3`/`H4`/`H5`/`H6`
  * then styling them accordingly.
  */
 public class LabelWrapper(label: String) : CustomField<Void?>(), HasComponents, HasSize {

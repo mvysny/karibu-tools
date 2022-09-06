@@ -220,7 +220,7 @@ public fun HasStyle.setClassNames2(vararg classNames: String) {
 
 /**
  * A component placeholder, usually shown when there's no value selected.
- * Not all components support a placeholder; those that don't will return null.
+ * Not all components support a placeholder; those that don't return null.
  */
 public var Component.placeholder: String?
     // modify when this is fixed: https://github.com/vaadin/flow/issues/4068
@@ -273,16 +273,14 @@ private val _HasLabel_setLabel: Method? = _HasLabel?.getDeclaredMethod("setLabel
  * *For `FormItem`:* Concatenates texts from all elements placed in the `label` slot. This effectively
  * returns whatever was provided in the String label via [FormLayout.addFormItem].
  *
- * [Button.caption] is displayed directly on the component
- * while label is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
+ * Button is special: it has no label; the caption can be retrieved via [Button.getText].
  *
  * Vote for [issue #3241](https://github.com/vaadin/flow/issues/3241).
  *
  * **WARNING:** the label is displayed by the component itself, rather than by the parent layout.
  * If a component doesn't contain necessary machinery
- * to display a label, setting this property will have no visual effect.
+ * to display a label (for example doesn't respond to the JavaScript property 'label'), setting this property will have no visual effect.
  * For example, setting a label to a [FormLayout]
- * nested within a `VerticalLayout`
  * will show nothing since [FormLayout] doesn't display a label itself.
  * See [LabelWrapper] for a list of possible solutions.
  */
@@ -330,7 +328,12 @@ public var Component.caption: String
  *
  * Caption is generally displayed directly on the component (e.g. the Button text),
  * while [label] is displayed next to the component in a layout (e.g. a [TextField] nested in a form layout).
+ *
+ * **Deprecated:** this property was intended to unify captions and labels, but only managed to
+ * create confusion between the two concepts. Also, there's only a [Button] which
+ * has the notion of a caption. Will be removed with no replacement.
  */
+@Deprecated("don't use")
 public var Button.caption: String
     get() = text
     set(value) {
