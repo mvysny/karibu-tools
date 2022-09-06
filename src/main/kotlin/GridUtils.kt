@@ -424,7 +424,6 @@ public val <T> Grid.Column<T>.desc: GridSortOrder<T> get() = GridSortOrder(this,
 /**
  * Fetches the root items of a tree grid.
  */
-@Suppress("UNCHECKED_CAST")
 public fun <T> TreeGrid<T>.getRootItems(): List<T> =
     dataProvider.fetch(HierarchicalQuery(null, null)).toList()
 
