@@ -4,11 +4,12 @@ import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10._fetch
-import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.grid.Grid
+import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.data.provider.ListDataProvider
 import com.vaadin.flow.data.provider.SortDirection
+import kotlin.streams.toList
 import kotlin.test.expect
 
 @DynaTestDsl
@@ -140,7 +141,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             val grid: Grid<Person> = Grid(Person::class.java)
             expect("") { grid.addColumn(Person::fullName).header2 }
             expect("Foo") { grid.addColumn(Person::fullName).apply { setHeader("Foo") }.header2 }
-            expect("") { grid.addColumn(Person::fullName).apply { setHeader(Text("Foo")) }.header2 }
+            expect("") { grid.addColumn(Person::fullName).apply { setHeader(Span("Foo")) }.header2 }
             expect("Foo") { grid.addColumn(Person::fullName).apply { setHeader("Foo"); setSortProperty("name") }.header2 }
         }
 

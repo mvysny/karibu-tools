@@ -285,10 +285,11 @@ private val _AbstractColumn_getHeaderRenderer: Method by lazy(LazyThreadSafetyMo
 }
 
 /**
- * Returns the renderer which renders the contents of a cell.
+ * Returns the renderer which renders the contents of a cell. Only works for Vaadin 23 and lower.
  */
 public val HeaderRow.HeaderCell.renderer: Renderer<*>?
     get() {
+        check(VaadinVersion.get.major < 24) { "Vaadin 24+ cells do not have Renderer" }
         val renderer: Any = _AbstractColumn_getHeaderRenderer.invoke(column)
         return renderer as Renderer<*>?
     }
@@ -304,6 +305,7 @@ private val _AbstractColumn_getFooterRenderer: Method by lazy(LazyThreadSafetyMo
  */
 public val FooterRow.FooterCell.renderer: Renderer<*>?
     get() {
+        check(VaadinVersion.get.major < 24) { "Vaadin 24+ cells do not have Renderer" }
         val renderer = _AbstractColumn_getFooterRenderer.invoke(column)
         return renderer as Renderer<*>?
     }
@@ -315,6 +317,9 @@ public val FooterRow.FooterCell.renderer: Renderer<*>?
  */
 public var FooterRow.FooterCell.component: Component?
     get() {
+        if (VaadinVersion.get.major >= 24) {
+            return abstractCellClass.getDeclaredMethod("getComponent").invoke(this) as Component?
+        }
         val cr: ComponentRenderer<*, *> = (renderer as? ComponentRenderer<*, *>) ?: return null
         return cr.createComponent(null)
     }
@@ -343,6 +348,9 @@ private val _GridSorterComponentRenderer_component: Field? =
 @Suppress("UNCHECKED_CAST")
 public var HeaderRow.HeaderCell.component: Component?
     get() {
+        if (VaadinVersion.get.major >= 24) {
+            return abstractCellClass.getDeclaredMethod("getComponent").invoke(this) as Component?
+        }
         val r: Renderer<*>? = renderer
         if (gridSorterComponentRendererClass != null && gridSorterComponentRendererClass.isInstance(r)) {
             return _GridSorterComponentRenderer_component!!.get(r) as Component?
@@ -436,9 +444,16 @@ public fun <T> TreeGrid<T>.expandAll(depth: Int = 100) {
 }
 
 private fun Any.gridAbstractHeaderGetHeader(): String {
+    check(VaadinVersion.get.major < 24) { "Vaadin 24+ cells do not have Renderer" }
     // nasty reflection. Added a feature request to have this: https://github.com/vaadin/vaadin-grid-flow/issues/567
     val e: Renderer<*>? = _AbstractColumn_getHeaderRenderer.invoke(this) as Renderer<*>?
     return e?.template ?: ""
+}
+
+private fun Component.gridColumnGetHeaderTextVaadin24(): String {
+    val m = abstractColumnClass.getDeclaredMethod("getHeaderText")
+    m.isAccessible = true
+    return m.invoke(this) as String? ?: ""
 }
 
 /**
@@ -447,6 +462,17 @@ private fun Any.gridAbstractHeaderGetHeader(): String {
  */
 public var <T> Grid.Column<T>.header2: String
     get() {
+        if (VaadinVersion.get.major >= 24) {
+            var result: String = gridColumnGetHeaderTextVaadin24()
+            if (result.isBlank()) {
+                // in case of grouped cells, the header is stored in a parent ColumnGroup.
+                val parent: Component? = parent.orElse(null)
+                if (parent != null && parent.javaClass.name == "com.vaadin.flow.component.grid.ColumnGroup" && parent.children.count() == 1L) {
+                    result = parent.gridColumnGetHeaderTextVaadin24()
+                }
+            }
+            return result
+        }
         var result: String = gridAbstractHeaderGetHeader()
         if (result.isEmpty()) {
             // in case of grouped cells, the header is stored in a parent ColumnGroup.
