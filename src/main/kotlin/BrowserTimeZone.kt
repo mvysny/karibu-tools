@@ -43,7 +43,7 @@ public object BrowserTimeZone {
     }
 
     /**
-     * The time zone as reported by the browser. You need to populate the [extendedClientDetails] first, otherwise the
+     * The time zone as reported by the browser. You need to populate the [extendedClientDetails] first (by calling [fetch]), otherwise the
      * UTC Time zone is going to be returned!
      *
      * This operation is instant since the time zone is stored in the session.
