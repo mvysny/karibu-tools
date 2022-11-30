@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.vaadin.flow.component.login.AbstractLogin
 import com.vaadin.flow.component.login.LoginForm
@@ -8,10 +9,8 @@ import com.vaadin.flow.component.login.LoginI18n
 import com.vaadin.flow.component.login.LoginOverlay
 import kotlin.test.expect
 
+@DynaTestDsl
 fun DynaNodeGroup.abstractLoginUtilsTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
-
     group("LoginForm") {
         loginTests { LoginForm() }
     }

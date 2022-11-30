@@ -2,12 +2,14 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTest
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.vaadin.flow.component.textfield.BigDecimalField
 import com.vaadin.flow.component.textfield.EmailField
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
 
+@DynaTestDsl
 fun DynaNodeGroup.textFieldUtilsTests() {
     group("TextField") {
         test("smoke") {

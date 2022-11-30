@@ -1,10 +1,12 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.vaadin.flow.component.combobox.ComboBox
 import com.vaadin.flow.component.html.Div
 import kotlin.test.expect
 
+@DynaTestDsl
 fun DynaNodeGroup.comboboxesTests() {
     test("textAlign") {
         val cb = ComboBox<String>()

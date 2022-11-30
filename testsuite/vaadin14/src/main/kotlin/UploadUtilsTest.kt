@@ -1,10 +1,12 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.vaadin.flow.component.upload.Upload
 import kotlin.test.expect
 
+@DynaTestDsl
 fun DynaNodeGroup.uploadTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }

@@ -5,4 +5,5 @@ include(
     "testsuite:testrun-vaadin14-next",
     "testsuite:testrun-vaadin22",
     "testsuite:testrun-vaadin23",
+    "testsuite:testrun-vaadin24",
 )

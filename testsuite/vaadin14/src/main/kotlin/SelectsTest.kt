@@ -1,10 +1,12 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.select.Select
 import kotlin.test.expect
 
+@DynaTestDsl
 fun DynaNodeGroup.selectsTests() {
     test("textAlign") {
         val cb = Select<String>()

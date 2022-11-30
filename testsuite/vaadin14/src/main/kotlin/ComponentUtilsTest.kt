@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectThrows
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._text
@@ -21,6 +22,7 @@ import kotlin.streams.toList
 import kotlin.test.expect
 
 @Suppress("DEPRECATION")
+@DynaTestDsl
 fun DynaNodeGroup.componentUtilsTests() {
     beforeEach { MockVaadin.setup() }
     afterEach { MockVaadin.tearDown() }

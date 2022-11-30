@@ -1,9 +1,11 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import java.io.File
 import java.util.*
 
+@DynaTestDsl
 fun DynaNodeGroup.allTests() {
     group("Browser Time Zone") {
         browserTimeZoneTests()

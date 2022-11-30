@@ -1,17 +1,17 @@
 package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectList
-import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._fetch
 import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.data.provider.ListDataProvider
 import com.vaadin.flow.data.provider.SortDirection
-import kotlin.streams.toList
 import kotlin.test.expect
 
+@DynaTestDsl
 fun DynaNodeGroup.gridUtilsTests() {
     group("addColumnFor tests") {
         test("grid addColumnFor works both for nullable and non-null properties") {
