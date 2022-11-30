@@ -7,9 +7,6 @@ import com.github.mvysny.kaributesting.v10.getItemLabels
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup
 
 fun DynaNodeGroup.radioButtonsTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
-
     test("setItemLabelGenerator") {
         val b = RadioButtonGroup<Int>()
         b.setItems2(listOf(1, 2, 3))

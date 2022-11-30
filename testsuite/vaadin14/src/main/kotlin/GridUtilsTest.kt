@@ -7,16 +7,12 @@ import com.github.mvysny.kaributesting.v10._fetch
 import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.textfield.TextField
-import com.vaadin.flow.data.binder.HasDataProvider
 import com.vaadin.flow.data.provider.ListDataProvider
 import com.vaadin.flow.data.provider.SortDirection
 import kotlin.streams.toList
 import kotlin.test.expect
 
 fun DynaNodeGroup.gridUtilsTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
-
     group("addColumnFor tests") {
         test("grid addColumnFor works both for nullable and non-null properties") {
             data class TestingClass(var foo: String?, var bar: String, var nonComparable: List<String>)

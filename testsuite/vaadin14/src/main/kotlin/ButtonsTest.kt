@@ -8,9 +8,6 @@ import com.vaadin.flow.component.button.Button
 import kotlin.test.expect
 
 fun DynaNodeGroup.buttonsTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
-
     test("setPrimary") {
         val b = Button()
         expectList() { b.themeNames.toList() }
