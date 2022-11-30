@@ -11,9 +11,6 @@ import kotlin.test.expect
 
 @DynaTestDsl
 fun DynaNodeGroup.iconUtilsTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
-
     test("smoke") {
         expect(IconName("foo", "bar")) {
             @Suppress("DEPRECATION")
@@ -43,17 +40,20 @@ fun DynaNodeGroup.iconUtilsTests() {
         }
     }
 
-    group("iron icon") {
-        test("changing icon") {
-            val icon = IronIcon("foo", "bar")
-            icon.iconName = IconName.of(VaadinIcon.VAADIN_H)
-            expect(VaadinIcon.VAADIN_H) { icon.iconName!!.asVaadinIcon() }
-        }
+    if (VaadinVersion.get.major < 24) {
+        // Vaadin 24+ doesn't have IronIcon
+        group("iron icon") {
+            test("changing icon") {
+                val icon = IronIcon("foo", "bar")
+                icon.iconName = IconName.of(VaadinIcon.VAADIN_H)
+                expect(VaadinIcon.VAADIN_H) { icon.iconName!!.asVaadinIcon() }
+            }
 
-        test("clearing icon") {
-            val icon = IronIcon("foo", "bar")
-            icon.iconName = null
-            expect(null) { icon.iconName }
+            test("clearing icon") {
+                val icon = IronIcon("foo", "bar")
+                icon.iconName = null
+                expect(null) { icon.iconName }
+            }
         }
     }
 }

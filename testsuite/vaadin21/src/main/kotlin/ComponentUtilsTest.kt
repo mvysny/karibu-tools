@@ -1,4 +1,5 @@
 import com.github.mvysny.dynatest.DynaNodeGroup
+import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributools.label
 import com.vaadin.flow.component.Component
@@ -16,10 +17,8 @@ class MyComponent : Component(), HasLabel {
     }
 }
 
+@DynaTestDsl
 fun DynaNodeGroup.componentUtils21Tests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
-
     group("label") {
         test("TextField") {
             val c: Component = TextField()
