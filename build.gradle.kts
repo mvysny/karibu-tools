@@ -11,7 +11,7 @@ defaultTasks("clean", "build")
 
 allprojects {
     group = "com.github.mvysny.karibu-tools"
-    version = "0.12"
+    version = "0.13-SNAPSHOT"
 
     apply {
         plugin("kotlin")
