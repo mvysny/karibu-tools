@@ -2,7 +2,6 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.icon.Icon
-import com.vaadin.flow.component.icon.IronIcon
 import com.vaadin.flow.component.icon.VaadinIcon
 import java.io.Serializable
 
@@ -20,11 +19,12 @@ public data class IconName(val collection: String, val name: String) : Serializa
     }
 
     /**
-     * Creates a new component for this icon - either [Icon] or [IronIcon].
+     * Creates a new component for this icon - [Icon].
      */
+    @Suppress("DEPRECATION")
     public fun createComponent(): Component = when {
         isVaadinIcon -> Icon(name)
-        else -> IronIcon(collection, name)
+        else -> Icon(collection, name) // even though this is marked as Deprecated in Vaadin 14, this is the preferred way in Vaadin 23+; IronIcon is removed in Vaadin 24.
     }
 
     /**
@@ -82,22 +82,5 @@ public var Icon.iconName: IconName?
     }
 
 public fun Icon.setIcon(icon: VaadinIcon?) {
-    iconName = if (icon == null) null else IconName.of(icon)
-}
-
-/**
- * Returns the icon name and collection from the [IronIcon] component. Returns null
- * if no icon is set.
- */
-public var IronIcon.iconName: IconName?
-    get() {
-        val icon: String = element.getAttribute("icon")
-        return IconName.fromString(icon)
-    }
-    set(value) {
-        element.setAttribute("icon", value?.toString() ?: "")
-    }
-
-public fun IronIcon.setIcon(icon: VaadinIcon?) {
     iconName = if (icon == null) null else IconName.of(icon)
 }

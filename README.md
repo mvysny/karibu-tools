@@ -179,10 +179,10 @@ before designing shortcuts for your app.
 
 * Call `MenuBar.close()` to close the submenu popup. Vote for [#102](https://github.com/vaadin/vaadin-menu-bar/issues/102).
 
-### Icon / IronIcon
+### Icon
 
-* `icon.iconName` and `ironIcon.iconName` provides a type-safe access to setting icons.
-* `icon.setIcon(VaadinIcon)`/`ironIcon.setIcon(VaadinIcon)` adds the missing API of setting icons.
+* `icon.iconName` provides a type-safe access to setting icons.
+* `icon.setIcon(VaadinIcon)` adds the missing API of setting icons.
 
 To use custom icons with Vaadin 14+, see [Custom Icons With Vaadin 14](https://mvysny.github.io/custom-icons-vaadin/).
 
