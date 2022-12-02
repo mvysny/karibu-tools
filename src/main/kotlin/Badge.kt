@@ -3,6 +3,10 @@ package com.github.mvysny.kaributools
 import com.vaadin.flow.component.HasTheme
 import com.vaadin.flow.component.html.Span
 
+/**
+ * The Badge component, see [Vaadin Badge Documentation](https://vaadin.com/docs/latest/components/badge)
+ * for more details.
+ */
 public class Badge(text: String? = null) : Span(), HasTheme {
     init {
         setId(javaClass.simpleName)
@@ -26,7 +30,7 @@ public class Badge(text: String? = null) : Span(), HasTheme {
 }
 
 /**
- * See [https://vaadin.com/docs/latest/components/badge](https://vaadin.com/docs/latest/components/badge)
+ * See [Vaadin Badge Documentation](https://vaadin.com/docs/latest/components/badge)
  * for examples for all variants and their combinations.
  */
 public enum class BadgeVariant(public val variantName: String) {
