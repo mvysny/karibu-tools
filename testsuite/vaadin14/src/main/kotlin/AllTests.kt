@@ -76,6 +76,9 @@ fun DynaNodeGroup.allTests() {
     group("ListBox") {
         listBoxTests()
     }
+    group("Badge") {
+        badgeTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {
