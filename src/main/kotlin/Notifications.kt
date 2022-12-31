@@ -43,7 +43,7 @@ public fun Notification.addCloseButton(): Notification {
         add(Span(getText()))
     }
     val closeButton = Button(Icon(VaadinIcon.CLOSE))
-    closeButton.addThemeVariants(ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_TERTIARY)
+    closeButton.addThemeVariantsCompat(ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_TERTIARY)
     closeButton.addClickListener { close() }
     add(closeButton)
     return this
