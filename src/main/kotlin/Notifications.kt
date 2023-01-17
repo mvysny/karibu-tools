@@ -11,7 +11,7 @@ import java.lang.reflect.Field
 
 private val Notification._templateElement: Element
     get() {
-        require(VaadinVersion.get.major < 24) { "Unsupported on Vaadin 24+" }
+        require(VaadinVersion.get < SemanticVersion(24, 0, 0, "alpha8")) { "Unsupported on Vaadin 24+" }
         val f: Field = Notification::class.java.getDeclaredField("templateElement")
         f.isAccessible = true
         return f.get(this) as Element
@@ -27,7 +27,7 @@ public fun Notification.getText(): String {
         // adding components to the notification clears the notification text
         return ""
     }
-    if (VaadinVersion.get.major >= 24) {
+    if (VaadinVersion.get >= SemanticVersion(24, 0, 0, "alpha8")) {
         return element.getProperty("text") ?: ""
     }
     val e: Element = _templateElement
