@@ -17,8 +17,10 @@ fun DynaNodeGroup.renderersTests() {
         }
     }
     group("Renderer.template") {
-        test("template renderer") {
-            expect("foobar") { TemplateRenderer.of<Person>("foobar").template }
+        if (VaadinVersion.get.major < 24) {
+            test("template renderer") {
+                expect("foobar") { TemplateRenderer.of<Person>("foobar").template }
+            }
         }
         test("component renderer") {
             expect("") { ComponentRenderer<Button, Person>(SerializableSupplier { Button("Foo") }).template }

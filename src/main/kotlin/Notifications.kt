@@ -9,14 +9,13 @@ import com.vaadin.flow.component.notification.Notification
 import com.vaadin.flow.dom.Element
 import java.lang.reflect.Field
 
-private val _Notification_templateElement: Field by lazy(LazyThreadSafetyMode.PUBLICATION) {
-    val f: Field = Notification::class.java.getDeclaredField("templateElement")
-    f.isAccessible = true
-    f
-}
-
-public val Notification._templateElement: Element
-    get() = _Notification_templateElement.get(this) as Element
+private val Notification._templateElement: Element
+    get() {
+        require(VaadinVersion.get.major < 24) { "Unsupported on Vaadin 24+" }
+        val f: Field = Notification::class.java.getDeclaredField("templateElement")
+        f.isAccessible = true
+        return f.get(this) as Element
+    }
 
 /**
  * Returns the notification text.
@@ -27,6 +26,9 @@ public fun Notification.getText(): String {
     if (hasChildren) {
         // adding components to the notification clears the notification text
         return ""
+    }
+    if (VaadinVersion.get.major >= 24) {
+        return element.getProperty("text") ?: ""
     }
     val e: Element = _templateElement
     return e.getProperty("innerHTML") ?: ""

@@ -25,10 +25,12 @@ private val _Renderer_template: Field by lazy(LazyThreadSafetyMode.PUBLICATION) 
 }
 
 /**
- * Returns the Polymer Template set to the [Renderer].
+ * Returns the Polymer Template set to the [Renderer]. Returns "" for Vaadin 24+ since PolymerTemplates
+ * are no longer supported.
  */
 public val Renderer<*>.template: String
     get() {
+        if (VaadinVersion.get.major >= 24) return ""
         val template: String? = _Renderer_template.get(this) as String?
         return template ?: ""
     }
