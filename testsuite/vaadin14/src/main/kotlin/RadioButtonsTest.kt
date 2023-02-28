@@ -3,9 +3,9 @@ package com.github.mvysny.kaributools
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectList
-import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10.getItemLabels
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup
+import com.vaadin.flow.data.provider.DataProvider
 
 @DynaTestDsl
 fun DynaNodeGroup.radioButtonsTests() {
@@ -19,5 +19,10 @@ fun DynaNodeGroup.radioButtonsTests() {
 
 fun <T> RadioButtonGroup<T>.setItems2(items: Collection<T>) {
     // this way it's also compatible with Vaadin 18.
-    dataProvider = ListDataProvider2(items)
+    if (VaadinVersion.get.isAtLeast(24)) {
+        javaClass.getMethod("setItems", DataProvider::class.java)
+            .invoke(this, ListDataProvider2(items.toList()))
+    } else {
+        dataProvider = ListDataProvider2(items)
+    }
 }

@@ -7,6 +7,7 @@ import com.github.mvysny.kaributesting.v10.getRenderedItems
 import com.vaadin.flow.component.listbox.ListBox
 import com.vaadin.flow.component.listbox.ListBoxBase
 import com.vaadin.flow.component.listbox.MultiSelectListBox
+import com.vaadin.flow.data.provider.DataProvider
 
 @DynaTestDsl
 fun DynaNodeGroup.listBoxTests() {
@@ -31,5 +32,9 @@ fun DynaNodeGroup.listBoxTests() {
 fun <T> ListBoxBase<*, T, *>.setItems2(vararg items: T) {
     // workaround for java.lang.NoSuchMethodError: 'void com.vaadin.flow.component.listbox.MultiSelectListBox.setItems(java.util.Collection)'
     // the setItems() method has been moved in Vaadin 22+, from HasItems to HasListDataView
-    setDataProvider(ListDataProvider2(items.toList()))
+    if (VaadinVersion.get.isAtLeast(24)) {
+        javaClass.getMethod("setItems", DataProvider::class.java).invoke(this, ListDataProvider2(items.toList()))
+    } else {
+        setDataProvider(ListDataProvider2(items.toList()))
+    }
 }
