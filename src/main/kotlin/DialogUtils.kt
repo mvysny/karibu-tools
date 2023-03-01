@@ -38,7 +38,7 @@ public fun Dialog.center() {
 
 /**
  * Requests that the dialog is closed. Simply calls [Dialog.close] unless the dialog has [Dialog.addDialogCloseActionListener].
- * If it does, then those listeners are called instead; the dialog is not closed.
+ * If it does, then those listeners are called instead; the dialog is expected to be closed by those listeners instead.
  */
 public fun Dialog.requestClose(fromClient: Boolean = true) {
     if (hasListener(DialogCloseActionEvent::class.java)) {
