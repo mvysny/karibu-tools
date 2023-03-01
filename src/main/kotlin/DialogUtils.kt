@@ -1,7 +1,10 @@
 package com.github.mvysny.kaributools
 
+import com.vaadin.flow.component.Component
+import com.vaadin.flow.component.ComponentUtil
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.dialog.Dialog
+import com.vaadin.flow.component.dialog.Dialog.DialogCloseActionEvent
 import kotlin.streams.toList
 
 /**
@@ -31,4 +34,16 @@ public fun Dialog.center() {
         styles.add("height: $height")
     }
     element.executeJs("this.$.overlay.$.overlay.style = '${styles.joinToString(";")}';")
+}
+
+/**
+ * Requests that the dialog is closed. Simply calls [Dialog.close] unless the dialog has [Dialog.addDialogCloseActionListener].
+ * If it does, then those listeners are called instead; the dialog is not closed.
+ */
+public fun Dialog.requestClose(fromClient: Boolean = true) {
+    if (hasListener(DialogCloseActionEvent::class.java)) {
+        fireEvent(DialogCloseActionEvent(this, fromClient))
+    } else {
+        close()
+    }
 }

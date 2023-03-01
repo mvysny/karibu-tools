@@ -191,6 +191,7 @@ To use custom icons with Vaadin 14+, see [Custom Icons With Vaadin 14](https://m
 * `getAllDialogs()` will return all dialogs attached to the UI. There may be closed dialogs
   since they are cleaned up lately by Vaadin.
 * `dialog.center()` centers the dialog within the screen. Vote for [#220](https://github.com/vaadin/vaadin-dialog/issues/220)
+* `dialog.requestClose()` honors listeners registered via `addDialogCloseActionListener()`.
 
 ### Button
 

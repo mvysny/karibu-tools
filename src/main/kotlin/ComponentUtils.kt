@@ -350,3 +350,17 @@ internal fun HasElement.setChildComponentToSlot(slotName: String, component: Com
         element.appendChild(component.element)
     }
 }
+
+private val __Component_getEventBus: Method by lazy(LazyThreadSafetyMode.PUBLICATION) {
+    val m = Component::class.java.getDeclaredMethod("getEventBus")
+    m.isAccessible = true
+    m
+}
+
+internal val Component._eventBus: ComponentEventBus? get() = __Component_getEventBus.invoke(this) as ComponentEventBus?
+
+/**
+ * Checks whether the component has a listener registered for this event type. Calls [ComponentEventBus.hasListener].
+ */
+internal fun Component.hasListener(eventType: Class<out ComponentEvent<*>>): Boolean =
+    _eventBus?.hasListener(eventType) ?: false
