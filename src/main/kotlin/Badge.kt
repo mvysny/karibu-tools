@@ -38,6 +38,6 @@ public enum class BadgeVariant(public val variantName: String) {
     SUCCESS("success"),
     ERROR("error"),
     CONTRAST("contrast"),
-    PILL(        "pill"    ),
+    PILL("pill"),
     SMALL("small")
 }
