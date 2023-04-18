@@ -23,6 +23,14 @@ fun DynaNodeGroup.iconUtilsTests() {
         }
     }
 
+    test("serverClick()") {
+        val icon = Icon()
+        var clicked = 0
+        icon.addClickListener { clicked++ }
+        icon.serverClick()
+        expect(1) { clicked }
+    }
+
     group("icon") {
         test("changing icon") {
             val icon = VaadinIcon.ABACUS.create()
