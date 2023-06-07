@@ -16,6 +16,7 @@ import com.vaadin.flow.component.html.Label
 import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.orderedlayout.FlexLayout
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
+import com.vaadin.flow.component.tabs.Tab
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
 import kotlin.streams.toList
@@ -241,8 +242,20 @@ fun DynaNodeGroup.componentUtilsTests() {
             expect("") { c.label }
             c.label = "foo"
             expect("foo") { c.label }
+            expect("foo") { (c as Checkbox).label }
             c.label = ""
             expect("") { c.label }
+            expect("") { (c as Checkbox).label }
+        }
+        test("Tab") {
+            val c: Component = Tab()
+            expect("") { c.label }
+            c.label = "foo"
+            expect("foo") { c.label }
+            expect("foo") { (c as Tab).label }
+            c.label = ""
+            expect("") { c.label }
+            expect("") { (c as Tab).label }
         }
     }
 

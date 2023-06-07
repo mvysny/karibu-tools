@@ -7,6 +7,7 @@ import com.vaadin.flow.component.combobox.ComboBox
 import com.vaadin.flow.component.datepicker.DatePicker
 import com.vaadin.flow.component.formlayout.FormLayout
 import com.vaadin.flow.component.html.Input
+import com.vaadin.flow.component.tabs.Tab
 import com.vaadin.flow.component.textfield.PasswordField
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
@@ -288,6 +289,7 @@ public var Component.label: String
         _HasLabel != null && _HasLabel.isInstance(this) -> _HasLabel_getLabel!!.invoke(this) as String? ?: ""
         this is Checkbox -> label ?: ""
         this is FormLayout.FormItem -> this.label
+        this is Tab -> this.label
         else -> element.getProperty("label") ?: ""
     }
     set(value) {
@@ -295,6 +297,7 @@ public var Component.label: String
             _HasLabel != null && _HasLabel.isInstance(this) -> _HasLabel_setLabel!!.invoke(this, value)
             this is Checkbox -> label = value
             this is FormLayout.FormItem -> throw IllegalArgumentException("Setting the caption of FormItem is currently unsupported")
+            this is Tab -> this.label = value
             else -> element.setProperty("label", value.ifBlank { null })
         }
     }
