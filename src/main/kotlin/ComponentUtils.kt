@@ -283,6 +283,8 @@ private val _HasLabel_setLabel: Method? = _HasLabel?.getDeclaredMethod("setLabel
  * For example, setting a label to a [FormLayout]
  * will show nothing since [FormLayout] doesn't display a label itself.
  * See [LabelWrapper] for a list of possible solutions.
+ *
+ * This unifying property may not be a good idea after all: See the discussion at https://github.com/vaadin/flow-components/issues/5129
  */
 public var Component.label: String
     get() = when {
