@@ -15,6 +15,10 @@ class AllTests : DynaTest({
         VaadinVersion.flow // smoke test that the call doesn't fail
     }
 
+    test("hilla version") {
+        expect(null) { VaadinVersion.hilla }
+    }
+
     test("vaadin version 2") {
         val gradleProps: Properties = File("../../gradle.properties").loadAsProperties()
         val expectedVaadinVersion: String = gradleProps["vaadin14_version"] as String

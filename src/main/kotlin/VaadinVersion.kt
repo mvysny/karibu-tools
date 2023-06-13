@@ -5,6 +5,7 @@ import com.vaadin.flow.server.Version
 import com.vaadin.flow.server.frontend.FrontendVersion
 import com.vaadin.shrinkwrap.VaadinCoreShrinkWrap
 import java.util.Optional
+import java.util.Properties
 
 /**
  * See https://semver.org/ for more details.
@@ -108,5 +109,15 @@ public object VaadinVersion {
         }
         val version: String = annotation.version
         SemanticVersion.fromString(version)
+    }
+
+    /**
+     * The [Hilla](https://hilla.dev/) version, if on classpath. null if hilla is not on the classpath.
+     */
+    public val hilla: SemanticVersion? by lazy(LazyThreadSafetyMode.PUBLICATION) {
+        val input = Thread.currentThread().contextClassLoader.getResourceAsStream("META-INF/maven/dev/hilla/hilla/pom.properties") ?: return@lazy null
+        val props = input.use { input2 -> Properties().apply { load(input2) } }
+        val version: Any = props["version"] ?: return@lazy null
+        SemanticVersion.fromString(version.toString())
     }
 }
