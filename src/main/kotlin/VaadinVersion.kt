@@ -77,15 +77,11 @@ public object VaadinVersion {
     }
 
     /**
-     * Returns a full Vaadin version.
+     * Calls `Platform.getVaadinVersion(): Optional<String>` function which is available since Vaadin 23+.
+     *
+     * Unfortunately this is not a reliable way, because of https://github.com/vaadin/flow/issues/17017
      */
-    public val get: SemanticVersion by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        // For Vaadin 14+ the version can be detected from the VaadinCoreShrinkWrap class.
-        // This doesn't work for Vaadin 13 or lower, but nevermind - we only support Vaadin 14+ anyway.
-
-        // For Vaadin 23 the way to obtain the version is different - VaadinCoreShrinkWrap no longer exists.
-        // There's the `Platform.getVaadinVersion(): Optional<String>` function which we can use for Vaadin 23+.
-        // See https://github.com/mvysny/karibu-tools/issues/4 for more info.
+    private fun platformGetVaadinVersion(): SemanticVersion? {
         val platformClass: Class<*>? = try {
             Class.forName("com.vaadin.flow.server.Platform")
         } catch (ex: ClassNotFoundException) { null }
@@ -93,9 +89,44 @@ public object VaadinVersion {
             @Suppress("UNCHECKED_CAST")
             val vaadinVer: Optional<String> = platformClass.getDeclaredMethod("getVaadinVersion").invoke(null) as Optional<String>
             if (vaadinVer.isPresent) {
-                return@lazy SemanticVersion.fromString(vaadinVer.get())
+                return SemanticVersion.fromString(vaadinVer.get())
             }
         }
+        return null
+    }
+
+    private fun getVaadinVersionFromPomProperties(): SemanticVersion? {
+        val input = Thread.currentThread().contextClassLoader.getResourceAsStream("META-INF/maven/com.vaadin/vaadin-core/pom.properties") ?: return null
+        val props = input.use { input2 -> Properties().apply { load(input2) } }
+        val version: Any = props["version"] ?: return null
+        return SemanticVersion.fromString(version.toString())
+    }
+
+    /**
+     * Returns a full Vaadin version. Returns null if Vaadin is not on classpath (e.g. for pure Hilla apps).
+     */
+    public val vaadin: SemanticVersion? by lazy(LazyThreadSafetyMode.PUBLICATION) {
+        getVaadinVersionFromPomProperties()
+    }
+
+    /**
+     * Returns a full Vaadin version. Fails if Vaadin is not on the classpath.
+     */
+    public val get: SemanticVersion by lazy(LazyThreadSafetyMode.PUBLICATION) {
+        // For Vaadin 14+ the version can be detected from the VaadinCoreShrinkWrap class.
+        // This doesn't work for Vaadin 13 or lower, but nevermind - we only support Vaadin 14+ anyway.
+
+        // For Vaadin 23 the way to obtain the version is different - VaadinCoreShrinkWrap no longer exists.
+
+        // There's the `Platform.getVaadinVersion(): Optional<String>` function which we can use for Vaadin 23+.
+        // See https://github.com/mvysny/karibu-tools/issues/4 for more info.
+        // Unfortunately that's not a reliable way, because of https://github.com/vaadin/flow/issues/17017
+        // val version = platformGetVaadinVersion()
+        val version24 = getVaadinVersionFromPomProperties()
+        if (version24 != null) {
+            return@lazy version24
+        }
+
         // no luck.
         // Starting from Vaadin 23, Flow & Vaadin share the same version - we can use that.
         val flowVersion = flow

@@ -7,7 +7,9 @@ include(
     "testsuite:testrun-vaadin22",
     "testsuite:testrun-vaadin23",
     "testsuite:testrun-vaadin24",
+    "testsuite:testrun-vaadin24prev",
     "testsuite:testrun-hilla",
     "testsuite:testrun-hilla-prev",
     "testsuite:testrun-hilla1",
+    "testsuite:testrun-vaadin-hilla-hybrid",
 )

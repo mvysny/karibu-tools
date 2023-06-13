@@ -1,4 +1,4 @@
-package com.github.mvysny.kaributools.v22
+package com.github.mvysny.kaributools.v23
 
 import allTests21
 import com.github.mvysny.dynatest.DynaTest

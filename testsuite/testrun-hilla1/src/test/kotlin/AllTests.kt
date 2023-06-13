@@ -1,4 +1,4 @@
-package com.github.mvysny.kaributools.v22
+package com.github.mvysny.kaributools.hilla1
 
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributools.*
@@ -9,6 +9,11 @@ import java.util.*
 import kotlin.test.expect
 
 class AllTests : DynaTest({
+    test("vaadin version") {
+        expect(null) { VaadinVersion.vaadin }
+        VaadinVersion.flow // smoke test that the call doesn't fail
+    }
+
     test("hilla version") {
         val gradleProps: Properties = File("../../gradle.properties").loadAsProperties()
         val expectedHillaVersion: String = gradleProps["hilla1_version"] as String

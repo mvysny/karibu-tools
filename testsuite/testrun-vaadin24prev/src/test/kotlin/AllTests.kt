@@ -1,4 +1,4 @@
-package com.github.mvysny.kaributools.v24
+package com.github.mvysny.kaributools.v24prev
 
 import allTests21
 import com.github.mvysny.dynatest.DynaTest
@@ -19,7 +19,7 @@ class AllTests : DynaTest({
 
     test("vaadin version 2") {
         val gradleProps: Properties = File("../../gradle.properties").loadAsProperties()
-        val expectedVaadinVersion: String = gradleProps["vaadin24_version"] as String
+        val expectedVaadinVersion: String = gradleProps["vaadin24_prev_version"] as String
         expect(expectedVaadinVersion) { VaadinVersion.get.toString().replace('-', '.') }
     }
 
