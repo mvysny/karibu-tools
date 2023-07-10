@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.router.*
 import com.vaadin.flow.server.VaadinService
+import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.reflect.KClass
 
@@ -18,7 +19,14 @@ public inline fun <reified T: Component> navigateTo() {
  * Navigates to given view: `navigateTo(AdminRoute::class)`
  */
 public fun navigateTo(route: KClass<out Component>) {
-    UI.getCurrent().navigate(route.java)
+    // can't use this: the signature of this function changed in Vaadin 24.1.2+ and the bytecode compiled for older Vaadins isn't portable.
+//    UI.getCurrent().navigate(route.java)
+    val m = UI::class.java.getMethod("navigate", Class::class.java)
+    try {
+        m.invoke(UI.getCurrent(), route.java)
+    } catch (e: InvocationTargetException) {
+        throw e.cause!!
+    }
 }
 
 /**
@@ -28,7 +36,14 @@ public fun navigateTo(route: KClass<out Component>) {
 public fun <C, T> navigateTo(route: KClass<out T>, param: C?) where T: Component, T: HasUrlParameter<C> {
     // don't use this fun with reified C - when there is a parameter T, that would require the user to write something like this:
     // navigateToView<Long, EditArticleView>(article.id!!)   // note the Long
-    UI.getCurrent().navigate(route.java, param)
+
+    // can't use this: the signature of this function changed in Vaadin 24.1.2+ and the bytecode compiled for older Vaadins isn't portable.
+    val m = UI::class.java.getMethod("navigate", Class::class.java, Object::class.java)
+    try {
+        m.invoke(UI.getCurrent(), route.java, param)
+    } catch (e: InvocationTargetException) {
+        throw e.cause!!
+    }
 }
 
 /**

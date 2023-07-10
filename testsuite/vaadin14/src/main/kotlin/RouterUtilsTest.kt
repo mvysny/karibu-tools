@@ -116,13 +116,13 @@ fun DynaNodeGroup.routerUtilsTests() {
 
         group("routeClass") {
             test("navigating to root view") {
-                UI.getCurrent().navigate(TestingView::class.java)
+                navigateTo<TestingView>()
                 var called = false
                 UI.getCurrent().addAfterNavigationListener {
                     called = true
                     expect(RootView::class.java) { it.routeClass }
                 }
-                UI.getCurrent().navigate(RootView::class.java)
+                navigateTo<RootView>()
                 expect(true) { called }
             }
             test("navigating to TestingView") {
@@ -131,7 +131,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                     called = true
                     expect(TestingView::class.java) { it.routeClass }
                 }
-                UI.getCurrent().navigate(TestingView::class.java)
+                navigateTo<TestingView>()
                 expect(true) { called }
             }
             test("navigating to TestingView2") {
@@ -140,7 +140,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                     called = true
                     expect(TestingView::class.java) { it.routeClass }
                 }
-                UI.getCurrent().navigate(TestingView::class.java)
+                navigateTo<TestingView>()
                 expect(true) { called }
             }
             test("navigating to TestingParametrizedView") {
@@ -149,7 +149,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                     called = true
                     expect(TestingParametrizedView::class.java) { it.routeClass }
                 }
-                UI.getCurrent().navigate(TestingParametrizedView::class.java, 25L)
+                navigateTo(TestingParametrizedView::class, 25L)
                 expect(true) { called }
             }
             test("navigating to TestingParametrizedView2") {
@@ -158,7 +158,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                     called = true
                     expect(TestingParametrizedView2::class.java) { it.routeClass }
                 }
-                UI.getCurrent().navigate(TestingParametrizedView2::class.java, 25L)
+                navigateTo(TestingParametrizedView2::class, 25L)
                 expect(true) { called }
             }
             test("location") {
