@@ -21,6 +21,7 @@ public inline fun <reified T: Component> navigateTo() {
 public fun navigateTo(route: KClass<out Component>) {
     // can't use this: the signature of this function changed in Vaadin 24.1.2+ and the bytecode compiled for older Vaadins isn't portable.
 //    UI.getCurrent().navigate(route.java)
+
     val m = UI::class.java.getMethod("navigate", Class::class.java)
     try {
         m.invoke(UI.getCurrent(), route.java)
@@ -38,6 +39,8 @@ public fun <C, T> navigateTo(route: KClass<out T>, param: C?) where T: Component
     // navigateToView<Long, EditArticleView>(article.id!!)   // note the Long
 
     // can't use this: the signature of this function changed in Vaadin 24.1.2+ and the bytecode compiled for older Vaadins isn't portable.
+//    UI.getCurrent().navigate(route.java, param)
+
     val m = UI::class.java.getMethod("navigate", Class::class.java, Object::class.java)
     try {
         m.invoke(UI.getCurrent(), route.java, param)
