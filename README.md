@@ -274,7 +274,7 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 
 * `Validator.isValid("foo")` will run the validator on given value and will return either true or false,
   depending on whether the value passed or not. (since 0.16)
-* `rangeValidatorOf("must be 0 or greater", 0, null)`
+* `rangeValidatorOf("must be 0 or greater", 0, null)` accepts nulls for min/max. (since 0.16)
 
 # License
 
