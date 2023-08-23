@@ -124,3 +124,7 @@ publishing {
 signing {
     sign(publishing.publications["mavenJava"])
 }
+
+if (JavaVersion.current() > JavaVersion.VERSION_11 && gradle.startParameter.taskNames.contains("publish")) {
+    throw GradleException("Release this library with JDK 11 or lower, to ensure JDK8 compatibility; current JDK is ${JavaVersion.current()}")
+}
