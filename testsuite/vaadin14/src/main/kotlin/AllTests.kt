@@ -82,6 +82,9 @@ fun DynaNodeGroup.allTests() {
     group("Checkbox") {
         checkboxesTests()
     }
+    group("Validators") {
+        validatorsTests()
+    }
 }
 
 fun File.loadAsProperties(): Properties {
