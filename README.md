@@ -101,6 +101,11 @@ QueryParameters:
 * call the `QueryParameters("foo=bar")` factory method to parse the query part of the URL
   to the Vaadin `QueryParameters` class.
 
+* `RouterLink.target` allows you to set `AnchorTargetValue`, e.g. `AnchorTargetValue.BLANK`.
+* `RouterLink.setOpenInNewTab()` opens the router link in new browser tab/window (sets target to `AnchorTargetValue.BLANK`).
+* `Anchor.target_` clears up the Anchor mess by adding yet another property :-D
+* `Anchor.setOpenInNewTab()` opens the anchor in new browser tab/window (sets target to `AnchorTargetValue.BLANK`).
+
 ### Time Zone
 
 In order to properly display `LocalDate` and `LocalDateTime` on client's machine, you need

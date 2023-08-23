@@ -2,6 +2,9 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.UI
+import com.vaadin.flow.component.html.Anchor
+import com.vaadin.flow.component.html.AnchorTarget
+import com.vaadin.flow.component.html.AnchorTargetValue
 import com.vaadin.flow.router.*
 import com.vaadin.flow.server.VaadinService
 import java.lang.reflect.InvocationTargetException
@@ -200,3 +203,40 @@ public val QueryParameters.isEmpty: Boolean get() = parameters.isEmpty()
  * Checks whether there are no query parameters.
  */
 public inline val QueryParameters.isNotEmpty: Boolean get() = !isEmpty
+
+/**
+ * Configures this [Anchor] to open the target in new tab/window.
+ *
+ * Effectively sets [AnchorTarget.BLANK].
+ */
+public fun Anchor.setOpenInNewTab() {
+    setTarget(AnchorTarget.BLANK)
+}
+
+/**
+ * Sets the target of this anchor ([RouterLink] is technically also an Anchor element).
+ */
+public var RouterLink.target: AnchorTargetValue
+    get() = element.getAttribute("target")
+        ?.let { AnchorTargetValue.forString(it) } ?: AnchorTarget.DEFAULT
+    set(value) {
+        element.setOrRemoveAttributeIfNullOrEmpty("target", value.value)
+    }
+
+/**
+ * Configures this [RouterLink] to open the target in new tab/window.
+ *
+ * Effectively sets [AnchorTarget.BLANK].
+ */
+public fun RouterLink.setOpenInNewTab() {
+    target = AnchorTarget.BLANK
+}
+
+/**
+ * Sets the target of this anchor ([RouterLink] is technically also an Anchor element).
+ */
+public var Anchor.target_: AnchorTargetValue
+    get() = targetValue
+    set(value) {
+        setTarget(value)
+    }

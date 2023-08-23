@@ -4,6 +4,8 @@ import com.github.mvysny.dynatest.*
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.*
 import com.vaadin.flow.component.UI
+import com.vaadin.flow.component.html.Anchor
+import com.vaadin.flow.component.html.AnchorTarget
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.*
 import kotlin.test.expect
@@ -191,6 +193,25 @@ fun DynaNodeGroup.routerUtilsTests() {
             expect("testing") { UI.getCurrent().currentViewLocation.pathWithQueryParameters }
             expectedLocationBefore = "testing"
         }
+    }
+    test("RouterLink.target") {
+        val rl = RouterLink()
+        rl.target = AnchorTarget.DEFAULT
+        expect(AnchorTarget.DEFAULT) { rl.target }
+        rl.setOpenInNewTab()
+        expect(AnchorTarget.BLANK) { rl.target }
+        rl.target = AnchorTarget.DEFAULT
+        expect(AnchorTarget.DEFAULT) { rl.target }
+    }
+    test("Anchor.target_") {
+        val rl = Anchor()
+        expect(AnchorTarget.DEFAULT) { rl.target_ }
+        rl.target_ = AnchorTarget.DEFAULT
+        expect(AnchorTarget.DEFAULT) { rl.target_ }
+        rl.setOpenInNewTab()
+        expect(AnchorTarget.BLANK) { rl.target_ }
+        rl.target_ = AnchorTarget.DEFAULT
+        expect(AnchorTarget.DEFAULT) { rl.target_ }
     }
 }
 
