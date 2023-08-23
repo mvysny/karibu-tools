@@ -103,11 +103,13 @@ public val Key.shortcut: KeyShortcut get() = KeyShortcut(this)
 
 /**
  * Calls [block] when the user presses the ENTER key while given [TextField] is focused.
- *
- * WARNING: because of [#17484](https://github.com/vaadin/flow/issues/17484), this causes a rapid fire
- * of value change events to the server-side.
  */
-public fun TextField.onEnter(block: ()->Unit) {
-    addShortcut(Key.ENTER.shortcut, block)
-    valueChangeMode = ValueChangeMode.EAGER // workaround for https://github.com/vaadin/flow/issues/17484
+public fun TextField.onEnter(block: () -> Unit) {
+    addShortcut(Key.ENTER.shortcut) {
+        // workaround for https://github.com/vaadin/flow/issues/17484: flush the value and call
+        // the server with the new value first, so that block can see the new value properly.
+        element
+            .executeJs("this._onChange(new Event('dummy'));")
+            .then { block() }
+    }
 }
