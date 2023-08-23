@@ -160,7 +160,6 @@ The following functions are applicable to any field that edits text, e.g.
 Make sure you use these imports:
 
 ```kotlin
-import com.github.mvysny.kaributools.ModifierKey.*
 import com.vaadin.flow.component.Key.*
 ```
 
@@ -171,6 +170,7 @@ Then:
 * `route.addShortcut(Alt + Ctrl + KEY_C) { println("Foo") }` will cause Vaadin to run
   given block when Alt+Ctrl+C is pressed. Ideal targets are therefore: routes (for creating a route-wide shortcut), modal dialogs,
   root layouts, UI.
+* `textField.onEnter { println("Enter") }` is called when ENTER is pressed while the TextField is focused. (since 0.16)
 
 Make sure to read the [Safe JavaScript Keyboard shortcuts](https://mvysny.github.io/safe-javascript-shortcuts/) article
 before designing shortcuts for your app.
@@ -269,6 +269,11 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 ### ListBox
 
 * `ListBox.setItemLabelGenerator()` sets the label generator. See+vote for [#2601](https://github.com/vaadin/platform/issues/2601).
+
+### Validators
+
+* `Validator.isValid("foo")` will run the validator on given value and will return either true or false,
+  depending on whether the value passed or not. (since 0.16)
 
 # License
 
