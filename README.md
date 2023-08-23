@@ -101,10 +101,10 @@ QueryParameters:
 * call the `QueryParameters("foo=bar")` factory method to parse the query part of the URL
   to the Vaadin `QueryParameters` class.
 
-* `RouterLink.target` allows you to set `AnchorTargetValue`, e.g. `AnchorTargetValue.BLANK`.
-* `RouterLink.setOpenInNewTab()` opens the router link in new browser tab/window (sets target to `AnchorTargetValue.BLANK`).
-* `Anchor.target_` clears up the Anchor mess by adding yet another property :-D
-* `Anchor.setOpenInNewTab()` opens the anchor in new browser tab/window (sets target to `AnchorTargetValue.BLANK`).
+* `RouterLink.target` allows you to set `AnchorTargetValue`, e.g. `AnchorTargetValue.BLANK`. Since 0.16
+* `RouterLink.setOpenInNewTab()` opens the router link in new browser tab/window (sets target to `AnchorTargetValue.BLANK`). Since 0.16
+* `Anchor.target_` clears up the Anchor mess by adding yet another property :-D Since 0.16
+* `Anchor.setOpenInNewTab()` opens the anchor in new browser tab/window (sets target to `AnchorTargetValue.BLANK`). Since 0.16
 
 ### Time Zone
 
