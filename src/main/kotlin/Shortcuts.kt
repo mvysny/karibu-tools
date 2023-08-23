@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.*
+import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.server.Command
 import java.io.Serializable
 
@@ -17,11 +18,36 @@ public enum class ModifierKey(private val hack: Int) {
     public val vaadin: KeyModifier get() = KeyModifier.values()[hack]  // workaround for https://github.com/vaadin/flow/issues/5051
 }
 
+/**
+ * The "Shift" key. Constant is used to build up a [KeyShortcut].
+ */
+public val Shift: ModifierKey = ModifierKey.Shift
+/**
+ * The "Ctrl" key. Constant is used to build up a [KeyShortcut].
+ */
+public val Ctrl: ModifierKey = ModifierKey.Ctrl
+
+/**
+ * The "Alt" key. Constant is used to build up a [KeyShortcut].
+ */
+public val Alt: ModifierKey = ModifierKey.Alt
+/**
+ * The "Alt Gr" key. Constant is used to build up a [KeyShortcut].
+ */
+public val AltGr: ModifierKey = ModifierKey.AltGr
+/**
+ * The "Windows" key. Constant is used to build up a [KeyShortcut].
+ */
+public val Meta: ModifierKey = ModifierKey.Meta
+
+
 public infix operator fun Set<ModifierKey>.plus(key: Key): KeyShortcut = KeyShortcut(key, this)
 
 /**
- * Denotes a keyboard shortcut, such as [ModifierKey.Ctrl]+[ModifierKey.Alt]+[Key.KEY_C]. When properly imported, this
- * becomes `Ctrl+Alt+KEY_C` ;)
+ * Denotes a keyboard shortcut, such as [Ctrl] + [Alt] + [Key.KEY_C]. Import `Key.*` then:
+ * ```kotlin
+ * val shortcut: KeyShortcut = Ctrl + Alt + KEY_C
+ * ```
  */
 public data class KeyShortcut(val key: Key, val modifierKeys: Set<ModifierKey> = setOf()) : Serializable {
     val vaadinModifiers: Array<KeyModifier> = modifierKeys.map { it.vaadin }.toTypedArray()
@@ -31,11 +57,18 @@ public data class KeyShortcut(val key: Key, val modifierKeys: Set<ModifierKey> =
  * Allows you to [add click shortcuts][ClickNotifier.addClickShortcut] such as `addClickShortcut(ModifierKey.Ctrl + ModifierKey.Alt + Key.KEY_C)`.
  *
  * When you properly import `ModifierKey.*` and `Key.*`, the call can be written as `addClickShortcut(Ctrl + Alt + KEY_C)`
+ *
+ * The listener is global by default (notified even if the component is not focused).
+ * @param onlyWhenFocused defaults to false. If true, the shortcut is only activated when the component is focused.
  */
-public fun ClickNotifier<*>.addClickShortcut(shortcut: KeyShortcut): ShortcutRegistration = addClickShortcut(shortcut.key, *shortcut.vaadinModifiers)
+public fun ClickNotifier<*>.addClickShortcut(shortcut: KeyShortcut, onlyWhenFocused: Boolean = false): ShortcutRegistration = addClickShortcut(shortcut.key, *shortcut.vaadinModifiers).apply {
+    if (onlyWhenFocused) {
+        listenOn(this@addClickShortcut as Component)
+    }
+}
 
 /**
- * Allows you to [add focus shortcuts][Focusable.addFocusShortcut] such as `addClickShortcut(ModifierKey.Ctrl + ModifierKey.Alt + Key.KEY_C)`.
+ * Allows you to [add focus shortcuts][Focusable.addFocusShortcut] such as `addFocusShortcut(ModifierKey.Ctrl + ModifierKey.Alt + Key.KEY_C)`.
  *
  * When you properly import `ModifierKey.*` and `Key.*`, the call can be written as `addFocusShortcut(Ctrl + Alt + KEY_C)`
  */
@@ -44,11 +77,15 @@ public fun Focusable<*>.addFocusShortcut(shortcut: KeyShortcut): ShortcutRegistr
 /**
  * Attaches a keyboard shortcut to given component receiver. The keyboard shortcut is only active when the component is visible
  * and attached to the UI. Ideal targets are therefore: routes (for creating a route-wide shortcut), modal dialogs,
- * root layouts, UI.
+ * root layouts, UI. Example:
  *
- * Example: `addShortcut(ModifierKey.Ctrl + ModifierKey.Alt + Key.KEY_C) { print("hello!") }`.
+ * ```kotlin
+ * addShortcut(ModifierKey.Ctrl + ModifierKey.Alt + Key.KEY_C) { print("hello!") }
+ *
  *
  * When you properly import `ModifierKey.*` and `Key.*`, the call can be written as `addShortcut(Ctrl + Alt + KEY_C) { print("hello!") }`
+ *
+ * The listener is local by default (notified only when the component, or one of its children/descendants, are focused).
  */
 public fun Component.addShortcut(shortcut: KeyShortcut, block: ()->Unit): ShortcutRegistration =
         Shortcuts.addShortcutListener(this, Command { block() }, shortcut.key, *shortcut.vaadinModifiers)
@@ -62,3 +99,10 @@ public fun Component.addShortcut(shortcut: KeyShortcut, block: ()->Unit): Shortc
  * ```
  */
 public val Key.shortcut: KeyShortcut get() = KeyShortcut(this)
+
+/**
+ * Calls [block] when the user presses the ENTER key while given [TextField] is focused.
+ */
+public fun TextField.onEnter(block: ()->Unit) {
+    addShortcut(Key.ENTER.shortcut, block)
+}
