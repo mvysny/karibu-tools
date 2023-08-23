@@ -2,6 +2,7 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.*
 import com.vaadin.flow.component.textfield.TextField
+import com.vaadin.flow.data.value.ValueChangeMode
 import com.vaadin.flow.server.Command
 import java.io.Serializable
 
@@ -102,7 +103,11 @@ public val Key.shortcut: KeyShortcut get() = KeyShortcut(this)
 
 /**
  * Calls [block] when the user presses the ENTER key while given [TextField] is focused.
+ *
+ * WARNING: because of [#17484](https://github.com/vaadin/flow/issues/17484), this causes a rapid fire
+ * of value change events to the server-side.
  */
 public fun TextField.onEnter(block: ()->Unit) {
     addShortcut(Key.ENTER.shortcut, block)
+    valueChangeMode = ValueChangeMode.EAGER // workaround for https://github.com/vaadin/flow/issues/17484
 }
