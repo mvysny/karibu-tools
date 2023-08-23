@@ -244,27 +244,27 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 
 ### ComboBox
 
-* Implemented `ComboBoxVariant`, `addThemeVariants()` and `removeThemeVariants()`.
-  See+vote for [issue #454](https://github.com/vaadin/flow-components/issues/454).
+* Implemented `ComboBoxVariant`, `addThemeVariants()` and `removeThemeVariants()`. Only applicable to Vaadin 14, since
+  Vaadin 22+ has built-in support for these functions.
 * `ComboBox.isSmall` toggles the `small` theme
 * `ComboBox.isHelperAboveField` toggles the `helper-above-field` theme
 * `ComboBox.textAlign` toggles the `align-left`/`align-center`/`align-right` theme.
 * `ComboBox.dropdownWidth` sets a custom dropdown popup overlay width to e.g. `100px`
    or `30em`. See+vote for [Issue #2331](https://github.com/vaadin/flow-components/issues/2331).
-* `ComboBox.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
+* `ComboBox.prefixComponent` sets a custom prefix component. Already available in Vaadin 24+, but handy for Vaadin 23 and lower.
 
 ### DatePicker
 
-* `DatePicker.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
+* `DatePicker.prefixComponent` sets a custom prefix component. Already available in Vaadin 24+, but handy for Vaadin 23 and lower.
 
 ### Select
 
 * Implemented `SelectVariant`, `addThemeVariants()` and `removeThemeVariants()`.
-  * Already implemented in Vaadin 23.1+, but handy for Vaadin 14.
+  * Already available in Vaadin 23.1+, but handy for Vaadin 14.
 * `Select.isSmall` toggles the `small` theme
 * `Select.isHelperAboveField` toggles the `helper-above-field` theme
 * `Select.textAlign` toggles the `align-left`/`align-center`/`align-right` theme.
-* `Select.prefixComponent` sets a custom prefix component. See+vote for [#1594](https://github.com/vaadin/flow-components/issues/1594)
+* `Select.prefixComponent` sets a custom prefix component. Already available in Vaadin 24+, but handy for Vaadin 23 and lower.
 
 ### ListBox
 
