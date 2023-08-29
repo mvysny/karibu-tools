@@ -23,7 +23,11 @@ public fun MenuBar.close() {
 public fun MenuBar.addIconItem(icon: Icon, label: String = "", ariaLabel: String = label): MenuItem {
     // not portable across multiple Vaadin versions
 //    addThemeVariants(MenuBarVariant.LUMO_ICON)
-    themeNames.add(MenuBarVariant.LUMO_ICON.variantName)
+    if (label.isBlank()) {
+        // icon-only item. By default menu bar adds too much padding around the icon; reduce the padding by adding the icon theme variant.
+        themeNames.add(MenuBarVariant.LUMO_ICON.variantName)
+    }
+
     val item: MenuItem = addItem(icon)
     if (ariaLabel.isNotBlank()) {
         item.ariaLabel = ariaLabel
