@@ -64,6 +64,7 @@ A set of general Vaadin utilities applicable to all components.
 * `component.label` unifies component labels. Vote for [flow #3241](https://github.com/vaadin/flow/issues/3241).
 * Use `LabelWrapper` if you need to add a label on top of a component which doesn't support labels,
    and you can't nest the component in a `FormLayout`.
+* `component.ariaLabel` gets/sets the `aria-label` attribute. See `HasAriaLabel` in Vaadin 23+ for more details.
 
 ### Misc Element
 
@@ -183,6 +184,7 @@ before designing shortcuts for your app.
 ### MenuBar
 
 * Call `MenuBar.close()` to close the submenu popup. Vote for [#102](https://github.com/vaadin/vaadin-menu-bar/issues/102).
+* Call `MenuBar.addIconItem()` and `SubMenu.addIconItem()` to add items with icons. Vote for [#2688](https://github.com/vaadin/flow-components/issues/2688).
 
 ### Icon
 

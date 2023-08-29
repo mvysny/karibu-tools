@@ -64,11 +64,22 @@ fun DynaNodeGroup.componentUtilsTests() {
         val b = Button()
         expect(null) { b.tooltip }
         b.tooltip = ""
-        expect<String?>("") { b.tooltip } // https://youtrack.jetbrains.com/issue/KT-32501
+        expect("") { b.tooltip }
         b.tooltip = "foo"
-        expect<String?>("foo") { b.tooltip } // https://youtrack.jetbrains.com/issue/KT-32501
+        expect("foo") { b.tooltip }
         b.tooltip = null
         expect(null) { b.tooltip }
+    }
+
+    test("ariaLabel") {
+        val b = Button()
+        expect(null) { b.ariaLabel }
+        b.ariaLabel = ""
+        expect("") { b.ariaLabel }
+        b.ariaLabel = "foo"
+        expect("foo") { b.ariaLabel }
+        b.ariaLabel = null
+        expect(null) { b.ariaLabel }
     }
 
     test("addContextMenuListener smoke") {

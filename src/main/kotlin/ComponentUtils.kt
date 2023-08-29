@@ -367,3 +367,12 @@ private val __Component_hasListener: Method by lazy(LazyThreadSafetyMode.PUBLICA
  */
 internal fun Component.hasListener(eventType: Class<out ComponentEvent<*>>): Boolean =
     __Component_hasListener.invoke(this, eventType) as Boolean
+
+/**
+ * Sets the `aria-label` attribute.
+ */
+public var Component.ariaLabel: String?
+    get() = element.getAttribute("aria-label")
+    set(value) {
+        element.setOrRemoveAttribute("aria-label", value)
+    }
