@@ -30,11 +30,28 @@ class SemanticVersionTest : DynaTest({
     test("is at least major,minor") {
         expect(true) { "14.3.0".v.isAtLeast(14, 2) }
         expect(true) { "14.3.0".v.isAtLeast(14, 3) }
+        expect(true) { "14.3.0".v.isAtLeast(13, 0) }
         expect(false) { "14.3.0".v.isAtLeast(14, 4) }
         expect(true) { "14.3.1".v.isAtLeast(14, 2) }
         expect(true) { "14.3.1".v.isAtLeast(14, 3) }
         expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 2) }
         expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 3) }
+        expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 4) }
+    }
+    test("is at least major,minor,bugfix") {
+        expect(true) { "14.3.0".v.isAtLeast(14, 2, 0) }
+        expect(true) { "14.3.0".v.isAtLeast(14, 2, 25) }
+        expect(true) { "14.3.0".v.isAtLeast(14, 3, 0) }
+        expect(false) { "14.3.0".v.isAtLeast(14, 3, 1) }
+        expect(false) { "14.3.0".v.isAtLeast(14, 4, 0) }
+        expect(true) { "14.3.1".v.isAtLeast(14, 2, 0) }
+        expect(true) { "14.3.1".v.isAtLeast(14, 3, 0) }
+        expect(true) { "14.3.1".v.isAtLeast(14, 3, 1) }
+        expect(false) { "14.3.1".v.isAtLeast(14, 3, 2) }
+        expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 2, 0) }
+        expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 3, 0) }
+        expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 3, 1) }
+        expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 4, 0) }
     }
     test("is at least major") {
         expect(true) { "14.3.0".v.isAtLeast(14) }
