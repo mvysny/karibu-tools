@@ -40,6 +40,7 @@ public data class SemanticVersion(
 
     public fun isExactly(major: Int, minor: Int): Boolean = this.major == major && this.minor == minor
     public fun isExactly(major: Int): Boolean = this.major == major
+    @JvmOverloads // to keep binary compatibility
     public fun isAtLeast(major: Int, minor: Int, bugfix: Int = 0): Boolean = this >= SemanticVersion(major, minor, bugfix, "\u0001")
     public fun isAtLeast(major: Int): Boolean = this.major >= major
 
