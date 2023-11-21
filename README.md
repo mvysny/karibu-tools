@@ -183,7 +183,7 @@ before designing shortcuts for your app.
 
 ### MenuBar
 
-* Call `MenuBar.close()` to close the submenu popup. Vote for [#102](https://github.com/vaadin/vaadin-menu-bar/issues/102).
+* Call `MenuBar.close()` to close the submenu popup. Vote for [#5742](https://github.com/vaadin/flow-components/issues/5742).
 * Call `MenuBar.addIconItem()` and `SubMenu.addIconItem()` to add items with icons.
   Vote for [#2688](https://github.com/vaadin/flow-components/issues/2688). Since 0.17.
 
@@ -234,7 +234,7 @@ class MyServiceInitListener : VaadinServiceInitListener {
 * `Upload.isEnabled` (since 0.5) allows you to enable or disable the upload component.
   Vote for [#2182](https://github.com/vaadin/flow-components/issues/2182)
 * `Upload.clear()` (since 0.6) clears the list of uploaded files.
-  Vote for [#1572](https://github.com/vaadin/flow-components/issues/1572).
+  Present as `Upload.clearFileList()` in newer Vaadin.
 
 ### LoginForm/LoginOverlay
 
@@ -243,7 +243,7 @@ class MyServiceInitListener : VaadinServiceInitListener {
 
 ### RadioButtonGroup
 
-* `setItemLabelGenerator()` sets the item label generator. See+vote for [ticket #1681](https://github.com/vaadin/flow-components/issues/1681). Since 0.6.
+* `setItemLabelGenerator()` sets the item label generator. Since 0.6. Implemented in newer Vaadin.
 
 ### HTML
 
