@@ -276,7 +276,7 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 
 ### ListBox
 
-* `ListBox.setItemLabelGenerator()` sets the label generator. See+vote for [#2601](https://github.com/vaadin/platform/issues/2601).
+* `ListBox.setItemLabelGenerator()` sets the label generator. Present in newer Vaadin, both in `ListBox` and `MultiSelectListBox`.
 
 ### Validators
 
