@@ -42,7 +42,7 @@ A set of general Vaadin utilities applicable to all components.
 * call `Component.isNestedIn(potentialAncestor: Component)` to discover whether a component
   is nested within given potential ancestor.
 * query `Component.isAttached()` to see whether this component is currently attached to an UI.
-  Vote for [flow #7911](https://github.com/vaadin/flow/issues/7911).
+  Already implemented in newer Vaadin.
 * call `HasOrderedComponents<*>.insertBefore()` to insert a component before given component.
 * query `HasComponents.hasChildren` to see whether a component has any children.
 * `Component.walk()` will return an `Iterable<Component>` which walks the component child tree,
@@ -61,7 +61,7 @@ A set of general Vaadin utilities applicable to all components.
   Vote for [flow #4068](https://github.com/vaadin/flow/issues/4068).
 * `component.caption` unifies component captions. Caption is displayed directly on the component (e.g. the Button text),
   while label is displayed next to the component in a layout (e.g. form layout).
-* `component.label` unifies component labels. Vote for [flow #3241](https://github.com/vaadin/flow/issues/3241).
+* `component.label` unifies component labels. Takes advantage of `HasLabel` in newer Vaadin.
 * Use `LabelWrapper` if you need to add a label on top of a component which doesn't support labels,
    and you can't nest the component in a `FormLayout`.
 * `component.ariaLabel` gets/sets the `aria-label` attribute. See `HasAriaLabel` in Vaadin 23+ for more details. Since 0.17.
