@@ -221,28 +221,43 @@ public fun HasStyle.setClassNames2(vararg classNames: String) {
 }
 
 /**
+ * In Vaadin 24.3.0.alpha6 the `HasPlaceholder` interface was introduced.
+ */
+private val _HasPlaceholder: Class<*>? =
+    if (VaadinVersion.flow >= SemanticVersion(24, 3, 0, "alpha6")) {
+        Class.forName("com.vaadin.flow.component.HasPlaceholder")
+    } else {
+        null
+    }
+private val methodGetPlaceholder: Method? =
+    _HasPlaceholder?.getDeclaredMethod("getPlaceholder")
+private val methodSetPlaceholder: Method? =
+    _HasPlaceholder?.getDeclaredMethod("setPlaceholder", String::class.java)
+
+/**
  * A component placeholder, usually shown when there's no value selected.
  * Not all components support a placeholder; those that don't return null.
  */
 public var Component.placeholder: String?
-    // modify when this is fixed: https://github.com/vaadin/flow/issues/4068
-    get() = when (this) {
-        is TextField -> placeholder
-        is TextArea -> placeholder
-        is PasswordField -> placeholder
-        is ComboBox<*> -> this.placeholder  // https://youtrack.jetbrains.com/issue/KT-24275
-        is DatePicker -> placeholder
-        is Input -> placeholder.orElse(null)
+    get() = when {
+        _HasPlaceholder != null && _HasPlaceholder.isInstance(this) -> methodGetPlaceholder!!.invoke(this) as String?
+        this is TextField -> placeholder
+        this is TextArea -> placeholder
+        this is PasswordField -> placeholder
+        this is ComboBox<*> -> this.placeholder  // https://youtrack.jetbrains.com/issue/KT-24275
+        this is DatePicker -> placeholder
+        this is Input -> placeholder.orElse(null)
         else -> null
     }
     set(value) {
-        when (this) {
-            is TextField -> placeholder = value
-            is TextArea -> placeholder = value
-            is PasswordField -> placeholder = value
-            is ComboBox<*> -> this.placeholder = value
-            is DatePicker -> placeholder = value
-            is Input -> setPlaceholder(value)
+        when {
+            _HasPlaceholder != null && _HasPlaceholder.isInstance(this) -> methodSetPlaceholder!!.invoke(this, value)
+            this is TextField -> placeholder = value
+            this is TextArea -> placeholder = value
+            this is PasswordField -> placeholder = value
+            this is ComboBox<*> -> this.placeholder = value
+            this is DatePicker -> placeholder = value
+            this is Input -> setPlaceholder(value)
             else -> throw IllegalStateException("${javaClass.simpleName} doesn't support setting placeholder")
         }
     }
