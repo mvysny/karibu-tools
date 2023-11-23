@@ -12,6 +12,7 @@ import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.checkbox.Checkbox
 import com.vaadin.flow.component.formlayout.FormLayout
 import com.vaadin.flow.component.html.Div
+import com.vaadin.flow.component.html.Input
 import com.vaadin.flow.component.html.Label
 import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.orderedlayout.FlexLayout
@@ -225,18 +226,21 @@ fun DynaNodeGroup.componentUtilsTests() {
 
     test("placeholder") {
         var c: Component = TextField().apply { placeholder = "foo" }
-        expect("foo") { c.placeholder }
-        c.placeholder = ""
-        expect("") { c.placeholder }
+        expect("foo") { (c as Component).placeholder }
+        (c as Component).placeholder = ""
+        expect("") { (c as Component).placeholder }
         c = TextArea().apply { placeholder = "foo" }
-        expect("foo") { c.placeholder }
-        c.placeholder = ""
-        expect("") { c.placeholder }
+        expect("foo") { (c as Component).placeholder }
+        (c as Component).placeholder = ""
+        expect("") { (c as Component).placeholder }
         c = Button() // doesn't support placeholder
-        expect(null) { c.placeholder }
+        expect(null) { (c as Component).placeholder }
         expectThrows(IllegalStateException::class, "Button doesn't support setting placeholder") {
-            c.placeholder = "foo"
+            (c as Component).placeholder = "foo"
         }
+        c = Input() // test incoming incompatible change in getPlaceholder() from Optional<String> to String
+        expect("") { (c as Component).placeholder }
+        (c as Component).placeholder = "foo"
     }
 
     group("label") {
