@@ -20,6 +20,7 @@ allprojects {
     repositories {
         mavenCentral()
         maven(url = "https://maven.vaadin.com/vaadin-prereleases/")
+        maven(url = "https://repo.spring.io/milestone") // for Spring pre-releases
     }
 
     java {
