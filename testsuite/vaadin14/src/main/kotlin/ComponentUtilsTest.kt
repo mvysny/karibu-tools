@@ -23,7 +23,7 @@ import com.vaadin.flow.component.textfield.TextField
 import kotlin.streams.toList
 import kotlin.test.expect
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "USELESS_CAST")
 @DynaTestDsl
 fun DynaNodeGroup.componentUtilsTests() {
     beforeEach { MockVaadin.setup() }
@@ -239,8 +239,9 @@ fun DynaNodeGroup.componentUtilsTests() {
             (c as Component).placeholder = "foo"
         }
         c = Input() // test incoming incompatible change in getPlaceholder() from Optional<String> to String
-        expect("") { (c as Component).placeholder }
+        expect("") { (c as Component).placeholder ?: "" }
         (c as Component).placeholder = "foo"
+        expect("foo") { (c as Component).placeholder }
     }
 
     group("label") {
