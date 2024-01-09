@@ -18,6 +18,9 @@ import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.orderedlayout.FlexLayout
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.tabs.Tab
+import com.vaadin.flow.component.textfield.BigDecimalField
+import com.vaadin.flow.component.textfield.IntegerField
+import com.vaadin.flow.component.textfield.NumberField
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
 import kotlin.streams.toList
@@ -242,6 +245,21 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect("") { (c as Component).placeholder ?: "" }
         (c as Component).placeholder = "foo"
         expect("foo") { (c as Component).placeholder }
+
+        c = NumberField("", "foo")
+        expect("foo") { (c as Component).placeholder }
+        (c as Component).placeholder = ""
+        expect("") { (c as Component).placeholder }
+
+        c = BigDecimalField("", "foo")
+        expect("foo") { (c as Component).placeholder }
+        (c as Component).placeholder = ""
+        expect("") { (c as Component).placeholder }
+
+        c = IntegerField("", "foo")
+        expect("foo") { (c as Component).placeholder }
+        (c as Component).placeholder = ""
+        expect("") { (c as Component).placeholder }
     }
 
     group("label") {

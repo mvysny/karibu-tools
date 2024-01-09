@@ -8,6 +8,8 @@ import com.vaadin.flow.component.datepicker.DatePicker
 import com.vaadin.flow.component.formlayout.FormLayout
 import com.vaadin.flow.component.html.Input
 import com.vaadin.flow.component.tabs.Tab
+import com.vaadin.flow.component.textfield.AbstractNumberField
+import com.vaadin.flow.component.textfield.BigDecimalField
 import com.vaadin.flow.component.textfield.PasswordField
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
@@ -247,6 +249,8 @@ public var Component.placeholder: String?
         this is ComboBox<*> -> this.placeholder  // https://youtrack.jetbrains.com/issue/KT-24275
         this is DatePicker -> placeholder
         this is Input -> placeholder.orElse(null)
+        this is BigDecimalField -> placeholder
+        this is AbstractNumberField<*, *> -> placeholder
         else -> null
     }
     set(value) {
@@ -258,6 +262,8 @@ public var Component.placeholder: String?
             this is ComboBox<*> -> this.placeholder = value
             this is DatePicker -> placeholder = value
             this is Input -> setPlaceholder(value)
+            this is BigDecimalField -> placeholder = value
+            this is AbstractNumberField<*, *> -> placeholder = value
             else -> throw IllegalStateException("${javaClass.simpleName} doesn't support setting placeholder")
         }
     }
