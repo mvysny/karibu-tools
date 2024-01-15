@@ -1,5 +1,6 @@
 include(
     "karibu-tools",
+    "karibu-tools-23",
     "testsuite:testbase",
     "testsuite:vaadin14",
     "testsuite:vaadin21",

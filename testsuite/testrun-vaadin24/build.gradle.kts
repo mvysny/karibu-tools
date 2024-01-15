@@ -9,6 +9,7 @@ java {
 }
 
 dependencies {
+    api(project(":karibu-tools-23"))
     testImplementation("com.vaadin:vaadin-core:${properties["vaadin24_version"]}")
     testImplementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
     testImplementation(project(":testsuite:vaadin14")) {
