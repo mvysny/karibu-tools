@@ -7,6 +7,9 @@ dependencies {
     testImplementation(project(":testsuite:vaadin21")) {
         exclude(group = "com.vaadin")
     }
+    testImplementation(project(":testsuite:vaadin23")) {
+        exclude(group = "com.vaadin")
+    }
 }
 
 // Vaadin 23 requires Java 11 or higher
