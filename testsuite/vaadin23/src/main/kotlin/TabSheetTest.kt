@@ -2,7 +2,6 @@ import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.*
 import com.github.mvysny.kaributools.v23.*
-import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
@@ -11,7 +10,6 @@ import com.vaadin.flow.component.tabs.Tab
 import com.vaadin.flow.component.tabs.TabSheet
 import com.vaadin.flow.component.tabs.Tabs
 import kotlin.test.expect
-import kotlin.test.fail
 
 @DynaTestDsl
 fun DynaNodeGroup.tabSheetTest() {
