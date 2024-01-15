@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools.v24
 
 import allTests21
+import allTests23
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributools.*
 import com.vaadin.flow.component.HasPlaceholder
@@ -30,6 +31,9 @@ class AllTests : DynaTest({
     }
     group("vaadin21+") {
         allTests21()
+    }
+    group("vaadin23+") {
+        allTests23()
     }
     group("HasPlaceholder") {
         class MyComponent: Div(), HasPlaceholder {

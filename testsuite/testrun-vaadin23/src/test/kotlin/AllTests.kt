@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools.v23
 
 import allTests21
+import allTests23
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.dynatest.jvmVersion
 import com.github.mvysny.kaributesting.v10.VaadinMeta
@@ -34,6 +35,9 @@ class AllTests : DynaTest({
         }
         group("vaadin21+") {
             allTests21()
+        }
+        group("vaadin23+") {
+            allTests23()
         }
     }
 })
