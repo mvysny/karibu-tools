@@ -51,7 +51,7 @@ private val TabSheet.tabsComponent: Tabs
 /**
  * Returns or sets this tab contents in the [TabSheet]. Works only for tabs nested in a [TabSheet].
  */
-public val Tab.contents: Component? get() = ownerTabSheet.tabToContent[this]?.component?.orElse(null)
+public val Tab.contents: Component? get() = ownerTabSheet.getComponent(this)
 
 /**
  * Returns the current number of tabs.
@@ -77,10 +77,15 @@ public val TabSheet.tabs: List<Tab> get() = object : AbstractList<Tab>() {
 }
 
 /**
- * Port of `TabSheet.getComponent()` to Vaadin 23.
+ * Port of `TabSheet.getTab()` to Vaadin 23.
  */
-public fun TabSheet.getComponent(content: Component): Tab? =
+public fun TabSheet.getTab(content: Component): Tab? =
     tabs.firstOrNull { it.contents == content }
+
+/**
+ * Port of `TabSheet.getComponent()` to Vaadin 23. Alias for [contents].
+ */
+public fun TabSheet.getComponent(tab: Tab): Component? = tabToContent[tab]?.component?.orElse(null)
 
 /**
  * Finds a tab which transitively contains given [component].
@@ -88,5 +93,5 @@ public fun TabSheet.getComponent(content: Component): Tab? =
 public fun TabSheet.findTabContaining(component: Component): Tab? {
     val contentComponents: Set<Component> = tabToContent.values.mapNotNull {it.component.orElse(null) }.toSet()
     val contents: Component = component.findAncestorOrSelf { contentComponents.contains(it) } ?: return null
-    return getComponent(contents)
+    return getTab(contents)
 }

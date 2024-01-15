@@ -18,6 +18,8 @@ dependencies {
 }
 ```
 
+> Note: for Vaadin 23+, depend on `karibu-tools-v23` instead, to bring some additional utilities.
+
 See the tag above for the latest version.
 
 ## General Vaadin Utilities
@@ -283,6 +285,20 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 * `Validator.isValid("foo")` will run the validator on given value and will return either true or false,
   depending on whether the value passed or not. (since 0.16)
 * `rangeValidatorOf("must be 0 or greater", 0, null)` accepts nulls for min/max. (since 0.16)
+
+### TabSheet
+
+Since 0.18; depend on `karibu-tools-v23` to gain access to these utility functions.
+
+* Use `Tab.index` to obtain the index of the tab.
+* `Tab.owner` returns the `Tabs` owning this tab
+* `Tab.ownerTabSheet` returns the `TabSheet` owning this tab.
+* `Tab.contents`/`TabSheet.getComponent()` returns the contents component of given tab (TabSheet only)
+* `TabSheet.tabCount` returns the number of the tabs
+* `TabSheet.removeAll()` removes all tabs
+* `TabSheet.tabs` returns a `List<Tab>` of all tabs
+* `TabSheet.getTab()` returns `Tab` for its content component (TabSheet only)
+* `TabSheet.findTabContaining()` returns `Tab` which transitively contains given component.
 
 # License
 
