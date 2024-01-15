@@ -129,17 +129,27 @@ fun DynaNodeGroup.tabSheetTest() {
     }
 
     group("Tab.index") {
-        test("0 for 1st tab") {
-            val ts = TabSheet()
-            val tab = ts.add(Tab("foo"), Span("it works!"))
-            expect(0) { tab.index }
-        }
-        test("two tabs") {
-            val ts = TabSheet()
-            val tab = ts.add(Tab("foo"), Span("it works!"))
-            val tab2 = ts.add(Tab("bar"), Span("it works 2!"))
+        test("in Tabs") {
+            val tabs = Tabs()
+            val tab = Tab("foo")
+            val tab2 = Tab("bar")
+            tabs.add(tab, tab2)
             expect(0) { tab.index }
             expect(1) { tab2.index }
+        }
+        group("in TabSheet") {
+            test("0 for 1st tab") {
+                val ts = TabSheet()
+                val tab = ts.add(Tab("foo"), Span("it works!"))
+                expect(0) { tab.index }
+            }
+            test("two tabs") {
+                val ts = TabSheet()
+                val tab = ts.add(Tab("foo"), Span("it works!"))
+                val tab2 = ts.add(Tab("bar"), Span("it works 2!"))
+                expect(0) { tab.index }
+                expect(1) { tab2.index }
+            }
         }
     }
 }
