@@ -13,19 +13,27 @@ allprojects {
     group = "com.github.mvysny.karibu-tools"
     version = "0.18-SNAPSHOT"
 
-    apply {
-        plugin("kotlin")
-    }
-
     repositories {
         mavenCentral()
         maven(url = "https://maven.vaadin.com/vaadin-prereleases/")
         maven(url = "https://repo.spring.io/milestone") // for Spring pre-releases
     }
+}
+
+subprojects {
+    apply {
+        plugin("maven-publish")
+        plugin("kotlin")
+        plugin("org.gradle.signing")
+    }
 
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
     }
 
     tasks.withType<Test> {
@@ -36,94 +44,63 @@ allprojects {
         }
     }
 
-    tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-}
-
-kotlin {
-    explicitApi()
-}
-
-dependencies {
-    api(kotlin("stdlib-jdk8"))
-    // Vaadin 14
-    compileOnly("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
-        // Webjars are only needed when running in Vaadin 13 compatibility mode
-        listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
-                "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
-                "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
-                .forEach { exclude(group = it) }
-    }
-    compileOnly("javax.servlet:javax.servlet-api:4.0.1")
-    // IDEA language injections
-    api("org.jetbrains:annotations:23.1.0")
-
-    testImplementation("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
-        // Webjars are only needed when running in Vaadin 13 compatibility mode
-        listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
-                "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",
-                "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
-                .forEach { exclude(group = it) }
-    }
-    testImplementation("com.github.mvysny.dynatest:dynatest:${properties["dynatest_version"]}")
-    testImplementation("org.slf4j:slf4j-simple:${properties["slf4j_version"]}")
-}
-
-// following https://dev.to/kengotoda/deploying-to-ossrh-with-gradle-in-2020-1lhi
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
-tasks.withType<Javadoc> {
-    isFailOnError = false
-}
-
-publishing {
-    repositories {
-        maven {
-            setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = project.properties["ossrhUsername"] as String? ?: "Unknown user"
-                password = project.properties["ossrhPassword"] as String? ?: "Unknown user"
-            }
+    // creates a reusable function which configures proper deployment to Maven Central
+    ext["configureMavenCentral"] = { artifactId: String ->
+        java {
+            withJavadocJar()
+            withSourcesJar()
         }
-    }
-    publications {
-        create("mavenJava", MavenPublication::class.java).apply {
-            groupId = project.group.toString()
-            this.artifactId = "karibu-tools"
-            version = project.version.toString()
-            pom {
-                description = "Karibu-Tools: The Vaadin Missing Utilities"
-                name = "Karibu-Tools"
-                url = "https://github.com/mvysny/karibu-tools"
-                licenses {
-                    license {
-                        name = "The Apache Software License, Version 2.0"
-                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                        distribution = "repo"
+
+        tasks.withType<Javadoc> {
+            isFailOnError = false
+        }
+
+        publishing {
+            repositories {
+                maven {
+                    setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    credentials {
+                        username = project.properties["ossrhUsername"] as String? ?: "Unknown user"
+                        password = project.properties["ossrhPassword"] as String? ?: "Unknown user"
                     }
                 }
-                developers {
-                    developer {
-                        id = "mavi"
-                        name = "Martin Vysny"
-                        email = "martin@vysny.me"
+            }
+            publications {
+                create("mavenJava", MavenPublication::class.java).apply {
+                    groupId = project.group.toString()
+                    this.artifactId = artifactId
+                    version = project.version.toString()
+                    pom {
+                        description = "Karibu-Tools: The Vaadin Missing Utilities"
+                        name = "Karibu-Tools"
+                        url = "https://github.com/mvysny/karibu-tools"
+                        licenses {
+                            license {
+                                name = "The Apache Software License, Version 2.0"
+                                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                                distribution = "repo"
+                            }
+                        }
+                        developers {
+                            developer {
+                                id = "mavi"
+                                name = "Martin Vysny"
+                                email = "martin@vysny.me"
+                            }
+                        }
+                        scm {
+                            url = "https://github.com/mvysny/karibu-tools"
+                        }
                     }
-                }
-                scm {
-                    url = "https://github.com/mvysny/karibu-tools"
+                    from(components["java"])
                 }
             }
-            from(components["java"])
+        }
+
+        signing {
+            sign(publishing.publications["mavenJava"])
         }
     }
-}
-
-signing {
-    sign(publishing.publications["mavenJava"])
 }
 
 if (JavaVersion.current() > JavaVersion.VERSION_11 && gradle.startParameter.taskNames.contains("publish")) {

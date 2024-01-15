@@ -1,5 +1,5 @@
 dependencies {
-    api(project.rootProject)
+    api(project(":karibu-tools"))
     // for testing purposes
     api("com.github.mvysny.dynatest:dynatest:${properties["dynatest_version"]}")
     api("org.slf4j:slf4j-simple:${properties["slf4j_version"]}")
