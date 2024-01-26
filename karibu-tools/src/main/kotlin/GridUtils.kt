@@ -101,10 +101,11 @@ public val SelectionEvent<*, *>.isSelectionEmpty: Boolean get() = !firstSelected
 public fun <T, V> Grid<T>.addColumnFor(
     property: KProperty1<T, V?>,
     sortable: Boolean = true,
+    key: String = property.name,
     converter: (V?) -> Any? = { it }
 ): Grid.Column<T> =
     addColumn { converter(property.get(it)) }.apply {
-        key = property.name
+        this.key = key
         if (sortable) sortProperty = property
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
     }
@@ -123,10 +124,11 @@ public fun <T, V> Grid<T>.addColumnFor(
 public fun <T, V> Grid<T>.addColumnFor(
     property: KProperty1<T, V?>,
     renderer: Renderer<T>,
-    sortable: Boolean = true
+    sortable: Boolean = true,
+    key: String = property.name,
 ): Grid.Column<T> =
     addColumn(renderer).apply {
-        key = property.name
+        this.key = key
         if (sortable) sortProperty = property
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
     }
@@ -183,12 +185,13 @@ public fun <T> Grid<T>.getColumnBy(property: KProperty1<T, *>): Grid.Column<T> =
 public inline fun <reified T, reified V> Grid<T>.addColumnFor(
     propertyName: String,
     sortable: Boolean = true,
+    key: String = propertyName,
     noinline converter: (V?) -> Any? = { it }
 ): Grid.Column<T> {
     val getter: Method = T::class.java.getGetter(propertyName)
     val column: Grid.Column<T> = addColumn { converter(V::class.java.cast(getter.invoke(it))) }
     return column.apply {
-        key = propertyName
+        this.key = key
         if (sortable) {
             setSortProperty(propertyName)
         }
@@ -211,10 +214,11 @@ public inline fun <reified T, reified V> Grid<T>.addColumnFor(
 public fun <T, V> Grid<T>.addColumnFor(
     propertyName: String,
     renderer: Renderer<T>,
-    sortable: Boolean = true
+    sortable: Boolean = true,
+    key: String = propertyName,
 ): Grid.Column<T> =
     addColumn(renderer).apply {
-        key = propertyName
+        this.key = key
         if (sortable) {
             setSortProperty(propertyName)
         }
