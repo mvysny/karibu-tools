@@ -3,11 +3,13 @@ package com.github.mvysny.kaributools
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectList
+import com.github.mvysny.dynatest.expectThrows
 import com.github.mvysny.kaributesting.v10._fetch
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.data.provider.ListDataProvider
+import com.vaadin.flow.data.provider.QuerySortOrder
 import com.vaadin.flow.data.provider.SortDirection
 import kotlin.streams.toList
 import kotlin.test.expect
@@ -44,6 +46,9 @@ fun DynaNodeGroup.gridUtilsTests() {
             expect("Date Of Birth") { grid.getColumnBy(Person::dateOfBirth).header2 }
         }
 
+    }
+
+    group("sort") {
         test("sorting by column also works with in-memory container") {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
@@ -73,6 +78,28 @@ fun DynaNodeGroup.gridUtilsTests() {
             expect<Class<*>>(ListDataProvider2::class.java) { grid.dataProvider.javaClass }
             expect((9 downTo 0).map { it.toString() }) { grid._fetch(0, 1000).map { it.fullName } }
         }
+
+        test("sort(QuerySortOrder) honors sorting property") {
+            val grid = Grid<Person>().apply {
+                val fullNameColumn = addColumnFor(Person::fullName).apply { setSortProperty("a") }
+                setItems2((0..9).map { Person(fullName = it.toString()) })
+                sort(QuerySortOrder("a", SortDirection.DESCENDING))
+            }
+            expect<Class<*>>(ListDataProvider2::class.java) { grid.dataProvider.javaClass }
+            expect((9 downTo 0).map { it.toString() }) { grid._fetch(0, 1000).map { it.fullName } }
+        }
+    }
+
+    test("getColumnBySortProperty") {
+        Grid<Person>().apply {
+            val fullNameColumn = addColumnFor(Person::fullName).apply {
+                setSortProperty("a", "b", "c")
+            }
+            expect(fullNameColumn) { getColumnBySortProperty("a") }
+            expect(fullNameColumn) { getColumnBySortProperty("b") }
+            expect(fullNameColumn) { getColumnBySortProperty("c") }
+            expectThrows<IllegalArgumentException> { getColumnBySortProperty(Person::fullName.name) }
+        }
     }
 
     test("column isExpand") {
@@ -82,7 +109,6 @@ fun DynaNodeGroup.gridUtilsTests() {
         val col2 = grid.addColumnFor(Person::fullName).apply { flexGrow = 0 }
         expect(0) { col2.flexGrow }
     }
-
 
     group("header cell retrieval test") {
         test("one component") {

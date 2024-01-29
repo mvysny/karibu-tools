@@ -2,6 +2,7 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.grid.*
+import com.vaadin.flow.component.grid.Grid.Column
 import com.vaadin.flow.component.treegrid.TreeGrid
 import com.vaadin.flow.data.provider.QuerySortOrder
 import com.vaadin.flow.data.provider.SortDirection
@@ -14,7 +15,6 @@ import com.vaadin.flow.shared.util.SharedUtil
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import kotlin.reflect.KProperty1
-import kotlin.streams.toList
 
 /**
  * Refreshes the Grid and re-polls for data.
@@ -421,8 +421,7 @@ public fun <T> Grid<T>.setSortOrder(order: List<GridSortOrder<T>>) {
 public fun <T> Grid<T>.sort(vararg criteria: QuerySortOrder) {
     // check that columns are sortable
     val crit: List<GridSortOrder<T>> = criteria.map { sortOrder ->
-        val col: Grid.Column<T> = getColumnByKey(sortOrder.sorted)
-            ?: throw IllegalArgumentException("No column with key ${sortOrder.sorted}; available column keys: ${columns.mapNotNull { it.key }}")
+        val col: Grid.Column<T> = getColumnBySortOrder(sortOrder)
         require(col.isSortable) { "Column for ${sortOrder.sorted} is not marked sortable" }
         GridSortOrder(col, sortOrder.direction)
     }
@@ -430,7 +429,37 @@ public fun <T> Grid<T>.sort(vararg criteria: QuerySortOrder) {
     sort(crit)
 }
 
+/**
+ * Returns Grid column having [QuerySortOrder.sorted] as one of its sort properties.
+ *
+ * By default, column's sort property is set to [Column.getKey] but can be changed via [Column.setSortProperty].
+ * @throws IllegalArgumentException if there's no such column.
+ */
+public fun <T> Grid<T>.getColumnBySortOrder(sortOrder: QuerySortOrder): Column<T> = getColumnBySortProperty(sortOrder.sorted)
+
+/**
+ * Returns Grid column having given [sortProperty].
+ *
+ * By default, column's sort property is set to [Column.getKey] but can be changed via [Column.setSortProperty].
+ * @throws IllegalArgumentException if there's no such column.
+ */
+public fun <T> Grid<T>.getColumnBySortProperty(sortProperty: String): Column<T> {
+    val column = columns.firstOrNull {  column ->
+        column.getSortOrder(SortDirection.ASCENDING).anyMatch { it.sorted == sortProperty }
+    }
+    requireNotNull(column) {
+        "No column with sort order '${sortProperty}'; available column sort orders: ${columns.map { column -> column.getSortOrder(SortDirection.ASCENDING).map { it.sorted } .toList() }}"
+    }
+    return column
+}
+
+/**
+ * Creates a [GridSortOrder] sorting this column ascending.
+ */
 public val <T> Grid.Column<T>.asc: GridSortOrder<T> get() = GridSortOrder(this, SortDirection.ASCENDING)
+/**
+ * Creates a [GridSortOrder] sorting this column descending.
+ */
 public val <T> Grid.Column<T>.desc: GridSortOrder<T> get() = GridSortOrder(this, SortDirection.DESCENDING)
 
 /**
