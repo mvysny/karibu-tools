@@ -1,8 +1,10 @@
-import java.io.File
-import java.io.InputStream
-import java.io.Reader
-import java.util.*
+package com.github.mvysny.kaributools
 
-fun File.loadAsProperties(): Properties = absoluteFile.reader().loadAsProperties()
-fun InputStream.loadAsProperties(): Properties = use { stream -> Properties().apply { load(stream.buffered()) } }
-fun Reader.loadAsProperties(): Properties = use { stream -> Properties().apply { load(stream.buffered()) } }
+import org.tomlj.Toml
+import org.tomlj.TomlParseResult
+import java.io.File
+
+fun TomlParseResult.checkNoErrors(): TomlParseResult = apply {
+    check(!hasErrors()) { "TOML parsing failed: ${errors()}" }
+}
+fun File.parseToml(): TomlParseResult = Toml.parse(absoluteFile.toPath()).checkNoErrors()

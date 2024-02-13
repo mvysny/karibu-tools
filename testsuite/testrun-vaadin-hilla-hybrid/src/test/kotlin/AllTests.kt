@@ -17,7 +17,7 @@ class AllTests : DynaTest({
 
     test("hilla version") {
         val gradleProps: TomlTable = File("../../gradle/libs.versions.toml").parseToml()
-        val expectedHillaVersion: String = gradleProps["versions.hilla"] as String
+        val expectedHillaVersion: String = gradleProps["versions.hilla2next"] as String
         expect(expectedHillaVersion) { VaadinVersion.hilla.toString().replace('-', '.') }
     }
 

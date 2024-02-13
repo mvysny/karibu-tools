@@ -88,8 +88,3 @@ fun DynaNodeGroup.allTests() {
         validatorsTests()
     }
 }
-
-fun TomlParseResult.checkNoErrors(): TomlParseResult = apply {
-    check(!hasErrors()) { "TOML parsing failed: ${errors()}" }
-}
-fun File.parseToml(): TomlParseResult = Toml.parse(absoluteFile.toPath()).checkNoErrors()
