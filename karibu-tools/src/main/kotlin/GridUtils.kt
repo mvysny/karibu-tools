@@ -15,6 +15,7 @@ import com.vaadin.flow.shared.util.SharedUtil
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import kotlin.reflect.KProperty1
+import kotlin.streams.toList
 
 /**
  * Refreshes the Grid and re-polls for data.
