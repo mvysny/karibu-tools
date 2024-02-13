@@ -1,5 +1,5 @@
 dependencies {
-    testImplementation("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
+    testImplementation(libs.vaadin.v14.core) {
         // Webjars are only needed when running in Vaadin 13 compatibility mode
         listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
             "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",

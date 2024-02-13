@@ -1,6 +1,6 @@
 dependencies {
     api(project(":karibu-tools-23"))
-    testImplementation("com.vaadin:vaadin-core:${properties["vaadin23_version"]}")
+    testImplementation(libs.vaadin.v23.core)
     testImplementation(project(":testsuite:vaadin14")) {
         exclude(group = "com.vaadin")
     }

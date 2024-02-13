@@ -1,5 +1,5 @@
 dependencies {
-    testImplementation("com.vaadin:vaadin-core:${properties["vaadin22_version"]}") {
+    testImplementation(libs.vaadin.v22.core) {
         exclude(module = "fusion-endpoint") // exclude fusion: it brings tons of dependencies (including swagger)
     }
     testImplementation(project(":testsuite:vaadin14")) {

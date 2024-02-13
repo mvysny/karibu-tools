@@ -1,10 +1,10 @@
 dependencies {
     api(project(":testsuite:testbase"))
-    api("com.github.mvysny.kaributesting:karibu-testing-v10:${properties["karibu_testing_version"]}") {
+    api(libs.karibu.testing.v10) {
         exclude(module = "karibu-tools")
     }
 
-    api("com.vaadin:vaadin-core:${properties["vaadin14_version"]}") {
+    api(libs.vaadin.v14.core) {
         // Webjars are only needed when running in Vaadin 13 compatibility mode
         listOf("com.vaadin.webjar", "org.webjars.bowergithub.insites",
             "org.webjars.bowergithub.polymer", "org.webjars.bowergithub.polymerelements",

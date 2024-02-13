@@ -9,9 +9,9 @@ java {
 }
 
 dependencies {
-    testImplementation("com.vaadin:vaadin-core:${properties["vaadin24_version"]}")
+    testImplementation(libs.vaadin.v24next.core)
     testImplementation("dev.hilla:hilla:${properties["hilla_version"]}")
-    testImplementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
+    testImplementation(libs.jakarta.servletapi)
     testImplementation(project(":testsuite:vaadin14")) {
         exclude(group = "com.vaadin")
         exclude(group = "com.github.mvysny.kaributesting")
@@ -20,7 +20,7 @@ dependencies {
         exclude(group = "com.vaadin")
         exclude(group = "com.github.mvysny.kaributesting")
     }
-    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v24:${properties["karibu_testing24_version"]}") {
+    testImplementation(libs.karibu.testing.v24) {
         exclude(module = "karibu-tools")
     }
 }
