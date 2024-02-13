@@ -1,0 +1,29 @@
+[versions]
+slf4j = "2.0.11"
+junit5 = "5.9.3"
+# Check the newest Vaadin version at https://github.com/vaadin/platform/tags
+# This is the latest stable Vaadin 14 version, or prev stable version if vaadin14_next_version is stable
+vaadin14 = "14.11.2"
+# Latest Vaadin 14 version, may be unstable or stable
+vaadin14next = "14.11.2"
+# Vaadin 22: Don't test on Vaadin 22.1.0 and higher: it requires the pro license
+vaadin22 = "22.0.9"
+vaadin23 = "23.3.32"
+vaadin24 = "24.3.3"
+vaadin24next = "24.4.0.alpha2"
+
+[libraries]
+dynatest = "com.github.mvysny.dynatest:dynatest:0.24"
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+jakarta-servlet = "jakarta.servlet:jakarta.servlet-api:5.0.0"
+junit-jupiterapi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5" }
+vaadin-v14-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin14" }
+vaadin-v14next-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin14next" }
+vaadin-v22-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin22" }
+vaadin-v23-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin23" }
+vaadin-v24-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin24" }
+vaadin-v24next-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin24next" }
+jetbrains-annotations = "org.jetbrains:annotations:24.0.1"
+javax-servletapi = "javax.servlet:javax.servlet-api:4.0.1"
