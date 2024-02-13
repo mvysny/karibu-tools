@@ -2,6 +2,8 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
+import org.tomlj.Toml
+import org.tomlj.TomlParseResult
 import java.io.File
 import java.util.*
 
@@ -87,8 +89,7 @@ fun DynaNodeGroup.allTests() {
     }
 }
 
-fun File.loadAsProperties(): Properties {
-    val p = Properties()
-    absoluteFile.reader().use { p.load(it.buffered()) }
-    return p
+fun TomlParseResult.checkNoErrors(): TomlParseResult = apply {
+    check(!hasErrors()) { "TOML parsing failed: ${errors()}" }
 }
+fun File.parseToml(): TomlParseResult = Toml.parse(absoluteFile.toPath()).checkNoErrors()

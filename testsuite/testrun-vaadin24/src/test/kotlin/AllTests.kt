@@ -6,8 +6,8 @@ import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributools.*
 import com.vaadin.flow.component.HasPlaceholder
 import com.vaadin.flow.component.html.Div
+import org.tomlj.TomlTable
 import java.io.File
-import java.util.*
 import kotlin.test.expect
 
 class AllTests : DynaTest({
@@ -21,8 +21,8 @@ class AllTests : DynaTest({
     }
 
     test("vaadin version 2") {
-        val gradleProps: Properties = File("../../gradle.properties").loadAsProperties()
-        val expectedVaadinVersion: String = gradleProps["vaadin24_version"] as String
+        val gradleProps: TomlTable = File("../../gradle/libs.versions.toml").parseToml()
+        val expectedVaadinVersion: String = gradleProps["versions.vaadin24next"] as String
         expect(expectedVaadinVersion) { VaadinVersion.get.toString().replace('-', '.') }
     }
 

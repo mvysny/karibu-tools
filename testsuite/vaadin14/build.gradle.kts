@@ -11,4 +11,5 @@ dependencies {
             "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
             .forEach { exclude(group = it) }
     }
+    api(libs.toml4j)
 }

@@ -4,6 +4,7 @@ import allTests21
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributools.*
 import com.vaadin.flow.server.Platform
+import org.tomlj.TomlTable
 import java.io.File
 import java.util.*
 import kotlin.test.expect
@@ -15,14 +16,14 @@ class AllTests : DynaTest({
     }
 
     test("hilla version") {
-        val gradleProps: Properties = File("../../gradle.properties").loadAsProperties()
-        val expectedHillaVersion: String = gradleProps["hilla_version"] as String
+        val gradleProps: TomlTable = File("../../gradle/libs.versions.toml").parseToml()
+        val expectedHillaVersion: String = gradleProps["versions.hilla"] as String
         expect(expectedHillaVersion) { VaadinVersion.hilla.toString().replace('-', '.') }
     }
 
     test("vaadin version 2") {
-        val gradleProps: Properties = File("../../gradle.properties").loadAsProperties()
-        val expectedVaadinVersion: String = gradleProps["vaadin24_version"] as String
+        val gradleProps: TomlTable = File("../../gradle/libs.versions.toml").parseToml()
+        val expectedVaadinVersion: String = gradleProps["versions.vaadin24next"] as String
         expect(expectedVaadinVersion) { VaadinVersion.get.toString().replace('-', '.') }
     }
 
