@@ -10,7 +10,7 @@ java {
 
 dependencies {
     testImplementation(project(":testsuite:testbase"))
-    testImplementation("dev.hilla:hilla:${properties["hilla_version"]}")
+    testImplementation(libs.hilla.v2next)
 }
 
 // Vaadin 24 requires Java 17 or higher

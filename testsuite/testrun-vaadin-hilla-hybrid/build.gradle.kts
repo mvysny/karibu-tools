@@ -10,7 +10,7 @@ java {
 
 dependencies {
     testImplementation(libs.vaadin.v24next.core)
-    testImplementation("dev.hilla:hilla:${properties["hilla_version"]}")
+    testImplementation(libs.hilla.v2next)
     testImplementation(libs.jakarta.servletapi)
     testImplementation(project(":testsuite:vaadin14")) {
         exclude(group = "com.vaadin")
