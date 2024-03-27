@@ -104,16 +104,16 @@ public fun getRouteUrl(
  *
  * Tip: Use [getRouteUrl] to construct the [location] string.
  */
-public fun navigateTo(location: String) {
+public fun navigateTo(location: String, trigger: NavigationTrigger = NavigationTrigger.UI_NAVIGATE) {
     val ui = UI.getCurrent()!!
-    ui.internals.router.navigate(ui, Location(location), NavigationTrigger.UI_NAVIGATE)
+    ui.internals.router.navigate(ui, Location(location), trigger)
 }
 
 /**
  * Navigates to the target of this link; this only works for links within this app.
  */
-public fun RouterLink.navigateTo() {
-    navigateTo(href)
+public fun RouterLink.navigateTo(trigger: NavigationTrigger = NavigationTrigger.UI_NAVIGATE) {
+    navigateTo(href, trigger)
 }
 
 /**
@@ -126,7 +126,7 @@ private fun getRouter(): Router {
         router = VaadinService.getCurrent().router
     }
     if (router == null) {
-        throw IllegalStateException("Implicit router instance is not available. Use overloaded method with explicit router parameter.")
+        throw IllegalStateException("Implicit router instance is not available. Pass in the Router instance explicitly.")
     }
     return router
 }

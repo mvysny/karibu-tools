@@ -56,7 +56,7 @@ fun DynaNodeGroup.routerUtilsTests() {
         group("navigateToView") {
             test("reified") {
                 navigateTo<TestingView>()
-                _get<TestingView>()
+                _expectOne<TestingView>()
             }
             test("reified doesn't work on parametrized views") {
                 expectThrows(IllegalArgumentException::class, "requires a parameter") {
@@ -67,11 +67,22 @@ fun DynaNodeGroup.routerUtilsTests() {
             }
             test("class") {
                 navigateTo(TestingView::class)
-                _get<TestingView>()
+                _expectOne<TestingView>()
             }
             test("parametrized") {
                 navigateTo(TestingParametrizedView::class, 1L)
-                _get<TestingParametrizedView>()
+                _expectOne<TestingParametrizedView>()
+            }
+            test("String url") {
+                navigateTo("testingp/1")
+                _expectOne<TestingParametrizedView>()
+                expect(1L) { _get<TestingParametrizedView>().param }
+            }
+            test("String url honors navigation trigger") {
+                lateinit var trigger: NavigationTrigger
+                UI.getCurrent().addBeforeEnterListener { e -> trigger = e.trigger }
+                navigateTo("testingp/1", NavigationTrigger.PAGE_LOAD)
+                expect(NavigationTrigger.PAGE_LOAD) { trigger }
             }
         }
 
@@ -224,8 +235,9 @@ class TestingView : VerticalLayout()
 class TestingView2 : VerticalLayout()
 @Route("testingp")
 class TestingParametrizedView : VerticalLayout(), HasUrlParameter<Long> {
+    var param: Long? = null
     override fun setParameter(event: BeforeEvent, parameter: Long?) {
-        parameter!!
+        param = parameter!!
     }
 }
 @Route("testingp/with/subpath")
