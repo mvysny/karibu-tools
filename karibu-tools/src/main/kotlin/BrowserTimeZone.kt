@@ -36,6 +36,9 @@ public object BrowserTimeZone {
      * Does nothing if the [extendedClientDetails] has already been populated.
      *
      * Stores the [extendedClientDetails] into the session.
+     *
+     * The best way is to call this function right when
+     * [Vaadin Session is being initialized](https://vaadin.com/docs/v14/flow/advanced/tutorial-application-lifecycle.html).
      */
     public fun fetch() {
         if (extendedClientDetails == null) {
