@@ -3,6 +3,7 @@ package com.github.mvysny.kaributools
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.page.ExtendedClientDetails
 import com.vaadin.flow.server.VaadinSession
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -47,9 +48,17 @@ public object BrowserTimeZone {
      * UTC Time zone is going to be returned!
      *
      * This operation is instant since the time zone is stored in the session.
+     *
+     * Tips:
+     * * To convert [Instant] to [LocalDateTime], `LocalDate` or `LocalTime`, call [toLocalDateTime].
      */
     public val get: ZoneId
         get() = extendedClientDetails?.timeZone ?: ZoneOffset.UTC
+
+    /**
+     * Utility function which converts given [instant] to this browser's [LocalDateTime].
+     */
+    public fun toLocalDateTime(instant: Instant): LocalDateTime = instant.atZone(get).toLocalDateTime()
 
     /**
      * Returns the current [ExtendedClientDetails], which is stored in the current session.
