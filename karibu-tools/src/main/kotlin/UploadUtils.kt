@@ -1,6 +1,7 @@
 package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.upload.Upload
+import com.vaadin.flow.component.upload.UploadI18N
 import elemental.json.Json
 
 /**
@@ -22,3 +23,19 @@ public var Upload.isEnabled: Boolean
 public fun Upload.clear() {
     element.setPropertyJson("files", Json.createArray())
 }
+
+/**
+ * Gets/sets upload button caption.
+ */
+public var Upload.buttonCaption: String?
+    get() = i18n?.addFiles?.one
+    set(value) {
+        if (i18n == null) {
+            i18n = UploadI18N()
+        }
+        if (i18n.addFiles == null) {
+            i18n.addFiles = UploadI18N.AddFiles()
+        }
+        i18n.addFiles.one = value
+        i18n.addFiles.many = value
+    }

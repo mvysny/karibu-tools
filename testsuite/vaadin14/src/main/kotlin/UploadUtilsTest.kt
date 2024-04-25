@@ -37,4 +37,11 @@ fun DynaNodeGroup.uploadTests() {
             Upload().clear()
         }
     }
+
+    test("buttonCaption") {
+        expect(null) { Upload().buttonCaption }
+        val u = Upload()
+        u.buttonCaption = "foo"
+        expect("foo") { u.buttonCaption }
+    }
 }
