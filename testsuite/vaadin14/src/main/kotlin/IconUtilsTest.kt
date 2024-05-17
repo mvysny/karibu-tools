@@ -42,6 +42,16 @@ fun DynaNodeGroup.iconUtilsTests() {
             val icon = Icon(VaadinIcon.ABACUS)
             icon.iconName = null
             expect(null) { icon.iconName }
+            expect(null) { icon.element.getAttribute("icon") }
+        }
+
+        test("vaadin-h icon by default") {
+            val icon = Icon()
+            if (VaadinVersion.get.major == 24 && VaadinVersion.get.minor >= 4) {
+                expect(null) { icon.iconName }
+            } else {
+                expect(IconName.of(VaadinIcon.VAADIN_H)) { icon.iconName }
+            }
         }
     }
 }

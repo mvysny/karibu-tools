@@ -74,11 +74,11 @@ public data class IconName(val collection: String, val name: String) : Serializa
  */
 public var Icon.iconName: IconName?
     get() {
-        val icon: String = element.getAttribute("icon")
-        return IconName.fromString(icon)
+        val icon: String? = element.getAttribute("icon")
+        return if (icon == null) null else IconName.fromString(icon)
     }
     set(value) {
-        element.setAttribute("icon", value?.toString() ?: "")
+        element.setOrRemoveAttribute("icon", value?.toString())
     }
 
 public fun Icon.setIcon(icon: VaadinIcon?) {
