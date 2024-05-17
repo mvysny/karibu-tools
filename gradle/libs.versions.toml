@@ -3,9 +3,9 @@ slf4j = "2.0.12"
 junit5 = "5.10.2"
 # Check the newest Vaadin version at https://github.com/vaadin/platform/tags
 # This is the latest stable Vaadin 14 version, or prev stable version if vaadin14_next_version is stable
-vaadin14 = "14.11.7"
+vaadin14 = "14.11.10"
 # Latest Vaadin 14 version, may be unstable or stable
-vaadin14next = "14.11.7"
+vaadin14next = "14.11.10"
 # Vaadin 22: Don't test on Vaadin 22.1.0 and higher: it requires the pro license
 vaadin22 = "22.0.9"
 vaadin23 = "23.5.1"
