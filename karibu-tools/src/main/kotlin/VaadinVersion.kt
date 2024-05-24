@@ -45,7 +45,7 @@ public data class SemanticVersion(
     public fun isAtLeast(major: Int): Boolean = this.major >= major
     public fun isAtMost(major: Int): Boolean = this.major <= major
     @JvmOverloads
-    public fun isAtMost(major: Int, minor: Int, bugfix: Int = 0): Boolean = this <= SemanticVersion(major, minor, bugfix)
+    public fun isAtMost(major: Int, minor: Int, bugfix: Int = Int.MAX_VALUE): Boolean = this <= SemanticVersion(major, minor, bugfix)
 
     public companion object {
 

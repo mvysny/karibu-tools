@@ -98,11 +98,13 @@ class SemanticVersionTest : DynaTest({
         expect(true) { "14.3.0".v.isAtMost(15, 0) }
         expect(false) { "14.3.1".v.isAtMost(14, 0) }
         expect(true) { "14.3.1".v.isAtMost(14, 3, 1) }
-        expect(false) { "14.3.1".v.isAtMost(14, 3) }
+        expect(false) { "14.3.1".v.isAtMost(14, 3, 0) }
+        expect(true) { "14.3.1".v.isAtMost(14, 3) }
         expect(true) { "14.3.0-alpha1".v.isAtMost(14, 3) }
         expect(false) { "14.3.0-alpha1".v.isAtMost(13, 0) }
         expect(true) { "14.3.0-alpha1".v.isAtMost(14, 3, 1) }
-        expect(false) { "14.3.1-alpha1".v.isAtMost(14, 3) }
+        expect(false) { "14.3.1-alpha1".v.isAtMost(14, 3, 0) }
+        expect(true) { "14.3.1-alpha1".v.isAtMost(14, 3) }
         expect(true) { "14.3.1-alpha1".v.isAtMost(14, 3, 1) }
     }
 })
