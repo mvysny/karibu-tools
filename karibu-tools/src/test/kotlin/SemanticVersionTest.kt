@@ -35,7 +35,7 @@ class SemanticVersionTest : DynaTest({
         expect(true) { "14.3.1".v.isAtLeast(14, 2) }
         expect(true) { "14.3.1".v.isAtLeast(14, 3) }
         expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 2) }
-        expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 3) }
+        expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 3) }
         expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 4) }
     }
     test("is at least major,minor,bugfix") {
@@ -49,7 +49,8 @@ class SemanticVersionTest : DynaTest({
         expect(true) { "14.3.1".v.isAtLeast(14, 3, 1) }
         expect(false) { "14.3.1".v.isAtLeast(14, 3, 2) }
         expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 2, 0) }
-        expect(true) { "14.3.0-alpha1".v.isAtLeast(14, 3, 0) }
+        // yup: 14.3.0-alpha1 is not yet 14.3.0
+        expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 3, 0) }
         expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 3, 1) }
         expect(false) { "14.3.0-alpha1".v.isAtLeast(14, 4, 0) }
     }
@@ -79,5 +80,29 @@ class SemanticVersionTest : DynaTest({
         expect(false) { "14.3.1".v.isExactly(14, 2) }
         expect(true) { "14.3.0-alpha1".v.isExactly(14, 3) }
         expect(false) { "14.3.0-alpha1".v.isExactly(14, 2) }
+    }
+    test("is at most major") {
+        expect(true) { "14.3.0".v.isAtMost(14) }
+        expect(false) { "14.3.0".v.isAtMost(13) }
+        expect(true) { "14.3.0".v.isAtMost(15) }
+        expect(true) { "14.3.1".v.isAtMost(14) }
+        expect(false) { "14.3.1".v.isAtMost(13) }
+        expect(true) { "14.3.0-alpha1".v.isAtMost(14) }
+        expect(false) { "14.3.0-alpha1".v.isAtMost(13) }
+    }
+    test("is at most major,minor") {
+        expect(true) { "14.3.0".v.isAtMost(14, 3) }
+        expect(false) { "14.3.0".v.isAtMost(14, 2) }
+        expect(false) { "14.3.0".v.isAtMost(13, 5) }
+        expect(false) { "14.3.0".v.isAtMost(13, 2) }
+        expect(true) { "14.3.0".v.isAtMost(15, 0) }
+        expect(false) { "14.3.1".v.isAtMost(14, 0) }
+        expect(true) { "14.3.1".v.isAtMost(14, 3, 1) }
+        expect(false) { "14.3.1".v.isAtMost(14, 3) }
+        expect(true) { "14.3.0-alpha1".v.isAtMost(14, 3) }
+        expect(false) { "14.3.0-alpha1".v.isAtMost(13, 0) }
+        expect(true) { "14.3.0-alpha1".v.isAtMost(14, 3, 1) }
+        expect(false) { "14.3.1-alpha1".v.isAtMost(14, 3) }
+        expect(true) { "14.3.1-alpha1".v.isAtMost(14, 3, 1) }
     }
 })
