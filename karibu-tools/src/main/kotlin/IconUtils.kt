@@ -10,7 +10,7 @@ import java.io.Serializable
  * @property collection the icon collection name. `vaadin` collection is provided by
  * default and you can find all icons here: https://vaadin.com/components/vaadin-icons .
  * TODO how to add more collections?
- * @property name the icon name
+ * @property name the icon name, e.g. "abacus"
  */
 public data class IconName(val collection: String, val name: String) : Serializable {
     init {
@@ -54,6 +54,7 @@ public data class IconName(val collection: String, val name: String) : Serializa
         /**
          * Gets the icon name from given [vaadinIcon].
          */
+        @JvmStatic
         public fun of(vaadinIcon: VaadinIcon): IconName =
             IconName("vaadin", vaadinIcon.name.lowercase().replace('_', '-'))
 
@@ -61,9 +62,16 @@ public data class IconName(val collection: String, val name: String) : Serializa
          * Parses the [toString] string representation. Returns null if the [iconName] is not in the expected format.
          * @param iconName string representation in the form of `collection:name`.
          */
+        @JvmStatic
         public fun fromString(iconName: String): IconName? {
             val iconPair: List<String> = iconName.split(':')
             return if (iconPair.size == 2) IconName(iconPair[0], iconPair[1]) else null
+        }
+
+        @JvmStatic
+        public fun fromComponent(icon: Icon): IconName? {
+            val iconName: String? = icon.element.getAttribute("icon")
+            return iconName?.let { fromString(it) }
         }
     }
 }
@@ -73,10 +81,7 @@ public data class IconName(val collection: String, val name: String) : Serializa
  * if no icon is set.
  */
 public var Icon.iconName: IconName?
-    get() {
-        val icon: String? = element.getAttribute("icon")
-        return if (icon == null) null else IconName.fromString(icon)
-    }
+    get() = IconName.fromComponent(this)
     set(value) {
         element.setOrRemoveAttribute("icon", value?.toString())
     }
