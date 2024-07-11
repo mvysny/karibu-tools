@@ -300,6 +300,8 @@ Since 0.18; depend on `karibu-tools-v23` to gain access to these utility functio
 * `TabSheet.getTab()` returns `Tab` for its content component (TabSheet only)
 * `TabSheet.findTabContaining()` returns `Tab` which transitively contains given component.
 
+Java: use `TabSheetsKt.getTab()` etc.
+
 # License
 
 Licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
