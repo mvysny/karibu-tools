@@ -18,7 +18,7 @@ dependencies {
 }
 ```
 
-> Note: for Vaadin 23+, depend on `karibu-tools-v23` instead, to bring some additional utilities.
+> Note: for Vaadin 23+, depend on `karibu-tools-23` instead, to bring some additional utilities.
 
 See the tag above for the latest version.
 
@@ -288,7 +288,7 @@ it will accept any HTML snippet and will set it as an `innerHTML` to a `<span>` 
 
 ### TabSheet
 
-Since 0.18; depend on `karibu-tools-v23` to gain access to these utility functions.
+Since 0.18; depend on `karibu-tools-23` to gain access to these utility functions.
 
 * Use `Tab.index` to obtain the index of the tab.
 * `Tab.owner` returns the `Tabs` owning this tab
