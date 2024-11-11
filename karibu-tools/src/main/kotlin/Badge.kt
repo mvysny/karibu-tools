@@ -36,6 +36,7 @@ public class Badge(text: String? = null) : Span(), HasTheme {
 public enum class BadgeVariant(public val variantName: String) {
     PRIMARY("primary"),
     SUCCESS("success"),
+    WARNING("warning"),
     ERROR("error"),
     CONTRAST("contrast"),
     PILL("pill"),
