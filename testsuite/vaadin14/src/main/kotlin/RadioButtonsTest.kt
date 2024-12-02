@@ -1,6 +1,5 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.getItemLabels
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup
 import com.vaadin.flow.data.provider.DataProvider

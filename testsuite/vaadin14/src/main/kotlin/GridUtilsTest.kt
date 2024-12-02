@@ -1,9 +1,5 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
-import com.github.mvysny.dynatest.expectList
-import com.github.mvysny.dynatest.expectThrows
 import com.github.mvysny.kaributesting.v10._fetch
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.html.Span
@@ -13,6 +9,7 @@ import com.vaadin.flow.data.provider.QuerySortOrder
 import com.vaadin.flow.data.provider.SortDirection
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.streams.toList
 import kotlin.test.expect
 
@@ -99,7 +96,7 @@ abstract class AbstractGridUtilsTests {
             expect(fullNameColumn) { getColumnBySortProperty("a") }
             expect(fullNameColumn) { getColumnBySortProperty("b") }
             expect(fullNameColumn) { getColumnBySortProperty("c") }
-            expectThrows<IllegalArgumentException> { getColumnBySortProperty(Person::fullName.name) }
+            assertThrows<IllegalArgumentException> { getColumnBySortProperty(Person::fullName.name) }
         }
     }
 

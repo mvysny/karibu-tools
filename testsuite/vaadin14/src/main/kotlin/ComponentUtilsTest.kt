@@ -1,8 +1,5 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
-import com.github.mvysny.dynatest.expectThrows
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._text
 import com.vaadin.flow.component.Component
@@ -27,6 +24,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.streams.toList
 import kotlin.test.expect
 
@@ -241,9 +239,10 @@ abstract class AbstractComponentUtilsTests() {
         expect("") { (c as Component).placeholder }
         c = Button() // doesn't support placeholder
         expect(null) { (c as Component).placeholder }
-        expectThrows(IllegalStateException::class, "Button doesn't support setting placeholder") {
+        val ex = assertThrows<IllegalStateException> {
             (c as Component).placeholder = "foo"
         }
+        expect("Button doesn't support setting placeholder") { ex.message }
         c = Input() // test incoming incompatible change in getPlaceholder() from Optional<String> to String
         expect("") { (c as Component).placeholder ?: "" }
         (c as Component).placeholder = "foo"

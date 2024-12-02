@@ -1,7 +1,5 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.*
-import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.*
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.html.Anchor
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.expect
 
 abstract class AbstractRouterUtilsTests {
@@ -21,9 +20,10 @@ abstract class AbstractRouterUtilsTests {
             expect("bar") { QueryParameters("foo=bar")["foo"] }
         }
         @Test fun `get fails with multiple parameters`() {
-            expectThrows(IllegalStateException::class, "Multiple values present for foo: [bar, baz]") {
+            val ex = assertThrows<IllegalStateException> {
                 QueryParameters("foo=bar&foo=baz")["foo"]
             }
+            expect("Multiple values present for foo: [bar, baz]") { ex.message }
         }
         @Test fun getValues() {
             expectList() { QueryParameters.empty().getValues("foo") }
@@ -62,10 +62,11 @@ abstract class AbstractRouterUtilsTests {
                 _expectOne<TestingView>()
             }
             @Test fun `reified doesn't work on parametrized views`() {
-                expectThrows(IllegalArgumentException::class, "requires a parameter") {
+                val ex = assertThrows<IllegalArgumentException> {
                     // it fails somewhere deeply in Vaadin Flow
                     navigateTo<TestingParametrizedView>()
                 }
+                expect("requires a parameter") { ex.message }
                 _expectNone<TestingParametrizedView>()
             }
             @Test fun `class`() {
@@ -97,9 +98,10 @@ abstract class AbstractRouterUtilsTests {
                 expect("testing") { RouterLink( "foo", TestingView::class.java).href }
             }
             @Test fun `parametrized target with missing param`() {
-                expectThrows(IllegalArgumentException::class, "requires a parameter") {
+                val ex = assertThrows<IllegalArgumentException> {
                     RouterLink("foo", TestingParametrizedView::class.java)
                 }
+                expect("requires a parameter") { ex.message }
             }
             @Test fun `parametrized target`() {
                 expect("testingp/1") { RouterLink("foo", TestingParametrizedView::class.java, 1L).href }
@@ -124,9 +126,10 @@ abstract class AbstractRouterUtilsTests {
                 expect("testing?foo=bar") { getRouteUrl(TestingView::class, "foo=bar") }
             }
             @Test fun `parametrized target with missing param`() {
-                expectThrows(IllegalArgumentException::class, "requires a parameter") {
+                val ex = assertThrows<IllegalArgumentException> {
                     getRouteUrl(TestingParametrizedView::class)
                 }
+                expect("requires a parameter") { ex.message }
             }
         }
 

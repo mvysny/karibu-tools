@@ -1,6 +1,5 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._expectNone
 import com.github.mvysny.kaributesting.v10._expectOne

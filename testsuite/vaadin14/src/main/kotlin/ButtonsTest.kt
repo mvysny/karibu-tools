@@ -1,6 +1,5 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.expectList
 import com.vaadin.flow.component.button.Button
 import org.junit.jupiter.api.Test
 import kotlin.test.expect
