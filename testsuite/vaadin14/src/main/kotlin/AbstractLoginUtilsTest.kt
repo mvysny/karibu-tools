@@ -1,26 +1,20 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
-import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.vaadin.flow.component.login.AbstractLogin
 import com.vaadin.flow.component.login.LoginForm
 import com.vaadin.flow.component.login.LoginI18n
 import com.vaadin.flow.component.login.LoginOverlay
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-@DynaTestDsl
-fun DynaNodeGroup.abstractLoginUtilsTests() {
-    group("LoginForm") {
-        loginTests { LoginForm() }
-    }
-    group("LoginOverlay") {
-        loginTests { LoginOverlay() }
-    }
+abstract class AbstractLoginUtilsTests {
+    @Nested inner class loginForm : AbstractLoginTests({ LoginForm() })
+    @Nested inner class loginOverlay : AbstractLoginTests({ LoginOverlay() })
 }
 
-private fun DynaNodeGroup.loginTests(provider: () -> AbstractLogin) {
-    test("smoke") {
+abstract class AbstractLoginTests(val provider: () -> AbstractLogin) {
+    @Test fun smoke() {
         val form = provider()
         form.setErrorMessage("title", "msg")
         expect(true) { form.isError }
@@ -28,7 +22,7 @@ private fun DynaNodeGroup.loginTests(provider: () -> AbstractLogin) {
         expect("msg") { form.i18n!!.errorMessage.message }
     }
 
-    test("null i18n") {
+    @Test fun `null i18n`() {
         // a bit of a corner-case since LoginForm sets the LoginI18n.createDefault()
         // and there is no point in setting null i18n...
         val form = provider()
@@ -40,7 +34,7 @@ private fun DynaNodeGroup.loginTests(provider: () -> AbstractLogin) {
         expect("msg") { form.i18n!!.errorMessage.message }
     }
 
-    test("setting title+message preserves other values") {
+    @Test fun `setting title+message preserves other values`() {
         val form = provider()
         form.i18n = LoginI18n().apply {
             header = LoginI18n.Header().apply {
