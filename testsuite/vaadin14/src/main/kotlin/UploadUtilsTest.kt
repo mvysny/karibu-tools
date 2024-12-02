@@ -1,24 +1,25 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.vaadin.flow.component.upload.Upload
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-@DynaTestDsl
-fun DynaNodeGroup.uploadTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
+abstract class AbstractUploadTests() {
+    @BeforeEach fun fakeVaadin() { MockVaadin.setup() }
+    @AfterEach fun tearDownVaadin() { MockVaadin.tearDown() }
 
-    group("isEnabled") {
-        test("enabled by default") {
+    @Nested inner class isEnabled {
+        @Test fun `enabled by default`() {
             val upload = Upload()
             upload.maxFiles = 1
             expect(true) { upload.isEnabled }
         }
 
-        test("disable sets max files to 0") {
+        @Test fun `disable sets max files to 0`() {
             val upload = Upload()
             upload.isEnabled = false
             expect(false) { upload.isEnabled }
@@ -32,13 +33,13 @@ fun DynaNodeGroup.uploadTests() {
         }
     }
 
-    group("clear") {
-        test("smoke") {
+    @Nested inner class clear {
+        @Test fun smoke() {
             Upload().clear()
         }
     }
 
-    test("buttonCaption") {
+    @Test fun buttonCaption() {
         expect(null) { Upload().buttonCaption }
         val u = Upload()
         u.buttonCaption = "foo"
