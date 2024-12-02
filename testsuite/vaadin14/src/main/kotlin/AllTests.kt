@@ -81,11 +81,5 @@ abstract class AbstractAllTests {
             expect(1) { clicked }
         }
     }
-}
-
-@DynaTestDsl
-fun DynaNodeGroup.allTests() {
-    group("Validators") {
-        validatorsTests()
-    }
+    @Nested inner class ValidatorsTests : AbstractValidatorsTests()
 }
