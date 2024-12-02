@@ -3,10 +3,12 @@ package com.github.mvysny.kaributools
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
+import com.vaadin.flow.data.provider.ListDataProvider
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import kotlin.test.expect
 
 abstract class AbstractAllTests {
     @Nested class BrowserTimeZoneTests {
@@ -22,16 +24,17 @@ abstract class AbstractAllTests {
     }
     @Nested inner class ComponentUtilsTests : AbstractComponentUtilsTests()
     @Nested inner class ButtonsTests : AbstractButtonsTests()
+    @Nested inner class DataProviderUtilsTests {
+        @Test fun fetchAll() {
+            val list = (0..10000).toList()
+            expect(list) { ListDataProvider(list).fetchAll() }
+        }
+    }
+    @Nested inner class depthFirstTreeIteratorTests : AbstractDepthFirstTreeIteratorTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Data Provider Utils") {
-        dataProviderUtilsTests()
-    }
-    group("Depth First Tree Iterator") {
-        depthFirstTreeIteratorTests()
-    }
     group("Dialog Utils") {
         dialogUtilsTests()
     }
