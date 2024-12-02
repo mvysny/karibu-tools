@@ -1,32 +1,32 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTest
-import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10._expectNone
 import com.github.mvysny.kaributesting.v10._expectOne
 import com.vaadin.flow.component.dialog.Dialog
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-@DynaTestDsl
-fun DynaNodeGroup.dialogUtilsTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
+abstract class AbstractDialogUtilsTests() {
+    @BeforeEach fun fakeVaadin() { MockVaadin.setup() }
+    @AfterEach fun tearDownVaadin() { MockVaadin.tearDown() }
 
-    test("no dialogs initially") {
+    @Test fun `no dialogs initially`() {
         expectList() { getAllDialogs() }
     }
 
-    test("simple dialog") {
+    @Test fun `simple dialog`() {
         val dialog = Dialog()
         dialog.open()
         _expectOne<Dialog>()
         expectList(dialog) { getAllDialogs() }
     }
 
-    test("closed dialog won't show up in getAllDialogs()") {
+    @Test fun `closed dialog won't show up in getAllDialogs()`() {
         val dialog = Dialog()
         dialog.open()
         _expectOne<Dialog>()
@@ -35,8 +35,8 @@ fun DynaNodeGroup.dialogUtilsTests() {
         expectList() { getAllDialogs() }
     }
 
-    group("center") {
-        test("smoke") {
+    @Nested inner class center {
+        @Test fun smoke() {
             val dialog = Dialog()
             dialog.center()
             dialog.width = "250px"
@@ -45,8 +45,8 @@ fun DynaNodeGroup.dialogUtilsTests() {
         }
     }
 
-    group("requestClose()") {
-        test("no close action event") {
+    @Nested inner class requestClose {
+        @Test fun `no close action event`() {
             val dialog = Dialog()
             dialog.open()
             dialog.requestClose()
@@ -54,7 +54,7 @@ fun DynaNodeGroup.dialogUtilsTests() {
             expect(false) { dialog.isOpened }
         }
 
-        test("with close action event") {
+        @Test fun `with close action event`() {
             val dialog = Dialog()
             dialog.open()
             var listenerCalled = false

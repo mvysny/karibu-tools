@@ -31,13 +31,11 @@ abstract class AbstractAllTests {
         }
     }
     @Nested inner class depthFirstTreeIteratorTests : AbstractDepthFirstTreeIteratorTests()
+    @Nested inner class DialogUtilsTests : AbstractDialogUtilsTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Dialog Utils") {
-        dialogUtilsTests()
-    }
     group("Element Utils") {
         elementUtilsTests()
     }
