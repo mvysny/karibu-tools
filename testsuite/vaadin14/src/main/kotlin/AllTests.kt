@@ -3,6 +3,8 @@ package com.github.mvysny.kaributools
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
+import com.vaadin.flow.component.icon.VaadinIcon
+import com.vaadin.flow.component.menubar.MenuBar
 import com.vaadin.flow.data.provider.ListDataProvider
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -35,13 +37,17 @@ abstract class AbstractAllTests {
     @Nested inner class ElementUtilsTests : AbstractElementUtilsTests()
     @Nested inner class GridUtilsTests : AbstractGridUtilsTests()
     @Nested inner class IconUtilsTests : AbstractIconUtilsTests()
+    @Nested inner class MenuBarUtilsTests {
+        @Test fun smoke() {
+            MenuBar().close()
+            MenuBar().addIconItem(VaadinIcon.ABACUS.create()).subMenu.addIconItem(VaadinIcon.MENU.create())
+            MenuBar().addIconItem(VaadinIcon.ABACUS.create(), "Foo").subMenu.addIconItem(VaadinIcon.MENU.create(), "Bar")
+        }
+    }
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Menu Bar Utils") {
-        menuBarUtilsTests()
-    }
     group("Router Utils") {
         routerUtilsTests()
     }
