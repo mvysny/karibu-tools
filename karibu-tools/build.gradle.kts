@@ -23,7 +23,9 @@ dependencies {
                 "org.webjars.bowergithub.vaadin", "org.webjars.bowergithub.webcomponents")
                 .forEach { exclude(group = it) }
     }
-    testImplementation(libs.dynatest)
+    testImplementation(libs.junit5)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(kotlin("test"))
     testImplementation(libs.slf4j.simple)
 }
 
