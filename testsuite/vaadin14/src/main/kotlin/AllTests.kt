@@ -55,13 +55,11 @@ abstract class AbstractAllTests {
         }
     }
     @Nested inner class TextFieldUtilsTests : AbstractTextFieldUtilsTests()
+    @Nested inner class RenderersTests : AbstractRenderersTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Renderers") {
-        renderersTests()
-    }
     group("Notifications") {
         notificationsTests()
     }
