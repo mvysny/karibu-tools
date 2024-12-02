@@ -65,13 +65,16 @@ abstract class AbstractAllTests {
     @Nested inner class LabelWrapperTests : AbstractLabelWrapperTests()
     @Nested inner class SelectsTests : AbstractSelectsTests()
     @Nested inner class ListBoxTests : AbstractListBoxTests()
+    @Nested inner class BadgeTests {
+        @Test fun smoke() {
+            Badge()
+            Badge("Foo").addThemeVariants(BadgeVariant.PRIMARY, BadgeVariant.ERROR, BadgeVariant.SMALL, BadgeVariant.PILL)
+        }
+    }
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Badge") {
-        badgeTests()
-    }
     group("Checkbox") {
         checkboxesTests()
     }
