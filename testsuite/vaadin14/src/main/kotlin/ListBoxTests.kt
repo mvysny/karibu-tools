@@ -1,26 +1,25 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.getRenderedItems
 import com.vaadin.flow.component.listbox.ListBox
 import com.vaadin.flow.component.listbox.ListBoxBase
 import com.vaadin.flow.component.listbox.MultiSelectListBox
 import com.vaadin.flow.data.provider.DataProvider
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 
-@DynaTestDsl
-fun DynaNodeGroup.listBoxTests() {
-    group("ListBox") {
-        test("setItemLabelGenerator()") {
+abstract class AbstractListBoxTests() {
+    @Nested inner class listBox {
+        @Test fun setItemLabelGenerator() {
             val lb = ListBox<String>()
             lb.setItems2("1", "2", "3")
             lb.setItemLabelGenerator { "item $it" }
             expectList("item 1", "item 2", "item 3") { lb.getRenderedItems() }
         }
     }
-    group("MultiSelectListBox") {
-        test("setItemLabelGenerator()") {
+    @Nested inner class multiSelectListBox {
+        @Test fun setItemLabelGenerator() {
             val lb = MultiSelectListBox<String>()
             lb.setItems2("1", "2", "3")
             lb.setItemLabelGenerator { "item $it" }
