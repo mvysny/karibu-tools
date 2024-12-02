@@ -8,39 +8,42 @@ import com.vaadin.flow.component.html.Anchor
 import com.vaadin.flow.component.html.AnchorTarget
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-@DynaTestDsl
-fun DynaNodeGroup.routerUtilsTests() {
-    group("QueryParameters") {
-        test("get") {
+abstract class AbstractRouterUtilsTests {
+    @Nested inner class queryParameters {
+        @Test fun get() {
             expect(null) { QueryParameters.empty()["foo"] }
             expect("bar") { QueryParameters("foo=bar")["foo"] }
         }
-        test("get fails with multiple parameters") {
+        @Test fun `get fails with multiple parameters`() {
             expectThrows(IllegalStateException::class, "Multiple values present for foo: [bar, baz]") {
                 QueryParameters("foo=bar&foo=baz")["foo"]
             }
         }
-        test("getValues") {
+        @Test fun getValues() {
             expectList() { QueryParameters.empty().getValues("foo") }
             expectList("bar") { QueryParameters("foo=bar")
                 .getValues("foo") }
             expectList("bar", "baz") { QueryParameters("foo=bar&foo=baz")
                 .getValues("foo") }
         }
-        test("isEmpty") {
+        @Test fun isEmpty() {
             expect(true) { QueryParameters.empty().isEmpty }
             expect(false) { QueryParameters("foo=bar").isEmpty }
         }
-        test("isNotEmpty") {
+        @Test fun isNotEmpty() {
             expect(false) { QueryParameters.empty().isNotEmpty }
             expect(true) { QueryParameters("foo=bar").isNotEmpty }
         }
     }
 
-    group("navigation tests") {
-        beforeEach {
+    @Nested inner class `navigation tests` {
+        @BeforeEach fun fakeVaadin() {
             MockVaadin.setup(Routes().apply { routes.addAll(listOf(
                 TestingView::class.java,
                 TestingParametrizedView::class.java,
@@ -51,34 +54,34 @@ fun DynaNodeGroup.routerUtilsTests() {
             _expectNone<TestingView>()
             _expectNone<TestingParametrizedView>()
         }
-        afterEach { MockVaadin.tearDown() }
+        @AfterEach fun tearDownVaadin() { MockVaadin.tearDown() }
 
-        group("navigateToView") {
-            test("reified") {
+        @Nested inner class navigateToView {
+            @Test fun reified() {
                 navigateTo<TestingView>()
                 _expectOne<TestingView>()
             }
-            test("reified doesn't work on parametrized views") {
+            @Test fun `reified doesn't work on parametrized views`() {
                 expectThrows(IllegalArgumentException::class, "requires a parameter") {
                     // it fails somewhere deeply in Vaadin Flow
                     navigateTo<TestingParametrizedView>()
                 }
                 _expectNone<TestingParametrizedView>()
             }
-            test("class") {
+            @Test fun `class`() {
                 navigateTo(TestingView::class)
                 _expectOne<TestingView>()
             }
-            test("parametrized") {
+            @Test fun parametrized() {
                 navigateTo(TestingParametrizedView::class, 1L)
                 _expectOne<TestingParametrizedView>()
             }
-            test("String url") {
+            @Test fun `String url`() {
                 navigateTo("testingp/1")
                 _expectOne<TestingParametrizedView>()
                 expect(1L) { _get<TestingParametrizedView>().param }
             }
-            test("String url honors navigation trigger") {
+            @Test fun `String url honors navigation trigger`() {
                 lateinit var trigger: NavigationTrigger
                 UI.getCurrent().addBeforeEnterListener { e -> trigger = e.trigger }
                 navigateTo("testingp/1", NavigationTrigger.PAGE_LOAD)
@@ -86,49 +89,49 @@ fun DynaNodeGroup.routerUtilsTests() {
             }
         }
 
-        group("routerLinks") {
-            test("no target") {
+        @Nested inner class routerLinks {
+            @Test fun `no target`() {
                 expect("") { RouterLink().href }
             }
-            test("simple target") {
+            @Test fun `simple target`() {
                 expect("testing") { RouterLink( "foo", TestingView::class.java).href }
             }
-            test("parametrized target with missing param") {
+            @Test fun `parametrized target with missing param`() {
                 expectThrows(IllegalArgumentException::class, "requires a parameter") {
                     RouterLink("foo", TestingParametrizedView::class.java)
                 }
             }
-            test("parametrized target") {
+            @Test fun `parametrized target`() {
                 expect("testingp/1") { RouterLink("foo", TestingParametrizedView::class.java, 1L).href }
             }
-            test("navigateTo") {
+            @Test fun navigateTo() {
                 RouterLink("foo", TestingView::class.java).navigateTo()
                 _expectOne<TestingView>()
             }
         }
 
-        group("getRouteUrl") {
-            test("no target") {
+        @Nested inner class getRouteUrl() {
+            @Test fun `no target`() {
                 expect("") { getRouteUrl(RootView::class) }
             }
-            test("no target + query parameters") {
+            @Test fun `no target + query parameters`() {
                 expect("?foo=bar") { getRouteUrl(RootView::class, "foo=bar") }
             }
-            test("simple target") {
+            @Test fun `simple target`() {
                 expect("testing") { getRouteUrl(TestingView::class) }
             }
-            test("simple target + query parameters") {
+            @Test fun `simple target + query parameters`() {
                 expect("testing?foo=bar") { getRouteUrl(TestingView::class, "foo=bar") }
             }
-            test("parametrized target with missing param") {
+            @Test fun `parametrized target with missing param`() {
                 expectThrows(IllegalArgumentException::class, "requires a parameter") {
                     getRouteUrl(TestingParametrizedView::class)
                 }
             }
         }
 
-        group("routeClass") {
-            test("navigating to root view") {
+        @Nested inner class routeClass {
+            @Test fun `navigating to root view`() {
                 navigateTo<TestingView>()
                 var called = false
                 UI.getCurrent().addAfterNavigationListener {
@@ -138,7 +141,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                 navigateTo<RootView>()
                 expect(true) { called }
             }
-            test("navigating to TestingView") {
+            @Test fun `navigating to TestingView`() {
                 var called = false
                 UI.getCurrent().addAfterNavigationListener {
                     called = true
@@ -147,7 +150,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                 navigateTo<TestingView>()
                 expect(true) { called }
             }
-            test("navigating to TestingView2") {
+            @Test fun `navigating to TestingView2`() {
                 var called = false
                 UI.getCurrent().addAfterNavigationListener {
                     called = true
@@ -156,7 +159,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                 navigateTo<TestingView>()
                 expect(true) { called }
             }
-            test("navigating to TestingParametrizedView") {
+            @Test fun `navigating to TestingParametrizedView`() {
                 var called = false
                 UI.getCurrent().addAfterNavigationListener {
                     called = true
@@ -165,7 +168,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                 navigateTo(TestingParametrizedView::class, 25L)
                 expect(true) { called }
             }
-            test("navigating to TestingParametrizedView2") {
+            @Test fun `navigating to TestingParametrizedView2`() {
                 var called = false
                 UI.getCurrent().addAfterNavigationListener {
                     called = true
@@ -174,7 +177,7 @@ fun DynaNodeGroup.routerUtilsTests() {
                 navigateTo(TestingParametrizedView2::class, 25L)
                 expect(true) { called }
             }
-            test("location") {
+            @Test fun location() {
                 expect(RootView::class.java) { Location("").getRouteClass() }
                 expect(TestingView::class.java) { Location("testing").getRouteClass() }
                 expect(TestingView2::class.java) { Location("testing/foo/bar").getRouteClass() }
@@ -185,7 +188,7 @@ fun DynaNodeGroup.routerUtilsTests() {
             }
         }
 
-        test("UI.currentViewLocation") {
+        @Test fun `UI-currentViewLocation`() {
             var expectedLocation = if (VaadinVersion.get.major > 14) "" else "."
             var expectedLocationBefore = expectedLocation
             UI.getCurrent().addBeforeLeaveListener {
@@ -205,7 +208,7 @@ fun DynaNodeGroup.routerUtilsTests() {
             expectedLocationBefore = "testing"
         }
     }
-    test("RouterLink.target") {
+    @Test fun `RouterLink-target`() {
         val rl = RouterLink()
         rl.target = AnchorTarget.DEFAULT
         expect(AnchorTarget.DEFAULT) { rl.target }
@@ -214,7 +217,7 @@ fun DynaNodeGroup.routerUtilsTests() {
         rl.target = AnchorTarget.DEFAULT
         expect(AnchorTarget.DEFAULT) { rl.target }
     }
-    test("Anchor.target_") {
+    @Test fun `Anchor-target_`() {
         val rl = Anchor()
         expect(AnchorTarget.DEFAULT) { rl.target_ }
         rl.target_ = AnchorTarget.DEFAULT

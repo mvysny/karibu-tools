@@ -44,13 +44,11 @@ abstract class AbstractAllTests {
             MenuBar().addIconItem(VaadinIcon.ABACUS.create(), "Foo").subMenu.addIconItem(VaadinIcon.MENU.create(), "Bar")
         }
     }
+    @Nested inner class RouterUtilsTests : AbstractRouterUtilsTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Router Utils") {
-        routerUtilsTests()
-    }
     group("Shortcuts") {
         shortcutsTests()
     }
