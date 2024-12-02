@@ -34,13 +34,11 @@ abstract class AbstractAllTests {
     @Nested inner class DialogUtilsTests : AbstractDialogUtilsTests()
     @Nested inner class ElementUtilsTests : AbstractElementUtilsTests()
     @Nested inner class GridUtilsTests : AbstractGridUtilsTests()
+    @Nested inner class IconUtilsTests : AbstractIconUtilsTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Icon Utils") {
-        iconUtilsTests()
-    }
     group("Menu Bar Utils") {
         menuBarUtilsTests()
     }
