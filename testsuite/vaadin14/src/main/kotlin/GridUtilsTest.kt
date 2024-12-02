@@ -11,13 +11,14 @@ import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.data.provider.ListDataProvider
 import com.vaadin.flow.data.provider.QuerySortOrder
 import com.vaadin.flow.data.provider.SortDirection
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import kotlin.streams.toList
 import kotlin.test.expect
 
-@DynaTestDsl
-fun DynaNodeGroup.gridUtilsTests() {
-    group("addColumnFor tests") {
-        test("grid addColumnFor works both for nullable and non-null properties") {
+abstract class AbstractGridUtilsTests {
+    @Nested inner class `addColumnFor tests` {
+        @Test fun `grid addColumnFor works both for nullable and non-null properties`() {
             data class TestingClass(var foo: String?, var bar: String, var nonComparable: List<String>)
             Grid<TestingClass>().apply {
                 addColumnFor(TestingClass::foo)   // this must compile
@@ -26,7 +27,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             }
         }
 
-        test("sets column by default to sortable") {
+        @Test fun `sets column by default to sortable`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
             }
@@ -35,7 +36,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             }
         }
 
-        test("column header is set properly") {
+        @Test fun `column header is set properly`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
                 addColumnFor(Person::alive)
@@ -48,8 +49,8 @@ fun DynaNodeGroup.gridUtilsTests() {
 
     }
 
-    group("sort") {
-        test("sorting by column also works with in-memory container") {
+    @Nested inner class sort {
+        @Test fun `sorting by column also works with in-memory container`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
                 setItems2((0..9).map { Person(fullName = it.toString()) })
@@ -59,7 +60,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             expect((9 downTo 0).map { it.toString() }) { grid._fetch(0, 1000).map { it.fullName } }
         }
 
-        test("sorting by column also works with in-memory container 2") {
+        @Test fun `sorting by column also works with in-memory container 2`() {
             val grid = Grid<Person>().apply {
                 addColumnFor<Person, String>("fullName")
                 setItems2((0..9).map { Person(fullName = it.toString()) })
@@ -69,7 +70,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             expect((9 downTo 0).map { it.toString() }) { grid._fetch(0, 1000).map { it.fullName } }
         }
 
-        test("sorting by column also works with in-memory container 3") {
+        @Test fun `sorting by column also works with in-memory container 3`() {
             val grid = Grid<Person>().apply {
                 val fullNameColumn = addColumnFor(Person::fullName)
                 setItems2((0..9).map { Person(fullName = it.toString()) })
@@ -79,7 +80,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             expect((9 downTo 0).map { it.toString() }) { grid._fetch(0, 1000).map { it.fullName } }
         }
 
-        test("sort(QuerySortOrder) honors sorting property") {
+        @Test fun `sort(QuerySortOrder) honors sorting property`() {
             val grid = Grid<Person>().apply {
                 val fullNameColumn = addColumnFor(Person::fullName).apply { setSortProperty("a") }
                 setItems2((0..9).map { Person(fullName = it.toString()) })
@@ -90,7 +91,7 @@ fun DynaNodeGroup.gridUtilsTests() {
         }
     }
 
-    test("getColumnBySortProperty") {
+    @Test fun getColumnBySortProperty() {
         Grid<Person>().apply {
             val fullNameColumn = addColumnFor(Person::fullName).apply {
                 setSortProperty("a", "b", "c")
@@ -102,7 +103,7 @@ fun DynaNodeGroup.gridUtilsTests() {
         }
     }
 
-    test("column isExpand") {
+    @Test fun `column isExpand`() {
         val grid = Grid<Person>()
         val col = grid.addColumnFor(Person::alive)
         expect(1) { col.flexGrow }  // by default the flexGrow is 1
@@ -110,8 +111,8 @@ fun DynaNodeGroup.gridUtilsTests() {
         expect(0) { col2.flexGrow }
     }
 
-    group("header cell retrieval test") {
-        test("one component") {
+    @Nested inner class `header cell retrieval test` {
+        @Test fun `one component`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
                 appendHeaderRow().getCell(Person::fullName).component = TextField("Foo!")
@@ -123,7 +124,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             grid.headerRows.last().getCell(Person::fullName).component = null
             expect(null) { grid.headerRows.last().getCell(Person::fullName).component }
         }
-        test("two components") {
+        @Test fun `two components`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
                 appendHeaderRow().getCell(Person::fullName).component = TextField("Foo!")
@@ -136,8 +137,8 @@ fun DynaNodeGroup.gridUtilsTests() {
         }
     }
 
-    group("footer cell retrieval test") {
-        test("one component") {
+    @Nested inner class `footer cell retrieval test`() {
+        @Test fun `one component`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
                 appendFooterRow().getCell(Person::fullName).component = TextField("Foo!")
@@ -149,7 +150,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             grid.footerRows.last().getCell(Person::fullName).component = null
             expect(null) { grid.footerRows.last().getCell(Person::fullName).component }
         }
-        test("two components") {
+        @Test fun `two components`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)
                 appendFooterRow().getCell(Person::fullName).component = TextField("Foo!")
@@ -162,8 +163,8 @@ fun DynaNodeGroup.gridUtilsTests() {
         }
     }
 
-    group("header2") {
-        test("simple column") {
+    @Nested inner class header2 {
+        @Test fun `simple column`() {
             val grid: Grid<Person> = Grid(Person::class.java)
             expect("") { grid.addColumn(Person::fullName).header2 }
             expect("Foo") { grid.addColumn(Person::fullName).apply { setHeader("Foo") }.header2 }
@@ -171,7 +172,7 @@ fun DynaNodeGroup.gridUtilsTests() {
             expect("Foo") { grid.addColumn(Person::fullName).apply { setHeader("Foo"); setSortProperty("name") }.header2 }
         }
 
-        test("joined columns") {
+        @Test fun `joined columns`() {
             lateinit var col1: Grid.Column<Person>
             lateinit var col2: Grid.Column<Person>
             Grid(Person::class.java).apply {
@@ -185,9 +186,9 @@ fun DynaNodeGroup.gridUtilsTests() {
         }
     }
 
-    group("selection") {
-        group("mode") {
-            test("single/multi select") {
+    @Nested inner class selection {
+        @Nested inner class mode {
+            @Test fun `single-multi select`() {
                 val g = Grid<String>()
                 g.setSelectionMode(Grid.SelectionMode.NONE)
                 expect(false) { g.isMultiSelect }
@@ -202,7 +203,7 @@ fun DynaNodeGroup.gridUtilsTests() {
                 expect(false) { g.isSingleSelect }
                 expect(true) { g.isSelectionAllowed }
             }
-            test("mode") {
+            @Test fun mode() {
                 val g = Grid<String>()
                 g.selectionMode = Grid.SelectionMode.NONE
                 expect(Grid.SelectionMode.NONE) { g.selectionMode }
@@ -212,8 +213,8 @@ fun DynaNodeGroup.gridUtilsTests() {
                 expect(Grid.SelectionMode.MULTI) { g.selectionMode }
             }
         }
-        group("isEmpty") {
-            test("initially empty") {
+        @Nested inner class isEmpty {
+            @Test fun `initially empty`() {
                 val g = Grid<String>()
                 g.setSelectionMode(Grid.SelectionMode.NONE)
                 expect(true) { g.isSelectionEmpty }
@@ -222,7 +223,7 @@ fun DynaNodeGroup.gridUtilsTests() {
                 g.setSelectionMode(Grid.SelectionMode.MULTI)
                 expect(true) { g.isSelectionEmpty }
             }
-            test("false on selection") {
+            @Test fun `false on selection`() {
                 val g = Grid<String>()
                 g.setSelectionMode(Grid.SelectionMode.SINGLE)
                 g.select("foo")
@@ -233,7 +234,7 @@ fun DynaNodeGroup.gridUtilsTests() {
         }
     }
 
-    test("_internalId") {
+    @Test fun _internalId() {
         val g = Grid<String>()
         expect("col0") { g.addColumn { it } ._internalId }
     }
