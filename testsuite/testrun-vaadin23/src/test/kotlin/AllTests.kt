@@ -2,7 +2,7 @@ package com.github.mvysny.kaributools.v23
 
 import AbstractAllTests21
 import AbstractAllTests23
-import com.github.mvysny.dynatest.jvmVersion
+import com.github.mvysny.kaributesting.v10.jvmVersion
 import com.github.mvysny.kaributools.AbstractAllTests
 import com.github.mvysny.kaributools.VaadinVersion
 import com.github.mvysny.kaributools.parseToml

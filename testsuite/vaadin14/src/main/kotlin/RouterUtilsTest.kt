@@ -66,7 +66,7 @@ abstract class AbstractRouterUtilsTests {
                     // it fails somewhere deeply in Vaadin Flow
                     navigateTo<TestingParametrizedView>()
                 }
-                expect("requires a parameter") { ex.message }
+                expect("Navigation target 'com.github.mvysny.kaributools.TestingParametrizedView' requires a parameter.") { ex.message }
                 _expectNone<TestingParametrizedView>()
             }
             @Test fun `class`() {
@@ -101,7 +101,7 @@ abstract class AbstractRouterUtilsTests {
                 val ex = assertThrows<IllegalArgumentException> {
                     RouterLink("foo", TestingParametrizedView::class.java)
                 }
-                expect("requires a parameter") { ex.message }
+                expect("Navigation target 'com.github.mvysny.kaributools.TestingParametrizedView' requires a parameter.") { ex.message }
             }
             @Test fun `parametrized target`() {
                 expect("testingp/1") { RouterLink("foo", TestingParametrizedView::class.java, 1L).href }
@@ -129,7 +129,7 @@ abstract class AbstractRouterUtilsTests {
                 val ex = assertThrows<IllegalArgumentException> {
                     getRouteUrl(TestingParametrizedView::class)
                 }
-                expect("requires a parameter") { ex.message }
+                expect("Navigation target 'com.github.mvysny.kaributools.TestingParametrizedView' requires a parameter.") { ex.message }
             }
         }
 
