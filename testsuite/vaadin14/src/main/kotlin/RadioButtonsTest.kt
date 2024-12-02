@@ -1,15 +1,13 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.dynatest.expectList
 import com.github.mvysny.kaributesting.v10.getItemLabels
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup
 import com.vaadin.flow.data.provider.DataProvider
+import org.junit.jupiter.api.Test
 
-@DynaTestDsl
-fun DynaNodeGroup.radioButtonsTests() {
-    test("setItemLabelGenerator") {
+abstract class AbstractRadioButtonsTests {
+    @Test fun setItemLabelGenerator() {
         val b = RadioButtonGroup<Int>()
         b.setItems2(listOf(1, 2, 3))
         b.setItemLabelGenerator { "Item #$it" }
