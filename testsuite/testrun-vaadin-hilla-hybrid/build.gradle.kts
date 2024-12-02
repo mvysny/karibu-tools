@@ -21,6 +21,10 @@ dependencies {
         exclude(group = "com.vaadin")
         exclude(group = "com.github.mvysny.kaributesting")
     }
+    testImplementation(project(":testsuite:vaadin23")) {
+        exclude(group = "com.vaadin")
+        exclude(group = "com.github.mvysny.kaributesting")
+    }
     testImplementation(libs.karibu.testing.v24) {
         exclude(module = "karibu-tools")
     }

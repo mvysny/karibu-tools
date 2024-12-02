@@ -2,16 +2,28 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
-import org.tomlj.Toml
-import org.tomlj.TomlParseResult
-import java.io.File
-import java.util.*
+import com.github.mvysny.kaributesting.v10.MockVaadin
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+
+abstract class AbstractAllTests {
+    @Nested class BrowserTimeZoneTests {
+        @BeforeEach fun fakeVaadin() { MockVaadin.setup() }
+        @AfterEach fun tearDownVaadin() { MockVaadin.tearDown() }
+
+        @Test fun smoke() {
+            BrowserTimeZone.fetch()
+            BrowserTimeZone.get
+            BrowserTimeZone.extendedClientDetails
+            BrowserTimeZone.currentDateTime
+        }
+    }
+}
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Browser Time Zone") {
-        browserTimeZoneTests()
-    }
     group("Component Utils") {
         componentUtilsTests()
     }

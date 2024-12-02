@@ -1,11 +1,5 @@
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
-import java.io.File
-import java.util.*
+import org.junit.jupiter.api.Nested
 
-@DynaTestDsl
-fun DynaNodeGroup.allTests21() {
-    group("Component Utils") {
-        componentUtils21Tests()
-    }
+abstract class AbstractAllTests21 {
+    @Nested inner class ComponentUtilsTests : AbstractComponentUtils21Tests()
 }

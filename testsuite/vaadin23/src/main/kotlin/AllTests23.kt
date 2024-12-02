@@ -1,11 +1,5 @@
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
-import java.io.File
-import java.util.*
+import org.junit.jupiter.api.Nested
 
-@DynaTestDsl
-fun DynaNodeGroup.allTests23() {
-    group("TabSheet") {
-        tabSheetTest()
-    }
+abstract class AbstractAllTests23 {
+    @Nested inner class TabSheetTests : AbstractTabSheetTests()
 }

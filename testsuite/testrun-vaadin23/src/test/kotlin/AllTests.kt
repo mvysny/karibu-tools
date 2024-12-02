@@ -1,42 +1,52 @@
 package com.github.mvysny.kaributools.v23
 
-import allTests21
-import allTests23
-import com.github.mvysny.dynatest.DynaTest
+import AbstractAllTests21
+import AbstractAllTests23
 import com.github.mvysny.dynatest.jvmVersion
+import com.github.mvysny.kaributools.AbstractAllTests
 import com.github.mvysny.kaributools.VaadinVersion
-import com.github.mvysny.kaributools.allTests
 import com.github.mvysny.kaributools.parseToml
+import org.junit.jupiter.api.Assumptions.assumeTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import org.tomlj.TomlTable
 import java.io.File
 import kotlin.test.expect
 
-class AllTests : DynaTest({
+class AllTests {
     // Vaadin 23+ requires JDK 11+
-    if (jvmVersion >= 11) {
-        test("vaadin version") {
-            expect(23) { VaadinVersion.get.major }
-            VaadinVersion.flow // smoke test that the call doesn't fail
-        }
+    @BeforeEach
+    fun assumeJDK11() {
+        assumeTrue(jvmVersion >= 11)
+    }
 
-        test("hilla version") {
-            expect(null) { VaadinVersion.hilla }
-        }
+    @Test
+    fun `vaadin version`() {
+        expect(23) { VaadinVersion.get.major }
+        VaadinVersion.flow // smoke test that the call doesn't fail
+    }
 
-        test("vaadin version 2") {
-            val gradleProps: TomlTable = File("../../gradle/libs.versions.toml").parseToml()
-            val expectedVaadinVersion: String = gradleProps["versions.vaadin23"] as String
-            expect(expectedVaadinVersion) { VaadinVersion.get.toString().replace('-', '.') }
-        }
+    @Test
+    fun `hilla version`() {
+        expect(null) { VaadinVersion.hilla }
+    }
 
-        group("vaadin14") {
-            allTests()
-        }
-        group("vaadin21+") {
-            allTests21()
-        }
-        group("vaadin23+") {
-            allTests23()
+    @Test
+    fun `vaadin version 2`() {
+        val gradleProps: TomlTable =
+            File("../../gradle/libs.versions.toml").parseToml()
+        val expectedVaadinVersion: String =
+            gradleProps["versions.vaadin23"] as String
+        expect(expectedVaadinVersion) {
+            VaadinVersion.get.toString().replace('-', '.')
         }
     }
-})
+
+    @Nested
+    inner class AllTests : AbstractAllTests()
+    @Nested
+    inner class AllTests21 : AbstractAllTests21()
+    @Nested
+    inner class AllTests23 : AbstractAllTests23()
+}
