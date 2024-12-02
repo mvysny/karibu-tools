@@ -54,13 +54,11 @@ abstract class AbstractAllTests {
             Button().addShortcut(Alt + Ctrl + KEY_C) { println("Foo") }
         }
     }
+    @Nested inner class TextFieldUtilsTests : AbstractTextFieldUtilsTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Text Field Utils") {
-        textFieldUtilsTests()
-    }
     group("Renderers") {
         renderersTests()
     }

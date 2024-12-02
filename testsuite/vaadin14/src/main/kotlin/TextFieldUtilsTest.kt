@@ -1,34 +1,30 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTest
-import com.github.mvysny.dynatest.DynaTestDsl
-import com.github.mvysny.kaributesting.v10.MockVaadin
-import com.vaadin.flow.component.textfield.BigDecimalField
 import com.vaadin.flow.component.textfield.EmailField
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 
-@DynaTestDsl
-fun DynaNodeGroup.textFieldUtilsTests() {
-    group("TextField") {
-        test("smoke") {
+abstract class AbstractTextFieldUtilsTests() {
+    @Nested inner class textField {
+    @Test fun smoke() {
             TextField().selectAll()
             TextField().selectNone()
             TextField().setCursorLocation(3)
         }
     }
 
-    group("TextArea") {
-        test("smoke") {
+    @Nested inner class textArea {
+        @Test fun smoke() {
             TextArea().selectAll()
             TextArea().selectNone()
             TextArea().setCursorLocation(3)
         }
     }
 
-    group("EmailField") {
-        test("smoke") {
+    @Nested inner class emailField {
+        @Test fun smoke() {
             EmailField().selectAll()
             EmailField().selectNone()
             EmailField().setCursorLocation(3)
