@@ -3,6 +3,8 @@ package com.github.mvysny.kaributools
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
+import com.vaadin.flow.component.Key.KEY_C
+import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.icon.VaadinIcon
 import com.vaadin.flow.component.menubar.MenuBar
 import com.vaadin.flow.data.provider.ListDataProvider
@@ -45,13 +47,17 @@ abstract class AbstractAllTests {
         }
     }
     @Nested inner class RouterUtilsTests : AbstractRouterUtilsTests()
+    @Nested inner class ShortcutsTests {
+        @Test fun smoke() {
+            Button().addClickShortcut(Alt + Ctrl + KEY_C)
+            Button().addFocusShortcut(Alt + Ctrl + KEY_C)
+            Button().addShortcut(Alt + Ctrl + KEY_C) { println("Foo") }
+        }
+    }
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Shortcuts") {
-        shortcutsTests()
-    }
     group("Text Field Utils") {
         textFieldUtilsTests()
     }
