@@ -20,13 +20,11 @@ abstract class AbstractAllTests {
             BrowserTimeZone.currentDateTime
         }
     }
+    @Nested inner class ComponentUtilsTests : AbstractComponentUtilsTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Component Utils") {
-        componentUtilsTests()
-    }
     group("Buttons") {
         buttonsTests()
     }

@@ -23,22 +23,25 @@ import com.vaadin.flow.component.textfield.IntegerField
 import com.vaadin.flow.component.textfield.NumberField
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import kotlin.streams.toList
 import kotlin.test.expect
 
 @Suppress("DEPRECATION", "USELESS_CAST")
-@DynaTestDsl
-fun DynaNodeGroup.componentUtilsTests() {
-    beforeEach { MockVaadin.setup() }
-    afterEach { MockVaadin.tearDown() }
+abstract class AbstractComponentUtilsTests() {
+    @BeforeEach fun fakeVaadin() { MockVaadin.setup() }
+    @AfterEach fun tearDownVaadin() { MockVaadin.tearDown() }
 
-    group("removeFromParent()") {
-        test("component with no parent") {
+    @Nested inner class removeFromParent {
+        @Test fun `component with no parent`() {
             val t = Text("foo")
             t.removeFromParent()
             expect(null) { t.parent.orElse(null) }
         }
-        test("nested component") {
+        @Test fun `nested component`() {
             val fl = FlexLayout().apply { add(Label("foo")) }
             val label = fl.getComponentAt(0)
             expect(fl) { label.parent.get() }
@@ -46,7 +49,7 @@ fun DynaNodeGroup.componentUtilsTests() {
             expect(null) { label.parent.orElse(null) }
             expect(0) { fl.componentCount }
         }
-        test("reattach") {
+        @Test fun reattach() {
             val fl = FlexLayout().apply { add(Label("foo")) }
             val label = fl.getComponentAt(0)
             label.removeFromParent()
@@ -56,7 +59,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         }
     }
 
-    test("serverClick()") {
+    @Test fun serverClick() {
         val b = Button()
         var clicked = 0
         b.addClickListener { clicked++ }
@@ -64,7 +67,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(1) { clicked }
     }
 
-    test("tooltip") {
+    @Test fun tooltip() {
         val b = Button()
         expect(null) { b.tooltip }
         b.tooltip = ""
@@ -75,7 +78,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(null) { b.tooltip }
     }
 
-    test("ariaLabel") {
+    @Test fun ariaLabel() {
         val b = Button()
         expect(null) { b.ariaLabel }
         b.ariaLabel = ""
@@ -86,55 +89,55 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(null) { b.ariaLabel }
     }
 
-    test("addContextMenuListener smoke") {
+    @Test fun `addContextMenuListener smoke`() {
         Button().addContextMenuListener({})
     }
 
-    group("findAncestor") {
-        test("null on no parent") {
+    @Nested inner class findAncestor {
+        @Test fun `null on no parent`() {
             expect(null) { Button().findAncestor { false } }
         }
-        test("null on no acceptance") {
+        @Test fun `null on no acceptance`() {
             val button = Button()
             UI.getCurrent().add(button)
             expect(null) { button.findAncestor { false } }
         }
-        test("finds UI") {
+        @Test fun `finds UI`() {
             val button = Button()
             UI.getCurrent().add(button)
             expect(UI.getCurrent()) { button.findAncestor { it is UI } }
         }
-        test("doesn't find self") {
+        @Test fun `doesn't find self`() {
             val button = Button()
             UI.getCurrent().add(button)
             expect(UI.getCurrent()) { button.findAncestor { true } }
         }
     }
 
-    group("findAncestorOrSelf") {
-        test("null on no parent") {
+    @Nested inner class findAncestorOrSelf {
+        @Test fun `null on no parent`() {
             expect(null) { Button().findAncestorOrSelf { false } }
         }
-        test("null on no acceptance") {
+        @Test fun `null on no acceptance`() {
             val button = Button()
             UI.getCurrent().add(button)
             expect(null) { button.findAncestorOrSelf { false } }
         }
-        test("finds self") {
+        @Test fun `finds self`() {
             val button = Button()
             UI.getCurrent().add(button)
             expect(button) { button.findAncestorOrSelf { true } }
         }
     }
 
-    test("isNestedIn") {
+    @Test fun isNestedIn() {
         expect(false) { Button().isNestedIn(UI.getCurrent()) }
         val button = Button()
         UI.getCurrent().add(button)
         expect(true) { button.isNestedIn(UI.getCurrent()) }
     }
 
-    test("isAttached") {
+    @Test fun isAttached() {
         expect(true) { UI.getCurrent().isAttached() }
         expect(false) { Button("foo").isAttached() }
         expect(true) {
@@ -146,7 +149,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(true) { UI.getCurrent().isAttached() }
     }
 
-    test("insertBefore") {
+    @Test fun insertBefore() {
         val l = HorizontalLayout()
         val first = Span("first")
         l.addComponentAsFirst(first)
@@ -157,7 +160,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect("second, third, first") { l.children.toList().map { it._text } .joinToString() }
     }
 
-    test("hasChildren") {
+    @Test fun hasChildren() {
         val l = HorizontalLayout()
         expect(false) { l.hasChildren }
         l.addComponentAsFirst(Span("first"))
@@ -166,7 +169,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(false) { l.hasChildren }
     }
 
-    test("isNotEmpty") {
+    @Test fun isNotEmpty() {
         val l = HorizontalLayout()
         expect(false) { l.isNotEmpty }
         l.addComponentAsFirst(Span("first"))
@@ -175,7 +178,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(false) { l.isNotEmpty }
     }
 
-    test("isEmpty") {
+    @Test fun isEmpty() {
         val l = HorizontalLayout()
         expect(true) { l.isEmpty }
         l.addComponentAsFirst(Span("first"))
@@ -184,41 +187,41 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect(true) { l.isEmpty }
     }
 
-    group("classnames2") {
-        test("addClassNames2") {
+    @Nested inner class classnames2 {
+        @Test fun addClassNames2() {
             val div = Div().apply { addClassNames2("foo  bar    baz") }
             expect(true) {
                 div.classNames.containsAll(listOf("foo", "bar", "baz"))
             }
         }
-        test("addClassNames2(vararg)") {
+        @Test fun `addClassNames2(vararg)`() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             expect(true) {
                 div.classNames.containsAll(listOf("foo", "bar", "baz", "one", "two"))
             }
         }
-        test("setClassNames2") {
+        @Test fun setClassNames2() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.setClassNames2("  three four  ")
             expect(true) {
                 div.classNames.containsAll(listOf("three", "four"))
             }
         }
-        test("setClassNames2(vararg)") {
+        @Test fun `setClassNames2(vararg)`() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.setClassNames2("  three ", "four  ")
             expect(true) {
                 div.classNames.containsAll(listOf("three", "four"))
             }
         }
-        test("removeClassNames2") {
+        @Test fun removeClassNames2() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.removeClassNames2("  bar baz  ")
             expect(true) {
                 div.classNames.containsAll(listOf("foo", "one", "two"))
             }
         }
-        test("removeClassNames2(vararg)") {
+        @Test fun `removeClassNames2(vararg)`() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.removeClassNames2("  bar ", "baz  ")
             expect(true) {
@@ -227,7 +230,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         }
     }
 
-    test("placeholder") {
+    @Test fun placeholder() {
         var c: Component = TextField().apply { placeholder = "foo" }
         expect("foo") { (c as Component).placeholder }
         (c as Component).placeholder = ""
@@ -262,8 +265,8 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect("") { (c as Component).placeholder }
     }
 
-    group("label") {
-        test("TextField") {
+    @Nested inner class label {
+        @Test fun testTextField() {
             val c: Component = TextField()
             expect("") { c.label }
             c.label = "foo"
@@ -271,7 +274,7 @@ fun DynaNodeGroup.componentUtilsTests() {
             c.label = ""
             expect("") { c.label }
         }
-        test("Checkbox") {
+        @Test fun testCheckbox() {
             val c: Component = Checkbox()
             expect("") { c.label }
             c.label = "foo"
@@ -281,7 +284,7 @@ fun DynaNodeGroup.componentUtilsTests() {
             expect("") { c.label }
             expect("") { (c as Checkbox).label }
         }
-        test("Tab") {
+        @Test fun testTab() {
             val c: Component = Tab()
             expect("") { c.label }
             c.label = "foo"
@@ -293,7 +296,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         }
     }
 
-    test("caption") {
+    @Test fun caption() {
         var c: Component = Button("foo")
         expect("foo") { c.caption }
         c.caption = ""
@@ -308,7 +311,7 @@ fun DynaNodeGroup.componentUtilsTests() {
         expect("foo") { c.caption }
     }
 
-    test("Button.caption") {
+    @Test fun `Button-caption`() {
         val c = Button("foo")
         expect("foo") { c.caption }
         c.caption = ""
