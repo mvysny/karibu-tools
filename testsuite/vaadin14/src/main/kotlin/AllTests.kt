@@ -61,13 +61,11 @@ abstract class AbstractAllTests {
     @Nested inner class LoginUtilsTests : AbstractLoginUtilsTests()
     @Nested inner class RadioButtonTests : AbstractRadioButtonsTests()
     @Nested inner class HtmlSpanTests : AbstractHtmlSpanTests()
+    @Nested inner class ComboBoxTests : AbstractComboBoxTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Combobox") {
-        comboboxesTests()
-    }
     group("LabelWrapper") {
         labelWrapperTests()
     }

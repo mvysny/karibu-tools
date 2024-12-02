@@ -1,14 +1,13 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.dynatest.DynaNodeGroup
-import com.github.mvysny.dynatest.DynaTestDsl
 import com.vaadin.flow.component.combobox.ComboBox
 import com.vaadin.flow.component.html.Div
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-@DynaTestDsl
-fun DynaNodeGroup.comboboxesTests() {
-    test("textAlign") {
+abstract class AbstractComboBoxTests {
+    @Test fun textAlign() {
         val cb = ComboBox<String>()
         expect(ComboBoxAlign.Left) { cb.textAlign }
         cb.textAlign = ComboBoxAlign.Center
@@ -16,7 +15,7 @@ fun DynaNodeGroup.comboboxesTests() {
         cb.textAlign = ComboBoxAlign.Right
         expect(ComboBoxAlign.Right) { cb.textAlign }
     }
-    test("small") {
+    @Test fun small() {
         val cb = ComboBox<String>()
         expect(false) { cb.isSmall }
         cb.isSmall = true
@@ -24,7 +23,7 @@ fun DynaNodeGroup.comboboxesTests() {
         cb.isSmall = false
         expect(false) { cb.isSmall }
     }
-    test("isHelperAboveField") {
+    @Test fun isHelperAboveField() {
         val cb = ComboBox<String>()
         expect(false) { cb.isSmall }
         cb.isSmall = true
@@ -32,7 +31,7 @@ fun DynaNodeGroup.comboboxesTests() {
         cb.isSmall = false
         expect(false) { cb.isSmall }
     }
-    test("variants") {
+    @Test fun variants() {
         val cb = ComboBox<String>()
         cb.addThemeVariants(ComboBoxVariant.AlignCenter, ComboBoxVariant.Small)
         expect(ComboBoxAlign.Center) { cb.textAlign }
@@ -41,7 +40,7 @@ fun DynaNodeGroup.comboboxesTests() {
         expect(ComboBoxAlign.Left) { cb.textAlign }
         expect(false) { cb.isSmall }
     }
-    test("dropdownWidth") {
+    @Test fun dropdownWidth() {
         val cb = ComboBox<String>()
         expect(null) { cb.dropdownWidth }
         cb.dropdownWidth = "100px"
@@ -49,25 +48,25 @@ fun DynaNodeGroup.comboboxesTests() {
         cb.dropdownWidth = null
         expect(null) { cb.dropdownWidth }
     }
-    group("prefixComponent") {
-        test("empty by default") {
+    @Nested inner class prefixComponent {
+        @Test fun `empty by default`() {
             val cb = ComboBox<String>()
             expect(null) { cb.prefixComponent }
         }
-        test("setting") {
+        @Test fun setting() {
             val cb = ComboBox<String>()
             val div = Div()
             cb.prefixComponent = div
             expect(div) { cb.prefixComponent }
         }
-        test("replacing") {
+        @Test fun replacing() {
             val cb = ComboBox<String>()
             val div = Div()
             cb.prefixComponent = Div()
             cb.prefixComponent = div
             expect(div) { cb.prefixComponent }
         }
-        test("clearing") {
+        @Test fun clearing() {
             val cb = ComboBox<String>()
             cb.prefixComponent = Div()
             cb.prefixComponent = null
