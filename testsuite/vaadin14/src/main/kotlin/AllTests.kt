@@ -21,13 +21,11 @@ abstract class AbstractAllTests {
         }
     }
     @Nested inner class ComponentUtilsTests : AbstractComponentUtilsTests()
+    @Nested inner class ButtonsTests : AbstractButtonsTests()
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Buttons") {
-        buttonsTests()
-    }
     group("Data Provider Utils") {
         dataProviderUtilsTests()
     }
