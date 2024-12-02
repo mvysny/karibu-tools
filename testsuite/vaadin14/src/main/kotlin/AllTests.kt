@@ -5,6 +5,7 @@ import com.github.mvysny.dynatest.DynaTestDsl
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.vaadin.flow.component.Key.KEY_C
 import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.checkbox.Checkbox
 import com.vaadin.flow.component.icon.VaadinIcon
 import com.vaadin.flow.component.menubar.MenuBar
 import com.vaadin.flow.data.provider.ListDataProvider
@@ -71,13 +72,19 @@ abstract class AbstractAllTests {
             Badge("Foo").addThemeVariants(BadgeVariant.PRIMARY, BadgeVariant.ERROR, BadgeVariant.SMALL, BadgeVariant.PILL)
         }
     }
+    @Nested inner class CheckboxTests {
+        @Test fun serverClick() {
+            val cb = Checkbox()
+            var clicked = 0
+            cb.addClickListener { clicked++ }
+            cb.serverClick()
+            expect(1) { clicked }
+        }
+    }
 }
 
 @DynaTestDsl
 fun DynaNodeGroup.allTests() {
-    group("Checkbox") {
-        checkboxesTests()
-    }
     group("Validators") {
         validatorsTests()
     }
