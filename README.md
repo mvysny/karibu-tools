@@ -149,6 +149,10 @@ The following functions are applicable to any field that edits text, e.g.
   using given converter or renderer to format a value. Allows both for passing in `KProperty`
   or a property by name. For example, `grid.addColumnFor(Person::name)` will create a
   sortable column displaying a name of a person, setting the column header to "Name".
+* Multitude overloaded `TreeGrid.addHierarchyColumnFor()` which allow you to create a column
+  using given converter or renderer to format a value. Allows both for passing in `KProperty`
+  or a property by name. For example, `grid.addHierarchyColumnFor(Person::name)` will create a
+  sortable column displaying a name of a person, setting the column header to "Name".
 * `Grid.getColumnBy(Person::name)` retrieves a column created via `grid.addColumnFor(Person::name)`.
 * `HeaderRow.getCell(Person::name)` retrieves header cell for given column.
 * Similarly, `FooterRow.getCell(Person::name)` retrieves footer cell for given column.
