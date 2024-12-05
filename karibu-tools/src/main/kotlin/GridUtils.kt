@@ -422,7 +422,7 @@ public fun <T> Grid<T>.setSortOrder(order: List<GridSortOrder<T>>) {
 public fun <T> Grid<T>.sort(vararg criteria: QuerySortOrder) {
     // check that columns are sortable
     val crit: List<GridSortOrder<T>> = criteria.map { sortOrder ->
-        val col: Grid.Column<T> = getColumnBySortOrder(sortOrder)
+        val col: Column<T> = getColumnBySortOrder(sortOrder)
         require(col.isSortable) { "Column for ${sortOrder.sorted} is not marked sortable" }
         GridSortOrder(col, sortOrder.direction)
     }
@@ -536,3 +536,69 @@ public val Grid.Column<*>._internalId: String
 
 public val ItemClickEvent<*>.isDoubleClick: Boolean
     get() = clickCount >= 2
+
+/**
+ * Adds a column for given [property]. The column key is set to the property name, so that you can look up the column
+ * using [getColumnBy]. The column is also by default set to sortable
+ * unless the [sortable] parameter is set otherwise.
+ *
+ * The header title is set to the property name, converted from camelCase to Human Friendly.
+ *
+ * WARNING: if an in-memory data provider is used, the sorting will be performed according to the
+ * outcome of the [converter]. This may not be wanted, e.g. when the converter converts
+ * date to a string. In this case, it's better to use the `addColumnFor(renderer)`.
+ * @param converter optionally converts the property value [V] to something else,
+ * typically to a String. Use this for formatting of the value. By default, simply returns the
+ * value of the property.
+ * @param T the type of the bean stored in the Grid
+ * @param V the value that the column will display, deduced from the type of the [property].
+ * @return the newly created column
+ */
+public fun <T, V> TreeGrid<T>.addHierarchyColumnFor(
+    property: KProperty1<T, V?>,
+    sortable: Boolean = true,
+    key: String = property.name,
+    converter: (V?) -> Any? = { it }
+): Column<T> =
+    addHierarchyColumn { converter(property.get(it)) }.apply {
+        this.key = key
+        if (sortable) sortProperty = property
+        setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
+    }
+
+/**
+ * Adds a column for given [propertyName]. The column key is set to the property name, so that you can look up the column
+ * using [getColumnBy]. The column is also by default set to sortable
+ * unless the [sortable] parameter is set otherwise. The header title is set to
+ * the property name, converted from camelCase to Human Friendly.
+ *
+ * This method should only be used when you have a Grid backed by a Java class
+ * which does not have properties exposed as [KProperty1]; for Kotlin
+ * class-backed Grids you should use `addColumnFor(KProperty1)`
+ *
+ * WARNING: if an in-memory data provider is used, the sorting will be performed according to the
+ * outcome of the [converter]. This may not be wanted, e.g. when the converter converts
+ * date to a string. In this case, it's better to use the `addColumnFor(renderer)`.
+ * @param converter optionally converts the property value [V] to something else,
+ * typically to a String. Use this for formatting of the value. By default, simply returns the
+ * value of the property.
+ * @param T the type of the bean stored in the Grid
+ * @param V the value that the column will display.
+ * @return the newly created column
+ */
+public inline fun <reified T, reified V> TreeGrid<T>.addHierarchyColumnFor(
+    propertyName: String,
+    sortable: Boolean = true,
+    key: String = propertyName,
+    noinline converter: (V?) -> Any? = { it }
+): Column<T> {
+    val getter: Method = T::class.java.getGetter(propertyName)
+    val column: Column<T> = addHierarchyColumn { converter(V::class.java.cast(getter.invoke(it))) }
+    return column.apply {
+        this.key = key
+        if (sortable) {
+            setSortProperty(propertyName)
+        }
+        setHeader(SharedUtil.camelCaseToHumanFriendly(propertyName))
+    }
+}
