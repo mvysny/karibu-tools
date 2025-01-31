@@ -12,7 +12,7 @@ defaultTasks("clean", "build")
 
 allprojects {
     group = "com.github.mvysny.karibu-tools"
-    version = "0.24"
+    version = "0.25-SNAPSHOT"
 
     repositories {
         mavenCentral()
