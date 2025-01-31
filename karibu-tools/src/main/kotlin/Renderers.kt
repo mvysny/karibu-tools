@@ -24,12 +24,27 @@ private val _Renderer_template: Field by lazy(LazyThreadSafetyMode.PUBLICATION) 
     templateF
 }
 
+private val _LitRenderer_Class: Class<*>? = if (VaadinVersion.get.major >= 22) {
+    Class.forName("com.vaadin.flow.data.renderer.LitRenderer")
+} else { null }
+
+private val _LitRenderer_templateExpression: Field by lazy(LazyThreadSafetyMode.PUBLICATION) {
+    check(VaadinVersion.get.major >= 22) { "LitRenderer is only supported by Vaadin 22+ but we got ${VaadinVersion.get}" }
+    val f = _LitRenderer_Class!!.getDeclaredField("templateExpression")
+    f.isAccessible = true
+    f
+}
+
 /**
- * Returns the Polymer Template set to the [Renderer]. Returns "" for Vaadin 24+ since PolymerTemplates
- * are no longer supported.
+ * Returns the Template set to the [Renderer]. Supports both `LitRenderer` and `PolymerRenderer`.
+ * Returns "" for `PolymerRenderer` in Vaadin 24+ since `PolymerRenderer`s are no longer supported.
  */
 public val Renderer<*>.template: String
     get() {
+        if (VaadinVersion.get.major >= 22 && _LitRenderer_Class!!.isInstance(this)) {
+            val template = _LitRenderer_templateExpression.get(this) as String?
+            return template ?: ""
+        }
         if (VaadinVersion.get.major >= 24) return ""
         val template: String? = _Renderer_template.get(this) as String?
         return template ?: ""
