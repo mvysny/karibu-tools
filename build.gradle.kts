@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.1.10"
     `maven-publish`
     signing
 }
@@ -105,5 +105,5 @@ subprojects {
 }
 
 if (JavaVersion.current() > JavaVersion.VERSION_11 && gradle.startParameter.taskNames.contains("publish")) {
-    throw GradleException("Release this library with JDK 11 or lower, to ensure JDK8 compatibility; current JDK is ${JavaVersion.current()}")
+    throw GradleException("Release this library with JDK 11 or earlier, to ensure JDK8 compatibility; current JDK is ${JavaVersion.current()}")
 }
