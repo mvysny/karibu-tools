@@ -25,6 +25,11 @@ public fun Grid<*>.refresh() {
 }
 
 /**
+ * [Grid] Shorthand for convenience
+ */
+public fun <T> Grid<T>.refreshRow(row: T) = dataProvider.refreshItem(row)
+
+/**
  * Checks whether the grid is configured as multi-select. Returns false if the
  * grid is single-select or the selection is disabled.
  */
@@ -81,6 +86,13 @@ public val Grid<*>.isSelectionEmpty: Boolean get() = selectionModel.isEmpty
  * Checks whether the new selection is empty.
  */
 public val SelectionEvent<*, *>.isSelectionEmpty: Boolean get() = !firstSelectedItem.isPresent
+
+/**
+ * [Grid] Shorthands for convenience
+ * [selectedRowOrNull], [selectedRow] are relevant if [selectionMode] is [Grid.SelectionMode.SINGLE]
+ */
+public val <T> Grid<T>.selectedRowOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
+public val <T> Grid<T>.selectedRow: T get() = selectionModel.firstSelectedItem.get()
 
 /**
  * Adds a column for given [property]. The column key is set to the property name, so that you can look up the column
