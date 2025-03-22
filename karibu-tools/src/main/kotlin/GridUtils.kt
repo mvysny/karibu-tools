@@ -15,7 +15,6 @@ import com.vaadin.flow.shared.util.SharedUtil
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import kotlin.reflect.KProperty1
-import kotlin.streams.toList
 
 /**
  * Refreshes the Grid and re-polls for data.
@@ -27,7 +26,7 @@ public fun Grid<*>.refresh() {
 /**
  * [Grid] Shorthand for convenience
  */
-public fun <T> Grid<T>.refreshRow(row: T) = dataProvider.refreshItem(row)
+public fun <T> Grid<T>.refreshItem(item: T) = dataProvider.refreshItem(item)
 
 /**
  * Checks whether the grid is configured as multi-select. Returns false if the
@@ -89,10 +88,10 @@ public val SelectionEvent<*, *>.isSelectionEmpty: Boolean get() = !firstSelected
 
 /**
  * [Grid] Shorthands for convenience
- * [selectedRowOrNull], [selectedRow] are relevant if [selectionMode] is [Grid.SelectionMode.SINGLE]
+ * [selectedItemOrNull], [selectedItem] are relevant if [selectionMode] is [Grid.SelectionMode.SINGLE]
  */
-public val <T> Grid<T>.selectedRowOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
-public val <T> Grid<T>.selectedRow: T get() = selectionModel.firstSelectedItem.get()
+public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
+public val <T> Grid<T>.selectedItem: T get() = selectionModel.firstSelectedItem.get()
 
 /**
  * Adds a column for given [property]. The column key is set to the property name, so that you can look up the column
