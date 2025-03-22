@@ -33,7 +33,7 @@ public data class MimeType(val mimeContentType: ContentType, val contentSubType:
     @Suppress("unused")
     public companion object {
 
-        public val PLAIN: MimeType = MimeType(ContentType.TEXT, "plain")
+        public val TEXT_PLAIN: MimeType = MimeType(ContentType.TEXT, "plain")
         public val HTML: MimeType = MimeType(ContentType.TEXT, "html")
         public val XLS: MimeType = MimeType(ContentType.APPLICATION, "vnd.ms-excel")
         public val XLSX: MimeType = MimeType(ContentType.APPLICATION, "vnd.openxmlformats-officedocument.spreadsheetml.sheet")

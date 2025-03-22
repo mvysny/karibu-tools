@@ -29,7 +29,7 @@ public fun createStreamResource(name: String, getStream: () -> InputStream): Str
  *
  * Example of usage:
  * ```kotlin
- * image(imageBytes.toStreamResource(imageName, KMimeType.JPEG), imageName)
+ * image(imageBytes.toStreamResource(imageName, MimeType.JPEG), imageName)
  * ```
  */
 public fun ByteArray.toStreamResource(name: String, contentType: MimeType? = null) = run {
@@ -47,7 +47,7 @@ public fun ByteArray.toStreamResource(name: String, contentType: MimeType? = nul
  *
  * Example of usage:
  * ```kotlin
- * image(File("foo.jpeg").toStreamResource("image/jpeg"), "foo.jpeg")
+ * image(File("foo.jpeg").toStreamResource("image/jpeg"), MimeType.JPEG)
  * ```
  */
 public fun File.toStreamResource(name: String? = null, contentType: MimeType? = null, bufferSize: Int? = null) = run {
@@ -73,7 +73,7 @@ public fun File.toStreamResource(name: String? = null, contentType: MimeType? = 
  *
  * Example of usage:
  * ```kotlin
- * "foo".toStreamResource("foo-name", "text/plain")
+ * "foo".toStreamResource("foo-name", MimeType.TEXT_PLAIN)
  * ```
  */
 public fun String.toStreamResource(name: String, contentType: MimeType? = null, charset: Charset = Charsets.UTF_8) = run {
