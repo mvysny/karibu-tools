@@ -1,7 +1,7 @@
 package com.github.mvysny.kaributools
 
 /**
- * NOTE: data class instead of enum class to support producing [MimeType] from arbitrary [contentSubType]
+ * Represents the MIME type.
  */
 public data class MimeType(val mimeContentType: ContentType, val contentSubType: String = "*") {
 

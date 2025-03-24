@@ -25,7 +25,7 @@ public fun Grid<*>.refresh() {
 }
 
 /**
- * [Grid] Shorthand for convenience
+ * Shorthand for [com.vaadin.flow.data.provider.DataProvider.refreshItem].
  */
 public fun <T> Grid<T>.refreshItem(item: T) = dataProvider.refreshItem(item)
 
@@ -88,10 +88,14 @@ public val Grid<*>.isSelectionEmpty: Boolean get() = selectionModel.isEmpty
 public val SelectionEvent<*, *>.isSelectionEmpty: Boolean get() = !firstSelectedItem.isPresent
 
 /**
- * [Grid] Shorthands for convenience
- * [selectedItemOrNull], [selectedItem] are relevant if [selectionMode] is [Grid.SelectionMode.SINGLE]
+ * Returns the currently selected item. Returns null if nothing is selected.
+ * If the Grid is multi-select, returns arbitrary selected item.
  */
 public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
+/**
+ * Returns the currently selected item. Fails if nothing is selected.
+ * If the Grid is multi-select, returns arbitrary selected item.
+ */
 public val <T> Grid<T>.selectedItem: T get() = selectionModel.firstSelectedItem.get()
 
 /**
