@@ -5,7 +5,6 @@ package com.github.mvysny.kaributools
  */
 public data class MimeType(val mimeContentType: ContentType, val contentSubType: String = "*") {
 
-    @Suppress("unused")
     public enum class ContentType(public val value: String) {
         APPLICATION("application"),
         AUDIO("audio"),
@@ -30,7 +29,6 @@ public data class MimeType(val mimeContentType: ContentType, val contentSubType:
         STAR("*");
     }
 
-    @Suppress("unused")
     public companion object {
 
         public val TEXT_PLAIN: MimeType = MimeType(ContentType.TEXT, "plain")
@@ -49,8 +47,15 @@ public data class MimeType(val mimeContentType: ContentType, val contentSubType:
         public val VIDEO_MPEG: MimeType = MimeType(ContentType.VIDEO, "mpeg")
         public val VIDEO_MP4: MimeType = MimeType(ContentType.VIDEO, "mp4")
 
+        public fun of(mimeType: String): MimeType {
+            val parts = mimeType.split('/')
+            require(parts.size == 2) { "Invalid mimeType: $mimeType" }
+            val contentType = parts[0]
+            val ct = ContentType.entries.firstOrNull { it.value == contentType }
+            requireNotNull(ct) { "Invalid mimeType: $contentType" }
+            return MimeType(ct, parts[1])
+        }
     }
 
     override fun toString(): String = "$mimeContentType/$contentSubType"
-
 }
