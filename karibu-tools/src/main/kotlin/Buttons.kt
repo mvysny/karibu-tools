@@ -14,4 +14,22 @@ public fun Button.setPrimary() {
 public fun Button.addThemeVariantsCompat(vararg variants: ButtonVariant) {
     _Button_addThemeVariants.invoke(this, variants)
 }
+@Suppress("ObjectPropertyName")
 private val _Button_addThemeVariants = Button::class.java.methods.first { it.name == "addThemeVariants" }
+
+/**
+ * Sets the button as dangerous, e.g. when you're confirming a deletion action
+ * that can not be reversed.
+ *
+ * Example of usage:
+ * ```kotlin
+ * setConfirmButton(Button("Delete", VaadinIcon.Trash.create()).apply {
+ *          setDanger()
+ *          onClick {...}
+ *      }
+ * )
+ * ```
+ */
+public fun Button.setDanger() {
+    addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY)
+}
