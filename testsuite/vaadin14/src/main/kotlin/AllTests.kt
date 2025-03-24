@@ -7,6 +7,7 @@ import com.vaadin.flow.component.checkbox.Checkbox
 import com.vaadin.flow.component.icon.VaadinIcon
 import com.vaadin.flow.component.menubar.MenuBar
 import com.vaadin.flow.data.provider.ListDataProvider
+import com.vaadin.flow.server.AbstractStreamResource
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -80,4 +81,5 @@ abstract class AbstractAllTests {
         }
     }
     @Nested inner class ValidatorsTests : AbstractValidatorsTests()
+    @Nested inner class StreamResourceTests : AbstractStreamResourceUtilsTests()
 }
