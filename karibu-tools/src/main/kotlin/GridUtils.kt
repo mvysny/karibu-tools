@@ -91,7 +91,7 @@ public val SelectionEvent<*, *>.isSelectionEmpty: Boolean get() = !firstSelected
  * Returns the currently selected item. Returns null if nothing is selected.
  * If the Grid is multi-select, returns arbitrary selected item.
  */
-public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
+public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElse(null)
 /**
  * Returns the currently selected item. Fails if nothing is selected.
  * If the Grid is multi-select, returns arbitrary selected item.
