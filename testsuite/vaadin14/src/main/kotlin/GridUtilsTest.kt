@@ -260,6 +260,25 @@ abstract class AbstractGridUtilsTests {
                 expect(true) { g.isSelectionEmpty }
             }
         }
+        @Nested inner class SelectedItemOrNull {
+            @Test fun `initially empty`() {
+                val g = Grid<String>()
+                g.setSelectionMode(Grid.SelectionMode.NONE)
+                expect(null) { g.selectedItemOrNull }
+                g.setSelectionMode(Grid.SelectionMode.SINGLE)
+                expect(null) { g.selectedItemOrNull }
+                g.setSelectionMode(Grid.SelectionMode.MULTI)
+                expect(null) { g.selectedItemOrNull }
+            }
+            @Test fun `false on selection`() {
+                val g = Grid<String>()
+                g.setSelectionMode(Grid.SelectionMode.SINGLE)
+                g.select("foo")
+                expect("foo") { g.selectedItemOrNull }
+                g.deselectAll()
+                expect(null) { g.selectedItemOrNull }
+            }
+        }
     }
 
     @Test fun _internalId() {
