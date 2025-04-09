@@ -89,3 +89,8 @@ public var Icon.iconName: IconName?
 public fun Icon.setIcon(icon: VaadinIcon?) {
     iconName = if (icon == null) null else IconName.of(icon)
 }
+
+/**
+ * Returns the [IconName] of this Vaadin icon.
+ */
+public val VaadinIcon.iconName: IconName get() = IconName.of(this)

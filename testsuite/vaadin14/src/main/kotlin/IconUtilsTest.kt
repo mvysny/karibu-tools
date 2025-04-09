@@ -20,6 +20,7 @@ abstract class AbstractIconUtilsTests {
         expect(VaadinIcon.LIST_OL) {
             VaadinIcon.LIST_OL.create().iconName!!.asVaadinIcon()
         }
+        expect(VaadinIcon.LIST_OL) { VaadinIcon.LIST_OL.iconName.asVaadinIcon() }
     }
 
     @Test fun serverClick() {
