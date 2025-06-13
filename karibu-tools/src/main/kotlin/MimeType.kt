@@ -57,5 +57,5 @@ public data class MimeType(val mimeContentType: ContentType, val contentSubType:
         }
     }
 
-    override fun toString(): String = "$mimeContentType/$contentSubType"
+    override fun toString(): String = "${mimeContentType.value}/$contentSubType"
 }
