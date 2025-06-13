@@ -8,4 +8,9 @@ class MimeTypeTest {
         expect(MimeType.AUDIO) { MimeType.of("audio/*") }
         expect(MimeType.VIDEO_MPEG) { MimeType.of("video/mpeg") }
     }
+    @Test fun testToString() {
+        expect("audio/mpeg") { MimeType.AUDIO_MP3.toString() }
+        expect("audio/*") { MimeType.AUDIO.toString() }
+        expect("video/mpeg") { MimeType.VIDEO_MPEG.toString() }
+    }
 }
