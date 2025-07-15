@@ -82,4 +82,5 @@ abstract class AbstractAllTests {
     }
     @Nested inner class ValidatorsTests : AbstractValidatorsTests()
     @Nested inner class StreamResourceTests : AbstractStreamResourceUtilsTests()
+    @Nested inner class FormLayoutTests : AbstractFormLayoutTests()
 }
