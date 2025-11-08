@@ -28,6 +28,7 @@ dependencies {
     testImplementation(libs.karibu.testing.v24) {
         exclude(module = "karibu-tools")
     }
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 // Vaadin 24 requires Java 17 or higher

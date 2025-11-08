@@ -10,6 +10,7 @@ dependencies {
     testImplementation(project(":testsuite:vaadin23")) {
         exclude(group = "com.vaadin")
     }
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 // Vaadin 23 requires Java 11 or higher

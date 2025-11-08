@@ -9,4 +9,5 @@ dependencies {
     testImplementation(project(":testsuite:vaadin14")) {
         exclude(group = "com.vaadin")
     }
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

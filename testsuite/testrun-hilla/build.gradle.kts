@@ -12,6 +12,7 @@ java {
 dependencies {
     testImplementation(project(":testsuite:testbase"))
     testImplementation(libs.hilla.v2next)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 // Vaadin 24 requires Java 17 or higher
