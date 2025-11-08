@@ -1,5 +1,5 @@
 [versions]
-slf4j = "2.0.16"
+slf4j = "2.0.17"
 # Check the newest Vaadin version at https://github.com/vaadin/platform/tags
 # Vaadin 14: This is the latest stable Vaadin 14 version, or prev stable version if vaadin14_next_version is stable
 vaadin14 = "14.11.10"
