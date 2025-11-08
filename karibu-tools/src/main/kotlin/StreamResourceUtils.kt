@@ -46,7 +46,7 @@ public fun ByteArray.toStreamResource(name: String, contentType: MimeType? = nul
  * image(File("foo.jpeg").toStreamResource("image/jpeg"), MimeType.JPEG)
  * ```
  */
-public fun File.toStreamResource(name: String = this.name, contentType: MimeType? = null, bufferSize: Int = 8192) =
+public fun File.toStreamResource(name: String = this.name, contentType: MimeType? = null, bufferSize: Int = 8192): StreamResource =
     createStreamResource(name, contentType) {
         BufferedInputStream(FileInputStream(this), bufferSize)
     }
@@ -64,5 +64,5 @@ public fun File.toStreamResource(name: String = this.name, contentType: MimeType
  * "foo".toStreamResource("foo-name", MimeType.TEXT_PLAIN)
  * ```
  */
-public fun String.toStreamResource(name: String, contentType: MimeType? = null, charset: Charset = Charsets.UTF_8) =
+public fun String.toStreamResource(name: String, contentType: MimeType? = null, charset: Charset = Charsets.UTF_8): StreamResource =
     createStreamResource(name, contentType) { byteInputStream(charset) }
