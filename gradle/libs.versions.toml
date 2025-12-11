@@ -20,7 +20,7 @@ hilla1 = "1.3.33"
 [libraries]
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
-junit5 = "org.junit.jupiter:junit-jupiter-engine:5.11.0"
+junit5 = "org.junit.jupiter:junit-jupiter-engine:6.0.1"
 vaadin-v14-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin14" }
 vaadin-v14next-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin14next" }
 vaadin-v22-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin22" }
