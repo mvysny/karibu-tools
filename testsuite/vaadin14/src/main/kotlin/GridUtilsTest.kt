@@ -34,6 +34,14 @@ abstract class AbstractGridUtilsTests {
             }
         }
 
+        @Test fun `sorting property is set to key by default`() {
+            val grid = Grid<Person>().apply {
+                addColumnFor(Person::fullName, key = "FOO")
+            }
+            expectList("FOO") {
+                grid.getColumnByKey("FOO").getSortOrder(SortDirection.ASCENDING).toList().map { it.sorted }
+            }
+        }
         @Test fun `column header is set properly`() {
             val grid = Grid<Person>().apply {
                 addColumnFor(Person::fullName)

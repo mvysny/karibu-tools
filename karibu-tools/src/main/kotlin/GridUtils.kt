@@ -123,7 +123,7 @@ public fun <T, V> Grid<T>.addColumnFor(
 ): Column<T> =
     addColumn { converter(property.get(it)) }.apply {
         this.key = key
-        if (sortable) sortProperty = property
+        if (sortable) isSortable = true
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
     }
 
@@ -146,29 +146,8 @@ public fun <T, V> Grid<T>.addColumnFor(
 ): Column<T> =
     addColumn(renderer).apply {
         this.key = key
-        if (sortable) sortProperty = property
+        if (sortable) isSortable = true
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
-    }
-
-/**
- * Sets the property by which this column will sort. Setting this property will automatically make the column sortable.
- * You can use the [addColumnFor] which also sets the column by default to sortable.
- *
- * Example of usage:
- * ```
- * grid<Person> {
- *     addColumn({ it.name }).apply {
- *         setHeader("Name")
- *         sortProperty = Person::name
- *     }
- * }
- * ```
- */
-public var <T> Column<T>.sortProperty: KProperty1<T, *>
-    @Deprecated("Cannot read this property", level = DeprecationLevel.ERROR)
-    get() = throw UnsupportedOperationException("Unsupported")
-    set(value) {
-        setSortProperty(value.name)
     }
 
 /**
@@ -578,7 +557,7 @@ public fun <T, V> TreeGrid<T>.addHierarchyColumnFor(
 ): Column<T> =
     addHierarchyColumn { converter(property.get(it)) }.apply {
         this.key = key
-        if (sortable) sortProperty = property
+        if (sortable) isSortable = true
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
     }
 
