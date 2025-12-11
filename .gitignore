@@ -5,3 +5,4 @@ build
 .gradle
 classes
 .attach_pid*
+.kotlin
