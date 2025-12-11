@@ -29,12 +29,12 @@ subprojects {
     }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     tasks.withType<KotlinCompile> {
-        compilerOptions.jvmTarget = JvmTarget.JVM_1_8
+        compilerOptions.jvmTarget = JvmTarget.JVM_17
     }
 
     tasks.withType<Test> {
@@ -102,8 +102,4 @@ subprojects {
             sign(publishing.publications["mavenJava"])
         }
     }
-}
-
-if (JavaVersion.current() > JavaVersion.VERSION_11 && gradle.startParameter.taskNames.contains("publish")) {
-    throw GradleException("Release this library with JDK 11 or earlier, to ensure JDK8 compatibility; current JDK is ${JavaVersion.current()}")
 }
