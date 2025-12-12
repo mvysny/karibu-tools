@@ -31,5 +31,5 @@ private val _Button_addThemeVariants = Button::class.java.methods.first { it.nam
  * ```
  */
 public fun Button.setDanger() {
-    addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY)
+    addThemeVariantsCompat(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY)
 }

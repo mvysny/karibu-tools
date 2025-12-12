@@ -12,6 +12,13 @@ abstract class AbstractButtonsTests() {
         expectList("primary") { b.themeNames.toList() }
     }
 
+    @Test fun setDanger() {
+        val b = Button()
+        expectList() { b.themeNames.toList() }
+        b.setDanger()
+        expectList("error", "primary") { b.themeNames.toList() }
+    }
+
     @Test fun `button has 'text' but no 'label'`() {
         expect("") { Button().label }
         expect("") { Button("Foo").label }
