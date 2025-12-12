@@ -6,3 +6,4 @@ build
 classes
 .attach_pid*
 .kotlin
+kls_database.db
