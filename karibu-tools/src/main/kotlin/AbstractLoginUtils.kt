@@ -12,7 +12,10 @@ public var AbstractLogin.i18n: LoginI18n?
     get() {
         if (VaadinVersion.get.isAtLeast(25)) {
             val json = element.getPropertyRaw("i18n")
-            throw RuntimeException("Foo: " + json)
+            return when {
+                json == null -> null
+                else -> jacksonReadToObject(json, LoginI18n::class.java)
+            }
         }
         val json = element.getPropertyRaw("i18n") as JsonValue?
         return when {
