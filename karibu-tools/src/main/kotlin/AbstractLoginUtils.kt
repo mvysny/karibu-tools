@@ -10,6 +10,10 @@ import elemental.json.JsonValue
  */
 public var AbstractLogin.i18n: LoginI18n?
     get() {
+        if (VaadinVersion.get.isAtLeast(25)) {
+            val json = element.getPropertyRaw("i18n")
+            throw RuntimeException("Foo: " + json)
+        }
         val json = element.getPropertyRaw("i18n") as JsonValue?
         return when {
             json.isNull -> null
