@@ -121,7 +121,8 @@ public fun RouterLink.navigateTo(trigger: NavigationTrigger = NavigationTrigger.
  */
 private fun getRouter(): Router {
     @Suppress("DEPRECATION")
-    var router: Router? = UI.getCurrent()?.router
+
+    var router: Router? = UI.getCurrent()?.internals?.router
     if (router == null) {
         router = VaadinService.getCurrent().router
     }
