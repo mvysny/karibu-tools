@@ -21,7 +21,12 @@ public var Upload.isEnabled: Boolean
  * Vote for https://github.com/vaadin/flow-components/issues/1572 .
  */
 public fun Upload.clear() {
-    element.setPropertyJson("files", Json.createArray())
+    if (VaadinVersion.get.isAtLeast(25)) {
+        val m = element.javaClass.getMethod("setPropertyList", String::class.java, List::class.java)
+        m.invoke(element, "files", listOf<Any>())
+    } else {
+        element.setPropertyJson("files", Json.createArray())
+    }
 }
 
 /**
