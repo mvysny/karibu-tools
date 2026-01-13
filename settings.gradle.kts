@@ -11,6 +11,8 @@ include(
     "testsuite:testrun-vaadin23",
     "testsuite:testrun-vaadin24",
     "testsuite:testrun-vaadin24next",
+    "testsuite:testrun-vaadin25",
+    "testsuite:testrun-vaadin25next",
     "testsuite:testrun-hilla",
     "testsuite:testrun-hilla-prev",
     "testsuite:testrun-hilla1",

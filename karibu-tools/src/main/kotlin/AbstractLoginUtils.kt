@@ -10,6 +10,13 @@ import elemental.json.JsonValue
  */
 public var AbstractLogin.i18n: LoginI18n?
     get() {
+        if (VaadinVersion.get.isAtLeast(25)) {
+            val json = element.getPropertyRaw("i18n")
+            return when {
+                json == null -> null
+                else -> jacksonReadToObject(json, LoginI18n::class.java)
+            }
+        }
         val json = element.getPropertyRaw("i18n") as JsonValue?
         return when {
             json.isNull -> null

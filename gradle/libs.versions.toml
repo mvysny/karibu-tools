@@ -11,6 +11,8 @@ vaadin22 = "22.0.9"
 vaadin23 = "23.4.1"
 vaadin24 = "24.9.9"
 vaadin24next = "24.9.9"
+vaadin25 = "25.0.3"
+vaadin25next = "25.1.0-alpha1"
 
 # Check newest Hilla version at https://github.com/vaadin/hilla/tags
 hilla2next = "2.5.6"
@@ -27,10 +29,13 @@ vaadin-v22-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin22" 
 vaadin-v23-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin23" }
 vaadin-v24-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin24" }
 vaadin-v24next-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin24next" }
+vaadin-v25-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin25" }
+vaadin-v25next-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin25next" }
 jetbrains-annotations = "org.jetbrains:annotations:24.1.0"
 javax-servletapi = "javax.servlet:javax.servlet-api:4.0.1"
 jakarta-servletapi = "jakarta.servlet:jakarta.servlet-api:5.0.0"
 karibu-testing-v24 = "com.github.mvysny.kaributesting:karibu-testing-v24:2.3.0"
+karibu-testing-v25 = "com.github.mvysny.kaributesting:karibu-testing-v24:2.6.1"
 karibu-testing-v10 = "com.github.mvysny.kaributesting:karibu-testing-v10:1.3.24"
 hilla-v2 = { module = "dev.hilla:hilla", version.ref = "hilla2" }
 hilla-v2next = { module = "dev.hilla:hilla", version.ref = "hilla2next" }

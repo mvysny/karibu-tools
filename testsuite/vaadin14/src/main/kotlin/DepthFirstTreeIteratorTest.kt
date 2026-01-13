@@ -21,7 +21,7 @@ abstract class AbstractDepthFirstTreeIteratorTests() {
             add(Button("Foo").apply { expected.add(this) })
             add(HorizontalLayout().apply {
                 expected.add(this)
-                add(Label().apply { expected.add(this) })
+                add(Button().apply { expected.add(this) })
             })
             add(VerticalLayout().apply { expected.add(this) })
         }

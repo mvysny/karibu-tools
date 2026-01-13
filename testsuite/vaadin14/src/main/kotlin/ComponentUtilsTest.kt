@@ -40,7 +40,7 @@ abstract class AbstractComponentUtilsTests() {
             expect(null) { t.parent.orElse(null) }
         }
         @Test fun `nested component`() {
-            val fl = FlexLayout().apply { add(Label("foo")) }
+            val fl = FlexLayout().apply { add(Button("foo")) }
             val label = fl.getComponentAt(0)
             expect(fl) { label.parent.get() }
             label.removeFromParent()
@@ -48,7 +48,7 @@ abstract class AbstractComponentUtilsTests() {
             expect(0) { fl.componentCount }
         }
         @Test fun reattach() {
-            val fl = FlexLayout().apply { add(Label("foo")) }
+            val fl = FlexLayout().apply { add(Button("foo")) }
             val label = fl.getComponentAt(0)
             label.removeFromParent()
             fl.add(label)

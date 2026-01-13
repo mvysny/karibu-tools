@@ -42,3 +42,14 @@ public inline val <reified T> KProperty1<T, *>.comparator: Comparator<T>
  */
 public val JsonValue?.isNull: Boolean
     get() = this == null || this is JsonNull
+
+private val __jacksonutils_readToObject by lazy {
+    val __class_JacksonUtils = Class.forName("com.vaadin.flow.internal.JacksonUtils")
+    val __class_JsonNode = Class.forName("tools.jackson.databind.JsonNode")
+    __class_JacksonUtils.getMethod("readToObject", __class_JsonNode, Class::class.java)
+}
+public fun <T> jacksonReadToObject(jsonObject: Any, objType: Class<T>): T {
+    val obj = __jacksonutils_readToObject.invoke(null, jsonObject, objType)
+    @Suppress("UNCHECKED_CAST")
+    return obj as T
+}
