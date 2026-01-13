@@ -11,7 +11,7 @@ java {
 
 dependencies {
     api(project(":karibu-tools-23"))
-    testImplementation(libs.vaadin.v24.core)
+    testImplementation(libs.vaadin.v24next.core)
     testImplementation(libs.jakarta.servletapi)
     testImplementation(project(":testsuite:vaadin14")) {
         exclude(group = "com.vaadin")
