@@ -24,7 +24,7 @@ class AllTests {
     @Test fun `vaadin version 2`() {
         val gradleProps: TomlTable = File("../../gradle/libs.versions.toml").parseToml()
         val expectedVaadinVersion: String = gradleProps["versions.vaadin24next"] as String
-        expect(expectedVaadinVersion) { VaadinVersion.get.toString().replace('-', '.') }
+        expect(expectedVaadinVersion) { VaadinVersion.get.toString() }
     }
 
     @Nested inner class AllTests : AbstractAllTests()

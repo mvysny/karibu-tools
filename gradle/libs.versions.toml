@@ -10,7 +10,7 @@ vaadin22 = "22.0.9"
 # Vaadin 23: Don't test on Vaadin 23.5.0 and higher; it requires the pro license
 vaadin23 = "23.4.1"
 vaadin24 = "24.9.10"
-vaadin24next = "24.9.10"
+vaadin24next = "24.10.0-alpha1"
 vaadin25 = "25.0.4"
 vaadin25next = "25.1.0-alpha3"
 
