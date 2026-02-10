@@ -12,7 +12,7 @@ vaadin23 = "23.4.2"
 vaadin24 = "24.9.11"
 vaadin24next = "24.10.0-alpha1"
 vaadin25 = "25.0.5"
-vaadin25next = "25.1.0-alpha5"
+vaadin25next = "25.1.0-alpha6"
 
 # Check newest Hilla version at https://github.com/vaadin/hilla/tags
 hilla2next = "2.5.6"
