@@ -2,9 +2,10 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.button.Button
-import com.vaadin.flow.component.html.Label
+import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
+import com.vaadin.flow.component.textfield.TextField
 import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
@@ -18,10 +19,10 @@ abstract class AbstractDepthFirstTreeIteratorTests() {
         val expected = mutableListOf<Component>()
         val root = VerticalLayout().apply {
             expected.add(this)
-            add(Button("Foo").apply { expected.add(this) })
+            add(TextField("Foo").apply { expected.add(this) })
             add(HorizontalLayout().apply {
                 expected.add(this)
-                add(Button().apply { expected.add(this) })
+                add(Span().apply { expected.add(this) })
             })
             add(VerticalLayout().apply { expected.add(this) })
         }
