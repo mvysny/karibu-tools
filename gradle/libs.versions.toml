@@ -2,17 +2,17 @@
 slf4j = "2.0.17"
 # Check the newest Vaadin version at https://github.com/vaadin/platform/tags
 # Vaadin 14: This is the latest stable Vaadin 14 version, or prev stable version if vaadin14_next_version is stable
-vaadin14 = "14.11.10"
+vaadin14 = "14.11.14"
 # Vaadin 14: Don't test on Vaadin 14.12.0 and higher: it requires the pro license
-vaadin14next = "14.11.10"
+vaadin14next = "14.11.14"
 # Vaadin 22: Don't test on Vaadin 22.1.0 and higher: it requires the pro license
 vaadin22 = "22.0.9"
 # Vaadin 23: Don't test on Vaadin 23.5.0 and higher; it requires the pro license
-vaadin23 = "23.4.1"
+vaadin23 = "23.4.2"
 vaadin24 = "24.9.11"
 vaadin24next = "24.10.0-alpha1"
 vaadin25 = "25.0.5"
-vaadin25next = "25.1.0-alpha3"
+vaadin25next = "25.1.0-alpha5"
 
 # Check newest Hilla version at https://github.com/vaadin/hilla/tags
 hilla2next = "2.5.6"
