@@ -7,3 +7,7 @@ classes
 .attach_pid*
 .kotlin
 kls_database.db
+.settings
+bin
+.classpath
+.project
