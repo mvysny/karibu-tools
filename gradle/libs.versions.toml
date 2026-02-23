@@ -10,9 +10,9 @@ vaadin22 = "22.0.9"
 # Vaadin 23: Don't test on Vaadin 23.5.0 and higher; it requires the pro license
 vaadin23 = "23.4.2"
 vaadin24 = "24.9.11"
-vaadin24next = "24.10.0-alpha1"
+vaadin24next = "24.10.0-alpha2"
 vaadin25 = "25.0.5"
-vaadin25next = "25.1.0-alpha6"
+vaadin25next = "25.1.0-alpha9"
 
 # Check newest Hilla version at https://github.com/vaadin/hilla/tags
 hilla2next = "2.5.6"
