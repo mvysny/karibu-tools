@@ -2,7 +2,6 @@ package com.github.mvysny.kaributools
 
 import com.vaadin.flow.component.dependency.NpmPackage
 import com.vaadin.flow.server.Version
-import com.vaadin.flow.server.frontend.FrontendVersion
 import com.vaadin.shrinkwrap.VaadinCoreShrinkWrap
 import java.util.Optional
 import java.util.Properties
@@ -48,8 +47,7 @@ public data class SemanticVersion(
     public fun isAtMost(major: Int, minor: Int, bugfix: Int = Int.MAX_VALUE): Boolean = this <= SemanticVersion(major, minor, bugfix)
 
     public companion object {
-        @Volatile
-        private var vaadin25 = false
+        private val VERSION_REGEX = Regex("""(\d+)\.(\d+)(?:\.(\d+))?(?:[.\-](.+))?""")
         /**
          * Parses the [version] string.
          *
@@ -57,36 +55,14 @@ public data class SemanticVersion(
          * [SemanticVersion.toString].
          */
         public fun fromString(version: String): SemanticVersion {
-            if (vaadin25) {
-                return fromVaadin25FrontendVersion(version)
+            val match = requireNotNull(VERSION_REGEX.matchEntire(version.trim())) {
+                "Invalid version string: '$version'"
             }
-            try {
-                val frontendVersion = FrontendVersion(version)
-                return SemanticVersion(
-                    frontendVersion.majorVersion,
-                    frontendVersion.minorVersion,
-                    frontendVersion.revision,
-                    frontendVersion.buildIdentifier.takeIf { it.isNotEmpty() }
-                )
-            } catch (_: NoClassDefFoundError) {
-                vaadin25 = true
-                // Vaadin 25+ moved FrontendVersion to internal
-                return fromVaadin25FrontendVersion(version)
-            }
-        }
-
-        private fun fromVaadin25FrontendVersion(version: String): SemanticVersion {
-            val clazz = Class.forName("com.vaadin.flow.internal.FrontendVersion")
-            val inst = clazz.getConstructor(String::class.java).newInstance(version)
-            val majorVersion = clazz.getMethod("getMajorVersion").invoke(inst) as Int
-            val minorVersion = clazz.getMethod("getMinorVersion").invoke(inst) as Int
-            val revision = clazz.getMethod("getRevision").invoke(inst) as Int
-            val bi = clazz.getMethod("getBuildIdentifier").invoke(inst) as String
             return SemanticVersion(
-                majorVersion,
-                minorVersion,
-                revision,
-                bi.takeIf { it.isNotEmpty() }
+                match.groupValues[1].toInt(),
+                match.groupValues[2].toInt(),
+                match.groups[3]?.value?.toInt() ?: 0,
+                match.groups[4]?.value?.takeIf { it.isNotEmpty() }
             )
         }
     }
