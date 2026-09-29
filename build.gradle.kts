@@ -11,6 +11,13 @@ plugins {
 
 defaultTasks("clean", "build")
 
+// the doc layer's checks (AGENTS.md, design/); bash + GNU tools, hence Linux only
+val verifyDesignTripwires by tasks.registering(Exec::class) {
+    commandLine("design/verify_design_tripwires.sh")
+    onlyIf { System.getProperty("os.name") == "Linux" }
+}
+tasks.check { dependsOn(verifyDesignTripwires) }
+
 allprojects {
     group = "com.github.mvysny.karibu-tools"
     version = "0.28-SNAPSHOT"
