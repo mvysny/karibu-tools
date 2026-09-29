@@ -12,7 +12,7 @@ plugins {
 defaultTasks("clean", "build")
 
 // the doc layer's checks (AGENTS.md, design/); bash + GNU tools, hence Linux only
-val verifyDesignTripwires by tasks.registering(Exec::class) {
+val verifyDesignTripwires = tasks.register<Exec>("verifyDesignTripwires") {
     commandLine("design/verify_design_tripwires.sh")
     onlyIf { System.getProperty("os.name") == "Linux" }
 }
