@@ -52,6 +52,7 @@ A set of general Vaadin utilities applicable to all components.
 
 * Call `Component.findAncestor()` or `Component.findAncestorOrSelf()` to discover component's
   ancestor which satisfies given predicate. Vaadin 23.2+ has `Component.findAncestor(Class)`, by type only.
+  Vote for [flow #26032](https://github.com/vaadin/flow/issues/26032).
 * call `Component.removeFromParent()` to remove the component from its parent.
   Built into Vaadin 24.0+ as `Component.removeFromParent()`.
 * call `Component.isNestedIn(potentialAncestor: Component)` to discover whether a component
@@ -126,6 +127,7 @@ Navigating:
    * Built into Vaadin 25.3+: `UI.navigate(String)` parses the query parameters.
 * Call `navigateTo(getRouteUrl(AdminRoute::class, "lang=en"))` to navigate to `admin?lang=en`.
   * `getRouteUrl(AdminRoute::class, RouteParameters, QueryParameters)` takes typed route and query parameters.
+    Vote for [flow #26033](https://github.com/vaadin/flow/issues/26033).
 * Call `routerLink.navigateTo()` to navigate to the link's target.
 * `RouterLink.setRoute(AdminRoute::class)` or `RouterLink.setRoute(DocumentRoute::class, 25L)` sets the link's target.
 * `Router.configuration` returns the `RouteConfiguration` for the router's registry.
@@ -166,6 +168,7 @@ is available without the fetch.
 * Call `BrowserTimeZone.toLocalDateTime(instant)` to convert an `Instant` to the browser's local date time.
 * `BrowserTimeZone.extendedClientDetails` returns the details `fetch()` stored in the session.
 * `ExtendedClientDetails.timeZone` returns the browser's `ZoneId`, falling back to the time zone offset.
+  Vote for [flow #26034](https://github.com/vaadin/flow/issues/26034).
 * `ExtendedClientDetails.currentDateTime` returns the current date time in that time zone.
 
 ### Text selection utils
@@ -213,6 +216,7 @@ The following functions are applicable to any field that edits text, e.g.
 * `Grid.getColumnBy(Person::name)` retrieves a column created via `grid.addColumnFor(Person::name)`.
 * `Grid.getColumnBySortProperty("name")` retrieves the column sorted by given property;
   `Grid.getColumnBySortOrder()` does the same for a `QuerySortOrder`.
+  Vote for [flow-components #10276](https://github.com/vaadin/flow-components/issues/10276).
 * `HeaderRow.getCell(Person::name)` retrieves header cell for given column.
 * Similarly, `FooterRow.getCell(Person::name)` retrieves footer cell for given column.
 * `HeaderCell.component`/`FooterCell.component` sets or returns a component set
@@ -220,10 +224,12 @@ The following functions are applicable to any field that edits text, e.g.
 * `HeaderCell.renderer`/`FooterCell.renderer` returns the cell's renderer. Vaadin 23 and lower only.
 * `grid.sort()` sorts the grid:
   * `grid.sort(nameColumn.asc)` sorts ascending by given column; `column.asc`/`column.desc` create the `GridSortOrder`.
-  * `grid.sort(Person::name.asc)` sorts ascending by column created via `grid.addColumnFor(Person::name)`
+  * `grid.sort(Person::name.asc)` sorts ascending by column created via `grid.addColumnFor(Person::name)`;
+    it takes any `QuerySortOrder`. Vote for [flow-components #10277](https://github.com/vaadin/flow-components/issues/10277).
   * `grid.setSortOrder(list)` does the same as `grid.sort(list)`, so that Kotlin sees a `sortOrder` property.
 * `treeGrid.getRootItems()` will fetch the root items
 * `treeGrid.expandAll()` will expand all nodes; may invoke massive data loading.
+  Vote for [flow-components #1657](https://github.com/vaadin/flow-components/issues/1657).
 * `column.header2` returns the header set via the `setHeader()` function.
   Built into Vaadin 23.2+ as `Column.getHeaderText()`, which doesn't fall back to the header of a
   single-child column group.
@@ -408,11 +414,13 @@ Since 0.18; depend on `karibu-tools-23` to gain access to these utility function
 * `Tab.contents`/`TabSheet.getComponent()` returns the contents component of given tab (TabSheet only).
   Built into Vaadin 24.1+ as `TabSheet.getComponent(Tab)`.
 * `TabSheet.tabCount` returns the number of the tabs. Built into Vaadin 24.5+ as `TabSheet.getTabCount()`.
-* `TabSheet.removeAll()` removes all tabs
+* `TabSheet.removeAll()` removes all tabs.
+  Vote for [flow-components #10272](https://github.com/vaadin/flow-components/issues/10272).
 * `TabSheet.tabs` returns a `List<Tab>` of all tabs
 * `TabSheet.getTab()` returns `Tab` for its content component (TabSheet only).
   Built into Vaadin 24.1+ as `TabSheet.getTab(Component)`.
 * `TabSheet.findTabContaining()` returns `Tab` which transitively contains given component.
+  Vote for [flow-components #10273](https://github.com/vaadin/flow-components/issues/10273).
 
 Java: use `TabSheetsKt.getTab()` etc.
 
