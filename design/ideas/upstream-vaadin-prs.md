@@ -78,7 +78,7 @@ flow (`vaadin/flow`):
 
 | Utility | Upstream shape | Ticket | Tags |
 |---|---|---|---|
-| `findAncestor(predicate)`, `findAncestorOrSelf`, `isNestedIn` | on `Component`; flow#14002 moved `findAncestor(Class)` *off* `ComponentUtil` on purpose ("ComponentUtil feels internal") | none | |
+| `findAncestor(predicate)`, `findAncestorOrSelf`, `isNestedIn` | on `Component`; flow#14002 moved `findAncestor(Class)` *off* `ComponentUtil` on purpose ("ComponentUtil feels internal") | flow#26032 open (owner's) for `findAncestor(predicate)`; the other two on hold, no ticket yet | |
 | `Element.textRecursively2` | bug fix of `Element.getTextRecursively()` | flow#3668 open | |
 | `getRouteUrl(…, QueryParameters)` | `RouteConfiguration.getUrl(Class, RouteParameters, QueryParameters)` | none | |
 | `RouterLink.target` (+ `setOpenInNewTab`) | `RouterLink.setTarget(AnchorTargetValue)` | flow#5791 open | |
@@ -96,7 +96,7 @@ flow-components (`vaadin/flow-components`):
 | `FormItem.label` | a label getter on `FormItem` | fc#1015 open | |
 | text selection: `selectAll`, `selectNone`, `setCursorLocation`, `select(IntRange)` | `setSelectionRange(int, int)`, `setCursorPosition(int)`, `selectAll()` on `TextFieldBase` | fc#1377, fc#1152, wc#1375 open | maybe web-component-side |
 | `Grid.getColumnBySortProperty` (+ `getColumnBySortOrder`, `sort(QuerySortOrder...)`) | next to `getColumnByKey` | none | |
-| `TreeGrid.expandAll` (+ `getRootItems`) | needs an API discussion first: unbounded loading (fc#4411) | none | |
+| `TreeGrid.expandAll` (+ `getRootItems`) | needs an API discussion first: unbounded loading (fc#4411) | fc#1657 open (`collapseAll` / `expandAll`; the audit missed it) | |
 | `Dialog.center()` | re-center after a size change | wc#601 open | web-component-side |
 | `Notification.addCloseButton()` | a built-in close button | wc#438, fc#5531 open | web-component-side, theme-bound |
 | `MenuBar/SubMenu.addIconItem()` | an icon slot on items | fc#2688, wc#1118 open | web-component-side, theme-bound (hard-codes Lumo vars) |
