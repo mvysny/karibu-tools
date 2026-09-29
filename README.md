@@ -23,7 +23,8 @@ dependencies {
 See the tag above for the latest version.
 
 "Built into Vaadin x.y+" marks a utility Vaadin has since absorbed; on that version and
-newer, prefer the built-in API it names. "Vote for" links an upstream ticket that is still open.
+newer, prefer the built-in API it names. "Deprecated" marks one Vaadin 14 already has built in,
+so the built-in works on every Vaadin this library supports. "Vote for" links an upstream ticket that is still open.
 
 ## General Vaadin Utilities
 
@@ -56,7 +57,7 @@ A set of general Vaadin utilities applicable to all components.
 * call `Component.isNestedIn(potentialAncestor: Component)` to discover whether a component
   is nested within given potential ancestor.
 * query `Component.isAttached()` to see whether this component is currently attached to an UI.
-  Built into Vaadin 14.7+ / 18.0+ as `Component.isAttached()`.
+  Deprecated: built into Vaadin 14.7+ / 18.0+ as `Component.isAttached()`.
 * call `HasOrderedComponents<*>.insertBefore()` to insert a component before given component.
 * query `HasComponents.hasChildren` to see whether a component has any children.
 * `Component.walk()` will return an `Iterable<Component>` which walks the component child tree,
@@ -77,8 +78,8 @@ A set of general Vaadin utilities applicable to all components.
   Built into Vaadin 24.3+ as `UI.getActiveViewLocation()`.
 * call `div.addClassNames2("  foo bar   baz")` to add multiple class names.
   * also `div.removeClassNames2()` and `div.setClassNames2()`
-  * Built into Vaadin 14.8+ / 22.0+: `addClassNames()` and `removeClassNames()` split on spaces
-    (but not on tabs or newlines).
+  * Deprecated: built into Vaadin 14.8+ / 22.0+: `addClassNames()` and `removeClassNames()` split on spaces
+    (but not on tabs or newlines, and throw on a blank string); `setClassName()` splits on any whitespace.
 * `component.placeholder` unifies the various component placeholders, usually shown when there's no value selected.
   Built into Vaadin 24.3+ as `HasPlaceholder`.
 * `component.caption` unifies component captions. Caption is displayed directly on the component (e.g. the Button text),
@@ -138,7 +139,8 @@ QueryParameters:
 * call `queryParameters.getValues("foo")` to get all values of the `foo` query parameter.
   Built into Vaadin 24.2+ as `QueryParameters.getParameters(String)`.
 * call the `QueryParameters("foo=bar")` factory method to parse the query part of the URL
-  to the Vaadin `QueryParameters` class. Built into Vaadin 14.7+ / 20.0+ as `QueryParameters.fromString()`.
+  to the Vaadin `QueryParameters` class. Deprecated: built into Vaadin 14.7+ / 20.0+ as `QueryParameters.fromString()`,
+  which doesn't strip a leading `?` and doesn't return an empty `QueryParameters` for a blank string.
 * `queryParameters.isEmpty` / `isNotEmpty` checks whether there are any query parameters.
 
 Links:

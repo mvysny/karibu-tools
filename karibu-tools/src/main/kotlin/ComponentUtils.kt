@@ -113,7 +113,8 @@ public fun Component.isNestedIn(potentialAncestor: Component): Boolean =
  *
  * Returns true for attached components even if the UI itself is closed.
  */
-@Suppress("EXTENSION_SHADOWED_BY_MEMBER") // Added in Vaadin 14.7.0; let's keep it here for older Vaadins.
+@Deprecated("Built into Vaadin 14.7+ as Component.isAttached(); Kotlin calls already resolve to it")
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
 public fun Component.isAttached(): Boolean {
     // see https://github.com/vaadin/flow/issues/7911
     return element.node.isAttached
@@ -165,6 +166,8 @@ public val HasComponents.isEmpty: Boolean get() = !hasChildren
  * calls [HasStyle.addClassName] on each class name. Does nothing if the string
  * is blank.
  */
+@Deprecated("Built into Vaadin 14.8+ as addClassNames(), which splits on spaces only and throws on a blank string",
+    ReplaceWith("addClassNames(classNames)"))
 public fun HasStyle.addClassNames2(classNames: String) {
     // workaround for https://github.com/vaadin/flow/issues/11709
     classNames.splitByWhitespaces().forEach { addClassName(it) }
@@ -172,12 +175,14 @@ public fun HasStyle.addClassNames2(classNames: String) {
 
 /**
  * Splits [classNames] by whitespaces to obtain individual class names, then
- * calls [addClassNames2] on each class name. Does nothing if the string
+ * calls [HasStyle.addClassName] on each class name. Does nothing if the string
  * is blank.
  */
+@Deprecated("Built into Vaadin 14.8+ as addClassNames(), which splits on spaces only and throws on a blank string",
+    ReplaceWith("addClassNames(*classNames)"))
 public fun HasStyle.addClassNames2(vararg classNames: String) {
     // workaround for https://github.com/vaadin/flow/issues/11709
-    classNames.forEach { addClassNames2(it) }
+    classNames.forEach { names -> names.splitByWhitespaces().forEach { addClassName(it) } }
 }
 
 /**
@@ -185,6 +190,8 @@ public fun HasStyle.addClassNames2(vararg classNames: String) {
  * calls [HasStyle.removeClassName] on each class name. Does nothing if the string
  * is blank.
  */
+@Deprecated("Built into Vaadin 14.8+ as removeClassNames(), which splits on spaces only and throws on a blank string",
+    ReplaceWith("removeClassNames(classNames)"))
 public fun HasStyle.removeClassNames2(classNames: String) {
     // workaround for https://github.com/vaadin/flow/issues/11709
     classNames.splitByWhitespaces().forEach { removeClassName(it) }
@@ -192,34 +199,33 @@ public fun HasStyle.removeClassNames2(classNames: String) {
 
 /**
  * Splits [classNames] by whitespaces to obtain individual class names, then
- * calls [removeClassNames2] on each class name. Does nothing if the string
+ * calls [HasStyle.removeClassName] on each class name. Does nothing if the string
  * is blank.
  */
+@Deprecated("Built into Vaadin 14.8+ as removeClassNames(), which splits on spaces only and throws on a blank string",
+    ReplaceWith("removeClassNames(*classNames)"))
 public fun HasStyle.removeClassNames2(vararg classNames: String) {
     // workaround for https://github.com/vaadin/flow/issues/11709
-    classNames.forEach { removeClassNames2(it) }
+    classNames.forEach { names -> names.splitByWhitespaces().forEach { removeClassName(it) } }
 }
 
 /**
- * Splits [classNames] by whitespaces to obtain individual class names, then
- * clears the class names and calls [addClassNames2] on each class name. Does nothing if the string
- * is blank.
+ * Replaces all class names with [classNames], split by whitespaces. A blank string
+ * removes all class names.
  */
+@Deprecated("Built into Vaadin 14 as setClassName(), which splits on any whitespace too",
+    ReplaceWith("setClassName(classNames)"))
 public fun HasStyle.setClassNames2(classNames: String) {
-    // workaround for https://github.com/vaadin/flow/issues/11709
-    style.clear()
-    addClassNames2(classNames)
+    className = classNames
 }
 
 /**
- * Splits [classNames] by whitespaces to obtain individual class names, then
- * clears the class names and calls [addClassNames2] on each class name. Does nothing if the string
- * is blank.
+ * Replaces all class names with [classNames], each split by whitespaces.
  */
+@Deprecated("Built into Vaadin 14 as setClassName(), which splits on any whitespace too",
+    ReplaceWith("setClassName(classNames.joinToString(\" \"))"))
 public fun HasStyle.setClassNames2(vararg classNames: String) {
-    // workaround for https://github.com/vaadin/flow/issues/11709
-    style.clear()
-    addClassNames2(*classNames)
+    className = classNames.joinToString(" ")
 }
 
 /**

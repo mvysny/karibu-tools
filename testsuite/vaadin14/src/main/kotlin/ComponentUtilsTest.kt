@@ -185,46 +185,35 @@ abstract class AbstractComponentUtilsTests() {
         expect(true) { l.isEmpty }
     }
 
+    @Suppress("DEPRECATION")
     @Nested inner class classnames2 {
         @Test fun addClassNames2() {
             val div = Div().apply { addClassNames2("foo  bar    baz") }
-            expect(true) {
-                div.classNames.containsAll(listOf("foo", "bar", "baz"))
-            }
+            expect(setOf("foo", "bar", "baz")) { div.classNames.toSet() }
         }
         @Test fun `addClassNames2(vararg)`() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
-            expect(true) {
-                div.classNames.containsAll(listOf("foo", "bar", "baz", "one", "two"))
-            }
+            expect(setOf("foo", "bar", "baz", "one", "two")) { div.classNames.toSet() }
         }
         @Test fun setClassNames2() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.setClassNames2("  three four  ")
-            expect(true) {
-                div.classNames.containsAll(listOf("three", "four"))
-            }
+            expect(setOf("three", "four")) { div.classNames.toSet() }
         }
         @Test fun `setClassNames2(vararg)`() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.setClassNames2("  three ", "four  ")
-            expect(true) {
-                div.classNames.containsAll(listOf("three", "four"))
-            }
+            expect(setOf("three", "four")) { div.classNames.toSet() }
         }
         @Test fun removeClassNames2() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.removeClassNames2("  bar baz  ")
-            expect(true) {
-                div.classNames.containsAll(listOf("foo", "one", "two"))
-            }
+            expect(setOf("foo", "one", "two")) { div.classNames.toSet() }
         }
         @Test fun `removeClassNames2(vararg)`() {
             val div = Div().apply { addClassNames2("foo  bar    baz", "  one  two") }
             div.removeClassNames2("  bar ", "baz  ")
-            expect(true) {
-                div.classNames.containsAll(listOf("foo", "one", "two"))
-            }
+            expect(setOf("foo", "one", "two")) { div.classNames.toSet() }
         }
     }
 

@@ -188,6 +188,8 @@ public fun QueryParameters.getValues(parameterName: String): List<String> =
  * Parses given query as a QueryParameters.
  * @param query the query string e.g. `foo=bar&quak=foo`; the parameters may repeat.
  */
+@Deprecated("Built into Vaadin 14.7+ as QueryParameters.fromString(), which neither strips a leading '?' nor returns empty() for a blank string",
+    ReplaceWith("QueryParameters.fromString(query)", "com.vaadin.flow.router.QueryParameters"))
 public fun QueryParameters(query: String): QueryParameters = when {
     query.isBlank() -> QueryParameters.empty()
     else -> Location("?${query.trim('?')}").queryParameters

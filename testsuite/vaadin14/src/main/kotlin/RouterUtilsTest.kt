@@ -17,28 +17,33 @@ abstract class AbstractRouterUtilsTests {
     @Nested inner class queryParameters {
         @Test fun get() {
             expect(null) { QueryParameters.empty()["foo"] }
-            expect("bar") { QueryParameters("foo=bar")["foo"] }
+            expect("bar") { QueryParameters.fromString("foo=bar")["foo"] }
         }
         @Test fun `get fails with multiple parameters`() {
             val ex = assertThrows<IllegalStateException> {
-                QueryParameters("foo=bar&foo=baz")["foo"]
+                QueryParameters.fromString("foo=bar&foo=baz")["foo"]
             }
             expect("Multiple values present for foo: [bar, baz]") { ex.message }
         }
         @Test fun getValues() {
             expectList() { QueryParameters.empty().getValues("foo") }
-            expectList("bar") { QueryParameters("foo=bar")
+            expectList("bar") { QueryParameters.fromString("foo=bar")
                 .getValues("foo") }
-            expectList("bar", "baz") { QueryParameters("foo=bar&foo=baz")
+            expectList("bar", "baz") { QueryParameters.fromString("foo=bar&foo=baz")
                 .getValues("foo") }
         }
         @Test fun isEmpty() {
             expect(true) { QueryParameters.empty().isEmpty }
-            expect(false) { QueryParameters("foo=bar").isEmpty }
+            expect(false) { QueryParameters.fromString("foo=bar").isEmpty }
         }
         @Test fun isNotEmpty() {
             expect(false) { QueryParameters.empty().isNotEmpty }
-            expect(true) { QueryParameters("foo=bar").isNotEmpty }
+            expect(true) { QueryParameters.fromString("foo=bar").isNotEmpty }
+        }
+        @Suppress("DEPRECATION")
+        @Test fun parse() {
+            expect(true) { QueryParameters("").isEmpty }
+            expectList("bar", "baz") { QueryParameters("?foo=bar&foo=baz").getValues("foo") }
         }
     }
 

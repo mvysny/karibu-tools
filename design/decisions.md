@@ -27,3 +27,12 @@ not compile against the newest: the jar would not link on 14. The one exception 
 extension function a receiver type the compiler has never seen, so it is a second jar on top
 of the first rather than a fork of it. The cost we carry: every reflective call is invisible to
 the compiler, so only the `testrun-*` matrix catches a break.
+
+## D_deprecate_when_14_has_it — Why deprecate only the helpers Vaadin 14 already has, not every one Vaadin has since absorbed?
+
+A deprecation tells the user to switch to the built-in, and under `D_one_jar_vaadin14` a
+Vaadin 14 app has no built-in to switch to until 14 has it too; a warning with no way to act on
+it is noise. So a helper is deprecated once the newest Vaadin 14 has the built-in (`isAttached()`,
+`addClassNames()`, `QueryParameters.fromString()`), and otherwise only gets a README
+"Built into Vaadin x.y+" note. The deprecation message names what the built-in does
+differently, so switching is a choice, not a silent behavior change.
