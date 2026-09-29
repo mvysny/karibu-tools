@@ -74,7 +74,7 @@ abstract class AbstractGridUtilsTests {
 
         @Test fun `property name with renderer`() {
             val grid = Grid<Person>()
-            val column = grid.addColumnFor<Person, String>("fullName", TextRenderer { it.fullName })
+            val column = grid.addColumnFor("fullName", TextRenderer { it.fullName })
             expect(column) { grid.getColumnByKey("fullName") }
             expect("Full Name") { column.header2 }
             expectList("fullName") { column.getSortOrder(SortDirection.ASCENDING).toList().map { it.sorted } }
@@ -85,7 +85,7 @@ abstract class AbstractGridUtilsTests {
             expect(false) { grid.addColumnFor(Person::fullName, sortable = false).isSortable }
             expect(false) { grid.addColumnFor(Person::fullName, TextRenderer { it.fullName }, sortable = false, key = "a").isSortable }
             expect(false) { grid.addColumnFor<Person, String>("fullName", sortable = false, key = "b").isSortable }
-            expect(false) { grid.addColumnFor<Person, String>("fullName", TextRenderer { it.fullName }, sortable = false, key = "c").isSortable }
+            expect(false) { grid.addColumnFor("fullName", TextRenderer { it.fullName }, sortable = false, key = "c").isSortable }
         }
     }
 

@@ -206,10 +206,9 @@ public inline fun <reified T, reified V> Grid<T>.addColumnFor(
  * class-backed Grids you should use `addColumnFor(KProperty1)`
  * @param renderer the renderer used to create the grid cell structure
  * @param T the type of the bean stored in the Grid
- * @param V the value that the column will display, deduced from the type of the [propertyName].
  * @return the newly created column
  */
-public fun <T, V> Grid<T>.addColumnFor(
+public fun <T> Grid<T>.addColumnFor(
     propertyName: String,
     renderer: Renderer<T>,
     sortable: Boolean = true,
