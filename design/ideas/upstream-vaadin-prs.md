@@ -16,6 +16,9 @@ newest Vaadin master (25.4-SNAPSHOT as of 2026-09-29).
   If it goes through, every further PR takes the same shape.
 - **First PRs**: `Notification.getText()` (fc#2088), `Dialog.requestClose()` (fc#6027),
   `TabSheet.removeAll()`.
+- **Tickets are filed from here, PRs are made elsewhere.** Every A candidate without a ticket gets a
+  feature request filed from this repo; the PR itself is written in a separate session inside the
+  upstream checkout (`flow`, `flow-components`, …), linking that ticket.
 - **A-low waits** until the highest-value PRs are done.
 - **Version precision is `x.y`.** API lands in minors, so the README says "Built into Vaadin x.y+".
 - **README gets fixed first**: every public utility gets a bullet, every one that Vaadin has
@@ -88,8 +91,8 @@ flow-components (`vaadin/flow-components`):
 |---|---|---|---|
 | `Notification.getText()` | `getText()` reading the `text` property; trivial | fc#2088 open (owner's) | |
 | `Dialog.requestClose()` | `Dialog.requestClose()` firing `DialogCloseActionEvent` | fc#6027 open (owner's) | |
-| `TabSheet.removeAll()` | same, matching `Tabs.removeAll()` | none | |
-| `TabSheet.findTabContaining()` | same | none | |
+| `TabSheet.removeAll()` | same, matching `Tabs.removeAll()` | fc#10272 open (owner's) | |
+| `TabSheet.findTabContaining()` | same | fc#10273 open (owner's) | |
 | `FormItem.label` | a label getter on `FormItem` | fc#1015 open | |
 | text selection: `selectAll`, `selectNone`, `setCursorLocation`, `select(IntRange)` | `setSelectionRange(int, int)`, `setCursorPosition(int)`, `selectAll()` on `TextFieldBase` | fc#1377, fc#1152, wc#1375 open | maybe web-component-side |
 | `Grid.getColumnBySortProperty` (+ `getColumnBySortOrder`, `sort(QuerySortOrder...)`) | next to `getColumnByKey` | none | |
