@@ -9,8 +9,10 @@ vaadin14next = "14.11.14"
 vaadin22 = "22.0.28"
 # Vaadin 23: Don't test on Vaadin 23.5.0 and higher; it requires the pro license
 vaadin23 = "23.4.2"
-vaadin24 = "24.9.22"
-vaadin24next = "24.10.10"
+# Vaadin 24.9: Don't test on Vaadin 24.9.19 and higher: it requires the pro license
+vaadin24 = "24.9.18"
+# Vaadin 24.10: Don't test on Vaadin 24.10.8 and higher: it requires the pro license
+vaadin24next = "24.10.7"
 vaadin25 = "25.2.9"
 vaadin25next = "25.3.0"
 

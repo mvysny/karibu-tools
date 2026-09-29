@@ -16,6 +16,8 @@ jobs:
             java: 21
 
     runs-on: ${{ matrix.os }}
+    # a Vaadin version that needs the pro license stalls each test on the license check instead of failing fast
+    timeout-minutes: 20
 
     steps:
     - uses: actions/checkout@v7
