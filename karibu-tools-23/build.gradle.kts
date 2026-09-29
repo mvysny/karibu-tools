@@ -9,5 +9,6 @@ dependencies {
     compileOnly(libs.javax.servletapi)
 }
 
+@Suppress("UNCHECKED_CAST")
 val configureMavenCentral = ext["configureMavenCentral"] as (artifactId: String) -> Unit
 configureMavenCentral("karibu-tools-23")
