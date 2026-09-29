@@ -52,6 +52,7 @@ Every fact lives in exactly one of these; the others link to it.
 - `./gradlew` — the default `clean build`: every `testrun-*` module, then `design/verify_design_tripwires.sh` (Linux only); what CI runs on push and PR, ubuntu × JDK 17 / 21 / 25, macOS and Windows on JDK 21 (`.github/workflows/gradle.yml`, which also runs the tripwires in a job of their own).
 - `./gradlew test` — all tests on all Vaadin versions.
 - `./gradlew :testsuite:testrun-vaadin25:test --tests '*GridUtilsTests*'` — one suite on one Vaadin version.
+- `./gradlew koverHtmlReport` — the library jars' coverage merged over every `testrun-*`, in `build/reports/kover/html`.
 - Releasing to Maven Central: `CONTRIBUTING.md`.
 
 ## Skills this project follows

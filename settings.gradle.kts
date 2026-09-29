@@ -1,3 +1,5 @@
+rootProject.name = "karibu-tools-parent"
+
 include(
     "karibu-tools",
     "karibu-tools-23",

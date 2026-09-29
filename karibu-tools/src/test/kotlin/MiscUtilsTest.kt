@@ -18,6 +18,12 @@ class MiscUtilsTest {
         expect("No such field 'foo' in class com.github.mvysny.kaributools.Person; available properties: alive, class, dateOfBirth, fullName") { ex.message }
     }
 
+    @Test fun comparator() {
+        val people = listOf(Person("b"), Person(null), Person("a"))
+        expect(listOf(null, "a", "b")) { people.sortedWith(Person::fullName.comparator).map { it.fullName } }
+        expect(listOf(null, "a", "b")) { people.sortedWith(Person::class.java.getPropertyComparator("fullName")).map { it.fullName } }
+    }
+
     @Test fun isNull() {
         expect(true) { (null as JsonObject?).isNull }
         expect(true) { JreJsonFactory().createNull().isNull }

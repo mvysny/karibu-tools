@@ -31,6 +31,15 @@ abstract class AbstractIconUtilsTests {
         expect(1) { clicked }
     }
 
+    @Test fun createComponent() {
+        expect(IconName.of(VaadinIcon.ABACUS)) { (IconName.of(VaadinIcon.ABACUS).createComponent() as Icon).iconName }
+        expect(IconName("lumo", "plus")) { (IconName("lumo", "plus").createComponent() as Icon).iconName }
+    }
+
+    @Test fun `asVaadinIcon of a non-vaadin icon`() {
+        expect(null) { IconName("lumo", "plus").asVaadinIcon() }
+    }
+
     @Nested inner class icon {
         @Test fun `changing icon`() {
             val icon = VaadinIcon.ABACUS.create()
@@ -43,6 +52,14 @@ abstract class AbstractIconUtilsTests {
             icon.iconName = null
             expect(null) { icon.iconName }
             expect(null) { icon.element.getAttribute("icon") }
+        }
+
+        @Test fun setIcon() {
+            val icon = Icon()
+            icon.setIcon(VaadinIcon.ABACUS)
+            expect(VaadinIcon.ABACUS) { icon.iconName!!.asVaadinIcon() }
+            icon.setIcon(null)
+            expect(null) { icon.iconName }
         }
 
         @Test fun `vaadin-h icon by default`() {

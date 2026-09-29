@@ -28,7 +28,7 @@ public fun Class<*>.getGetter(propertyName: String): Method {
  */
 public fun <T> Class<T>.getPropertyComparator(propertyName: String): Comparator<T> {
     val getter: Method = getGetter(propertyName)
-    return compareBy { if (it == null) null else getter.invoke(it) as Comparable<*> }
+    return compareBy { if (it == null) null else getter.invoke(it) as Comparable<*>? }
 }
 
 /**

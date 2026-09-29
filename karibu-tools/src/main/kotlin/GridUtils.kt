@@ -123,7 +123,7 @@ public fun <T, V> Grid<T>.addColumnFor(
 ): Column<T> =
     addColumn { converter(property.get(it)) }.apply {
         this.key = key
-        if (sortable) isSortable = true
+        isSortable = sortable
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
     }
 
@@ -146,7 +146,7 @@ public fun <T, V> Grid<T>.addColumnFor(
 ): Column<T> =
     addColumn(renderer).apply {
         this.key = key
-        if (sortable) isSortable = true
+        isSortable = sortable
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
     }
 
@@ -190,6 +190,8 @@ public inline fun <reified T, reified V> Grid<T>.addColumnFor(
         this.key = key
         if (sortable) {
             setSortProperty(propertyName)
+        } else {
+            isSortable = false
         }
         setHeader(SharedUtil.camelCaseToHumanFriendly(propertyName))
     }
@@ -217,6 +219,8 @@ public fun <T, V> Grid<T>.addColumnFor(
         this.key = key
         if (sortable) {
             setSortProperty(propertyName)
+        } else {
+            isSortable = false
         }
         setHeader(SharedUtil.camelCaseToHumanFriendly(propertyName))
     }
@@ -557,7 +561,7 @@ public fun <T, V> TreeGrid<T>.addHierarchyColumnFor(
 ): Column<T> =
     addHierarchyColumn { converter(property.get(it)) }.apply {
         this.key = key
-        if (sortable) isSortable = true
+        isSortable = sortable
         setHeader(SharedUtil.camelCaseToHumanFriendly(property.name))
     }
 
@@ -593,6 +597,8 @@ public inline fun <reified T, reified V> TreeGrid<T>.addHierarchyColumnFor(
         this.key = key
         if (sortable) {
             setSortProperty(propertyName)
+        } else {
+            isSortable = false
         }
         setHeader(SharedUtil.camelCaseToHumanFriendly(propertyName))
     }

@@ -64,7 +64,7 @@ public data class KeyShortcut(val key: Key, val modifierKeys: Set<ModifierKey> =
  */
 public fun ClickNotifier<*>.addClickShortcut(shortcut: KeyShortcut, onlyWhenFocused: Boolean = false): ShortcutRegistration = addClickShortcut(shortcut.key, *shortcut.vaadinModifiers).apply {
     if (onlyWhenFocused) {
-        listenOn(this@addClickShortcut as Component)
+        listenOn(*arrayOf(this@addClickShortcut as Component))  // Vaadin 20+ has no `listenOn(Component)`
     }
 }
 
@@ -108,8 +108,9 @@ public fun TextField.onEnter(block: () -> Unit) {
     addShortcut(Key.ENTER.shortcut) {
         // workaround for https://github.com/vaadin/flow/issues/17484: flush the value and call
         // the server with the new value first, so that block can see the new value properly.
+        // `then(Class, …)`: the plain `then { }` takes an elemental JsonValue, absent in Vaadin 25+.
         element
             .executeJs("this._onChange(new Event('dummy'));")
-            .then { block() }
+            .then(String::class.java) { block() }
     }
 }

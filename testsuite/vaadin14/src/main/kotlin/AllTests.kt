@@ -1,37 +1,39 @@
 package com.github.mvysny.kaributools
 
-import com.github.mvysny.kaributesting.v10.MockVaadin
-import com.vaadin.flow.component.Key.KEY_C
-import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.checkbox.Checkbox
+import com.vaadin.flow.component.datepicker.DatePicker
+import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.icon.VaadinIcon
 import com.vaadin.flow.component.menubar.MenuBar
 import com.vaadin.flow.data.provider.ListDataProvider
-import com.vaadin.flow.server.AbstractStreamResource
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
+import com.vaadin.flow.data.provider.SortDirection
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
 abstract class AbstractAllTests {
-    @Nested class BrowserTimeZoneTests {
-        @BeforeEach fun fakeVaadin() { MockVaadin.setup() }
-        @AfterEach fun tearDownVaadin() { MockVaadin.tearDown() }
-
-        @Test fun smoke() {
-            BrowserTimeZone.fetch()
-            BrowserTimeZone.get
-            BrowserTimeZone.extendedClientDetails
-            BrowserTimeZone.currentDateTime
-        }
-    }
+    @Nested inner class BrowserTimeZoneTests : AbstractBrowserTimeZoneTests()
     @Nested inner class ComponentUtilsTests : AbstractComponentUtilsTests()
     @Nested inner class ButtonsTests : AbstractButtonsTests()
     @Nested inner class DataProviderUtilsTests {
         @Test fun fetchAll() {
             val list = (0..10000).toList()
             expect(list) { ListDataProvider(list).fetchAll() }
+        }
+        @Test fun `property sort orders`() {
+            expect("fullName" to SortDirection.ASCENDING) { Person::fullName.asc.let { it.sorted to it.direction } }
+            expect("fullName" to SortDirection.DESCENDING) { Person::fullName.desc.let { it.sorted to it.direction } }
+        }
+    }
+    @Nested inner class DatePickerTests {
+        @Test fun prefixComponent() {
+            val dp = DatePicker()
+            expect(null) { dp.prefixComponent }
+            val div = Div()
+            dp.prefixComponent = div
+            expect(div) { dp.prefixComponent }
+            dp.prefixComponent = null
+            expect(null) { dp.prefixComponent }
         }
     }
     @Nested inner class depthFirstTreeIteratorTests : AbstractDepthFirstTreeIteratorTests()
@@ -47,13 +49,7 @@ abstract class AbstractAllTests {
         }
     }
     @Nested inner class RouterUtilsTests : AbstractRouterUtilsTests()
-    @Nested inner class ShortcutsTests {
-        @Test fun smoke() {
-            Button().addClickShortcut(Alt + Ctrl + KEY_C)
-            Button().addFocusShortcut(Alt + Ctrl + KEY_C)
-            Button().addShortcut(Alt + Ctrl + KEY_C) { println("Foo") }
-        }
-    }
+    @Nested inner class ShortcutsTests : AbstractShortcutsTests()
     @Nested inner class TextFieldUtilsTests : AbstractTextFieldUtilsTests()
     @Nested inner class RenderersTests : AbstractRenderersTests()
     @Nested inner class NotificationsTests : AbstractNotificationsTests()
@@ -69,6 +65,13 @@ abstract class AbstractAllTests {
         @Test fun smoke() {
             Badge()
             Badge("Foo").addThemeVariants(BadgeVariant.PRIMARY, BadgeVariant.ERROR, BadgeVariant.SMALL, BadgeVariant.PILL)
+        }
+        @Test fun themeVariants() {
+            val badge = Badge("Foo")
+            badge.addThemeVariants(BadgeVariant.PRIMARY, BadgeVariant.PILL)
+            expect(setOf("badge", "primary", "pill")) { badge.themeNames.toSet() }
+            badge.removeThemeVariants(BadgeVariant.PRIMARY)
+            expect(setOf("badge", "pill")) { badge.themeNames.toSet() }
         }
     }
     @Nested inner class CheckboxTests {

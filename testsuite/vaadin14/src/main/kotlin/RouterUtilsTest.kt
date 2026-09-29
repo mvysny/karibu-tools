@@ -115,6 +115,16 @@ abstract class AbstractRouterUtilsTests {
                 RouterLink("foo", TestingView::class.java).navigateTo()
                 _expectOne<TestingView>()
             }
+            @Test fun setRoute() {
+                val link = RouterLink()
+                link.setRoute(TestingView::class)
+                expect("testing") { link.href }
+            }
+            @Test fun `setRoute with parameter`() {
+                val link = RouterLink()
+                link.setRoute(TestingParametrizedView::class, 1L)
+                expect("testingp/1") { link.href }
+            }
         }
 
         @Nested inner class getRouteUrl() {
@@ -135,6 +145,10 @@ abstract class AbstractRouterUtilsTests {
                     getRouteUrl(TestingParametrizedView::class)
                 }
                 expect("Navigation target 'com.github.mvysny.kaributools.TestingParametrizedView' requires a parameter.") { ex.message }
+            }
+            @Test fun `typed query parameters`() {
+                expect("testing?foo=bar") { getRouteUrl(TestingView::class, queryParameters = QueryParameters.simple(mapOf("foo" to "bar"))) }
+                expect("testing") { getRouteUrl(TestingView::class, queryParameters = QueryParameters.empty()) }
             }
         }
 

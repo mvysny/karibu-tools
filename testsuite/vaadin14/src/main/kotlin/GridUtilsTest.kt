@@ -2,12 +2,15 @@ package com.github.mvysny.kaributools
 
 import com.github.mvysny.kaributesting.v10._fetch
 import com.vaadin.flow.component.grid.Grid
+import com.vaadin.flow.component.grid.ItemClickEvent
 import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.component.treegrid.TreeGrid
+import com.vaadin.flow.data.provider.DataChangeEvent
 import com.vaadin.flow.data.provider.ListDataProvider
 import com.vaadin.flow.data.provider.QuerySortOrder
 import com.vaadin.flow.data.provider.SortDirection
+import com.vaadin.flow.data.renderer.TextRenderer
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -52,6 +55,38 @@ abstract class AbstractGridUtilsTests {
             expect("Alive") { grid.getColumnBy(Person::alive).header2 }
             expect("Date Of Birth") { grid.getColumnBy(Person::dateOfBirth).header2 }
         }
+
+        @Test fun `property with renderer`() {
+            val grid = Grid<Person>()
+            val column = grid.addColumnFor(Person::fullName, TextRenderer { it.fullName })
+            expect(column) { grid.getColumnBy(Person::fullName) }
+            expect("Full Name") { column.header2 }
+            expectList("fullName") { column.getSortOrder(SortDirection.ASCENDING).toList().map { it.sorted } }
+        }
+
+        @Test fun `property name`() {
+            val grid = Grid<Person>()
+            val column = grid.addColumnFor<Person, String>("fullName", key = "name")
+            expect(column) { grid.getColumnByKey("name") }
+            expect("Full Name") { column.header2 }
+            expectList("fullName") { column.getSortOrder(SortDirection.ASCENDING).toList().map { it.sorted } }
+        }
+
+        @Test fun `property name with renderer`() {
+            val grid = Grid<Person>()
+            val column = grid.addColumnFor<Person, String>("fullName", TextRenderer { it.fullName })
+            expect(column) { grid.getColumnByKey("fullName") }
+            expect("Full Name") { column.header2 }
+            expectList("fullName") { column.getSortOrder(SortDirection.ASCENDING).toList().map { it.sorted } }
+        }
+
+        @Test fun `sortable = false`() {
+            val grid = Grid<Person>()
+            expect(false) { grid.addColumnFor(Person::fullName, sortable = false).isSortable }
+            expect(false) { grid.addColumnFor(Person::fullName, TextRenderer { it.fullName }, sortable = false, key = "a").isSortable }
+            expect(false) { grid.addColumnFor<Person, String>("fullName", sortable = false, key = "b").isSortable }
+            expect(false) { grid.addColumnFor<Person, String>("fullName", TextRenderer { it.fullName }, sortable = false, key = "c").isSortable }
+        }
     }
 
     @Nested inner class `addHierarchyColumnFor tests` {
@@ -83,6 +118,52 @@ abstract class AbstractGridUtilsTests {
             expect("Alive") { grid.getColumnBy(Person::alive).header2 }
             expect("Date Of Birth") { grid.getColumnBy(Person::dateOfBirth).header2 }
         }
+
+        @Test fun `property name`() {
+            val grid = TreeGrid<Person>()
+            val column = grid.addHierarchyColumnFor<Person, String>("fullName")
+            expect(column) { grid.getColumnByKey("fullName") }
+            expect("Full Name") { column.header2 }
+            expectList("fullName") { column.getSortOrder(SortDirection.ASCENDING).toList().map { it.sorted } }
+        }
+
+        @Test fun `sortable = false`() {
+            val grid = TreeGrid<Person>()
+            expect(false) { grid.addHierarchyColumnFor(Person::fullName, sortable = false).isSortable }
+            expect(false) { grid.addHierarchyColumnFor<Person, String>("fullName", sortable = false, key = "b").isSortable }
+        }
+    }
+
+    @Nested inner class treeGrid {
+        private fun treeGrid() = TreeGrid<String>().apply {
+            setItems(listOf("a", "b")) { if (it.length < 3) listOf("${it}1") else listOf() }
+        }
+        @Test fun getRootItems() {
+            expectList("a", "b") { treeGrid().getRootItems() }
+        }
+        @Test fun expandAll() {
+            val grid = treeGrid()
+            grid.expandAll()
+            expect(true) { listOf("a", "b", "a1", "b1").all { grid.isExpanded(it) } }
+        }
+        @Test fun `expandAll honors depth`() {
+            val grid = treeGrid()
+            grid.expandAll(0)
+            expect(true) { grid.isExpanded("a") }
+            expect(false) { grid.isExpanded("a1") }
+        }
+    }
+
+    @Test fun refresh() {
+        val person = Person(fullName = "a")
+        val dp = ListDataProvider2(listOf(person))
+        val grid = Grid<Person>().apply { setDataProvider(dp) }
+        val events = mutableListOf<DataChangeEvent<Person>>()
+        dp.addDataProviderListener { events.add(it) }
+        grid.refresh()
+        expect(false) { events.single() is DataChangeEvent.DataRefreshEvent<*> }
+        grid.refreshItem(person)
+        expect(person) { (events[1] as DataChangeEvent.DataRefreshEvent<Person>).item }
     }
 
     @Nested inner class sort {
@@ -125,6 +206,28 @@ abstract class AbstractGridUtilsTests {
             expect<Class<*>>(ListDataProvider2::class.java) { grid.dataProvider.javaClass }
             expect((9 downTo 0).map { it.toString() }) { grid._fetch(0, 1000).map { it.fullName } }
         }
+    }
+
+    @Test fun `column sort orders`() {
+        val grid = Grid<Person>()
+        val column = grid.addColumnFor(Person::fullName)
+        grid.sort(column.asc)
+        expect(listOf(column to SortDirection.ASCENDING)) { grid.sortOrder.map { it.sorted to it.direction } }
+        grid.setSortOrder(listOf(column.desc))
+        expect(listOf(column to SortDirection.DESCENDING)) { grid.sortOrder.map { it.sorted to it.direction } }
+    }
+
+    @Test fun `header2 setter`() {
+        val column = Grid<Person>().addColumnFor(Person::fullName)
+        column.header2 = "Name"
+        expect("Name") { column.header2 }
+    }
+
+    @Test fun isDoubleClick() {
+        // Karibu's _doubleClickItem() fakes clickCount=1, hence the hand-made event
+        fun click(clickCount: Int) = ItemClickEvent(Grid<String>(), true, null, null, -1, -1, -1, -1, clickCount, 1, false, false, false, false)
+        expect(false) { click(1).isDoubleClick }
+        expect(true) { click(2).isDoubleClick }
     }
 
     @Test fun getColumnBySortProperty() {
@@ -286,6 +389,20 @@ abstract class AbstractGridUtilsTests {
                 g.deselectAll()
                 expect(null) { g.selectedItemOrNull }
             }
+        }
+        @Test fun selectedItem() {
+            val g = Grid<String>()
+            assertThrows<NoSuchElementException> { g.selectedItem }
+            g.select("foo")
+            expect("foo") { g.selectedItem }
+        }
+        @Test fun `SelectionEvent isSelectionEmpty`() {
+            val g = Grid<String>()
+            val empty = mutableListOf<Boolean>()
+            g.addSelectionListener { empty.add(it.isSelectionEmpty) }
+            g.select("foo")
+            g.deselectAll()
+            expectList(false, true) { empty }
         }
     }
 

@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.Span
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.streams.toList
 import kotlin.test.expect
 
 abstract class AbstractLabelWrapperTests() {
@@ -19,6 +20,18 @@ abstract class AbstractLabelWrapperTests() {
     }
 
     @Test fun children() {
-        LabelWrapper("Interwebz").add(Span("Foo"), Span("Bar"))
+        val foo = Span("Foo")
+        val bar = Span("Bar")
+        val labelWrapper = LabelWrapper("Interwebz")
+        labelWrapper.add(foo, bar)
+        expect(listOf(foo, bar)) { labelWrapper.children.toList() }
+        labelWrapper.remove(foo)
+        expect(listOf(bar)) { labelWrapper.children.toList() }
+    }
+
+    @Test fun `value is always null`() {
+        val labelWrapper = LabelWrapper("hello")
+        labelWrapper.add(Span("Foo"))
+        expect(null) { labelWrapper.value }
     }
 }

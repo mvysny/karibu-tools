@@ -65,6 +65,18 @@ abstract class AbstractStreamResourceUtilsTests {
         }
     }
 
+    @Nested inner class byteArrayToStreamResource {
+        @Test fun name() {
+            val r = byteArrayOf().toStreamResource("foo.txt")
+            expect("foo.txt") { r.name }
+        }
+        @Test fun nonEmptyContents() {
+            val r = "Hello".toByteArray().toStreamResource("foo.txt", MimeType.TEXT_PLAIN)
+            expect("Hello") { r.readAsString() }
+            expect("text/plain") { r.contentTypeResolver.apply(r, null) }
+        }
+    }
+
     @Nested inner class stringToStreamResource {
         @Test fun name() {
             val r = "".toStreamResource("foo.txt")

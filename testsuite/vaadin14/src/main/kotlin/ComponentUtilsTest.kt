@@ -147,6 +147,15 @@ abstract class AbstractComponentUtilsTests() {
         expect(true) { UI.getCurrent().isAttached() }
     }
 
+    @Test fun textAlign() {
+        val div = Div()
+        expect(null) { div.textAlign }
+        div.textAlign = "center"
+        expect("center") { div.textAlign }
+        div.textAlign = null
+        expect(null) { div.textAlign }
+    }
+
     @Test fun insertBefore() {
         val l = HorizontalLayout()
         val first = Span("first")
@@ -185,7 +194,6 @@ abstract class AbstractComponentUtilsTests() {
         expect(true) { l.isEmpty }
     }
 
-    @Suppress("DEPRECATION")
     @Nested inner class classnames2 {
         @Test fun addClassNames2() {
             val div = Div().apply { addClassNames2("foo  bar    baz") }

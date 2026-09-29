@@ -7,6 +7,7 @@ plugins {
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id("org.jetbrains.kotlinx.kover") version "0.9.10"
 }
 
 defaultTasks("clean", "build")
@@ -17,6 +18,12 @@ val verifyDesignTripwires = tasks.register<Exec>("verifyDesignTripwires") {
     onlyIf { System.getProperty("os.name") == "Linux" }
 }
 tasks.check { dependsOn(verifyDesignTripwires) }
+
+// `./gradlew koverHtmlReport`: the library jars' coverage, merged over every testrun-* Vaadin version
+dependencies {
+    listOf(":karibu-tools", ":karibu-tools-23").forEach { kover(project(it)) }
+    rootProject.subprojects.filter { it.name.startsWith("testrun-") }.forEach { kover(project(it.path)) }
+}
 
 allprojects {
     group = "com.github.mvysny.karibu-tools"
@@ -34,6 +41,7 @@ subprojects {
         plugin("maven-publish")
         plugin("kotlin")
         plugin("org.gradle.signing")
+        plugin("org.jetbrains.kotlinx.kover")
     }
 
     java {

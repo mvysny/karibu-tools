@@ -25,11 +25,12 @@ abstract class AbstractComboBoxTests {
     }
     @Test fun isHelperAboveField() {
         val cb = ComboBox<String>()
-        expect(false) { cb.isSmall }
-        cb.isSmall = true
-        expect(true) { cb.isSmall }
-        cb.isSmall = false
-        expect(false) { cb.isSmall }
+        expect(false) { cb.isHelperAboveField }
+        cb.isHelperAboveField = true
+        expect(true) { cb.isHelperAboveField }
+        expect(true) { cb.element.themeList.contains("helper-above-field") }
+        cb.isHelperAboveField = false
+        expect(false) { cb.isHelperAboveField }
     }
     @Test fun variants() {
         val cb = ComboBox<String>()
