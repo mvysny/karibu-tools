@@ -28,5 +28,6 @@ dependencies {
     testImplementation(libs.slf4j.simple)
 }
 
+@Suppress("UNCHECKED_CAST")
 val configureMavenCentral = ext["configureMavenCentral"] as (artifactId: String) -> Unit
 configureMavenCentral("karibu-tools")
