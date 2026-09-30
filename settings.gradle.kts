@@ -20,3 +20,7 @@ include(
     "testsuite:testrun-hilla1",
     "testsuite:testrun-vaadin-hilla-hybrid",
 )
+// the demo app runs Vaadin 25, whose Gradle plugin needs Java 21+; the JDK 17 CI job leaves it out
+if (JavaVersion.current() >= JavaVersion.VERSION_21) {
+    include("testapp")
+}

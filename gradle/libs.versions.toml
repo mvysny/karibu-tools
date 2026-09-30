@@ -33,6 +33,8 @@ vaadin-v24-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin24" 
 vaadin-v24next-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin24next" }
 vaadin-v25-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin25" }
 vaadin-v25next-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin25next" }
+vaadin-v25-dev = { module = "com.vaadin:vaadin-dev", version.ref = "vaadin25" }
+vaadin-boot = "com.github.mvysny.vaadin-boot:vaadin-boot:13.7"
 jetbrains-annotations = "org.jetbrains:annotations:26.1.0"
 javax-servletapi = "javax.servlet:javax.servlet-api:4.0.1"
 jakarta-servletapi = "jakarta.servlet:jakarta.servlet-api:6.1.0"
@@ -43,3 +45,6 @@ hilla-v2 = { module = "dev.hilla:hilla", version.ref = "hilla2" }
 hilla-v2next = { module = "dev.hilla:hilla", version.ref = "hilla2next" }
 hilla-v1 = { module = "dev.hilla:hilla", version.ref = "hilla1" }
 toml4j = "org.tomlj:tomlj:2.1.1"
+
+[plugins]
+vaadin25 = { id = "com.vaadin", version.ref = "vaadin25" }

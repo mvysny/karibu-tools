@@ -14,6 +14,7 @@ it, research or doc-comment content has crept in.
 - `VaadinVersion` is the version-compat seam: it detects the running Vaadin, Flow and Hilla versions once, and a version branch asks it; the one alternative is probing for a class that only newer Vaadin has (`HasLabel`, `HasPlaceholder`), `ClassNotFoundException` meaning "older".
 - Newer API is reached reflectively and cached in a top-level `private val` (`_LitRenderer_Class` in `Renderers.kt`, the `Class.forName` lookups in `GridUtils.kt`), so the lookup runs once per JVM.
 - Test bodies are written once, as `Abstract*Tests` classes in `testsuite:vaadin14` / `vaadin21` / `vaadin23` — `src/main`, so other modules can depend on them. Each `testrun-*` module pins one Vaadin and nests `AbstractAllTests`, `AbstractAllTests21` and `AbstractAllTests23` as far as its version reaches, excluding the suites' own `com.vaadin` dependencies.
+- `testapp` depends on `karibu-tools-23` like an app would, on the `vaadin25` catalog version; it demoes utilities, never replaces their `Abstract*Tests`. Its Karibu tests only guard that the demo routes render.
 
 ## Flows
 

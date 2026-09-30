@@ -37,6 +37,7 @@ Every fact lives in exactly one of these; the others link to it.
 - `testsuite:vaadin14` — the main test bodies, `AbstractAllTests`, compiled against Vaadin 14.
 - `testsuite:vaadin21` — test bodies needing Vaadin 21+ API, `AbstractAllTests21`.
 - `testsuite:vaadin23` — test bodies for `karibu-tools-23`, `AbstractAllTests23`.
+- `testapp` — a Vaadin Boot demo app on Vaadin 25, one `AppLayout` route per demoed utility; for checks only a real browser can make (link targets). Java 21+, so left out of the build on JDK 17.
 - `testsuite:testrun-*` — one per Vaadin / Hilla version (`vaadin14-stable`, `vaadin14-next`, `vaadin22`, `vaadin23`, `vaadin24`, `vaadin24next`, `vaadin25`, `vaadin25next`, `hilla`, `hilla-prev`, `hilla1`, `vaadin-hilla-hybrid`): pins it, nests the suites it supports.
 
 ## Conventions
@@ -52,6 +53,7 @@ Every fact lives in exactly one of these; the others link to it.
 - `./gradlew` — the default `clean build`: every `testrun-*` module, then `design/verify_design_tripwires.sh` (Linux only); what CI runs on push and PR, ubuntu × JDK 17 / 21 / 25, macOS and Windows on JDK 21 (`.github/workflows/gradle.yml`, which also runs the tripwires in a job of their own).
 - `./gradlew test` — all tests on all Vaadin versions.
 - `./gradlew :testsuite:testrun-vaadin25:test --tests '*GridUtilsTests*'` — one suite on one Vaadin version.
+- `./gradlew :testapp:run` — the demo app on http://localhost:8080; `SERVER_PORT=8765` picks another port.
 - `./gradlew koverHtmlReport` — the library jars' coverage merged over every `testrun-*`, in `build/reports/kover/html`.
 - Releasing to Maven Central: `CONTRIBUTING.md`.
 

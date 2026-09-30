@@ -6,6 +6,8 @@ Please feel free to open bug reports to discuss new features; PRs are welcome as
 
 To run all tests on all Vaadin versions, simply run `./gradlew test`.
 
+To try the utilities in a browser, run the demo app with `./gradlew :testapp:run` (Java 21+) and open http://localhost:8080.
+
 # Releasing
 
 To release the library to Maven Central:

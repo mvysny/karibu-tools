@@ -11,3 +11,7 @@ kls_database.db
 bin
 .classpath
 .project
+# the demo app: Vaadin regenerates all of these
+testapp/src/main/frontend
+testapp/target
+.vscode
