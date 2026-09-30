@@ -120,5 +120,5 @@ Sources: shallow clones of `vaadin/flow`, `vaadin/flow-components` and `vaadin/w
 
 The user has already upstreamed, in fc: `MenuBar.close()` (#5745), `AbstractLogin.showErrorMessage()` (#5749),
 `ComboBox/MultiSelectComboBox.setOverlayWidth()` (#5743), `HasPlaceholder` on components (#5756),
-`SubMenu.addSeparator()` (#5737) and `TabSheetElement.getTabLabels()` (#8108). Open now: #10269
-`ContextMenuBase.getContextMenus(Component)` + `Grid.getContextMenus()`. The rest of the user's PRs are in flow.
+`SubMenu.addSeparator()` (#5737) and `TabSheetElement.getTabLabels()` (#8108). Then #10269
+`ContextMenuBase.getContextMenus(Component)` + `Grid.getContextMenus()` (merged 2026-09-29, 25.4). The rest of the user's PRs are in flow.

@@ -52,7 +52,7 @@ A set of general Vaadin utilities applicable to all components.
 
 * Call `Component.findAncestor()` or `Component.findAncestorOrSelf()` to discover component's
   ancestor which satisfies given predicate. Vaadin 23.2+ has `Component.findAncestor(Class)`, by type only.
-  Vote for [flow #26032](https://github.com/vaadin/flow/issues/26032).
+  `findAncestor()` is built into Vaadin 25.4+ as `Component.findAncestor(SerializablePredicate)`.
 * call `Component.removeFromParent()` to remove the component from its parent.
   Built into Vaadin 24.0+ as `Component.removeFromParent()`.
 * call `Component.isNestedIn(potentialAncestor: Component)` to discover whether a component
@@ -300,7 +300,7 @@ To use custom icons with Vaadin 14+, see [Custom Icons With Vaadin 14](https://m
 
 ### Notification
 
-* `notification.getText()` returns the text set to the notification. Vote for [flow-components #2088](https://github.com/vaadin/flow-components/issues/2088).
+* `notification.getText()` returns the text set to the notification. Built into Vaadin 25.4+ as `Notification.getText()`.
 * `notification.addCloseButton()` adds a close button, which makes the notification closeable by the user
   (and the duration of `0` starts making sense). Vote for [#438](https://github.com/vaadin/web-components/issues/438).
 
@@ -414,8 +414,7 @@ Since 0.18; depend on `karibu-tools-23` to gain access to these utility function
 * `Tab.contents`/`TabSheet.getComponent()` returns the contents component of given tab (TabSheet only).
   Built into Vaadin 24.1+ as `TabSheet.getComponent(Tab)`.
 * `TabSheet.tabCount` returns the number of the tabs. Built into Vaadin 24.5+ as `TabSheet.getTabCount()`.
-* `TabSheet.removeAll()` removes all tabs.
-  Vote for [flow-components #10272](https://github.com/vaadin/flow-components/issues/10272).
+* `TabSheet.removeAll()` removes all tabs. Built into Vaadin 25.4+ as `TabSheet.removeAll()`.
 * `TabSheet.tabs` returns a `List<Tab>` of all tabs
 * `TabSheet.getTab()` returns `Tab` for its content component (TabSheet only).
   Built into Vaadin 24.1+ as `TabSheet.getTab(Component)`.

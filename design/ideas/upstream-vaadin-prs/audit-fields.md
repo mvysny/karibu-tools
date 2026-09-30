@@ -42,7 +42,7 @@ Tags: `wc-side` = needs a vaadin/web-components change; `theme` = Lumo/Aura-boun
 | `UI.getAllDialogs()` | DialogUtils.kt:20 | yes | none | — | none found | A (weak) | same as above |
 | `Dialog.center()` | DialogUtils.kt:27 | yes | partial: `Dialog.setTop/setLeft` | setTop/setLeft 24.6 javap (24.5 no) | vaadin-dialog#220 → moved to **wc#601** open "Allow dialog centering after width/height changes" | A, `wc-side` | README link points to archived repo, update to wc#601; karibu impl pokes `this.$.overlay.$.overlay` (shadow internals) |
 | `Dialog.requestClose(fromClient)` | DialogUtils.kt:43 | yes | none | — | **fc#6027** open (user's) "Allow programmatic trigger of dialog close procedure" | A | pure flow-side; `DialogCloseActionEvent` ctor is public |
-| `Notification.getText()` | Notifications.kt:25 | yes | none (only `setText`; testbench `NotificationElement.getText`) | — | wc#2446 → moved to **fc#2088** open "Implement Notification.getText()" (user's) | A | on 24+ it is just `getElement().getProperty("text")` — trivial PR |
+| `Notification.getText()` | Notifications.kt:25 | yes | none (only `setText`; testbench `NotificationElement.getText`) | — | wc#2446 → moved to **fc#2088** "Implement Notification.getText()" (user's) → **fc#10271 merged, 25.4** | B | upstream since 25.4 |
 | `Notification.addCloseButton()` | Notifications.kt:42 | yes | none | — | wc#438 open "[notification] Add close/dismiss button"; fc#5531 open "Add a close button for notifications" | A, `wc-side`, `theme` | flow-side composite uses LUMO_ICON/LUMO_TERTIARY; proper fix is in the web component |
 | `Button.setPrimary()` | Buttons.kt:9 | yes | `ButtonVariant.PRIMARY` (theme-neutral) / `LUMO_PRIMARY` / deprecated `AURA_PRIMARY` | LUMO 14.0; AURA_PRIMARY 25.0; neutral PRIMARY 25.1 javap | fc#8126 closed-completed 2025-11-04 "Add base and Aura variants"; fc#8651 closed-completed 2026-02-13 "Shared theme variants across Lumo and Aura" | E | the theme-neutral variant is the upstream answer; a boolean-ish setter goes against the variant API; still `LUMO_PRIMARY` here — could switch to PRIMARY on 25.1+ |
 | `Button.addThemeVariantsCompat` | Buttons.kt:14 | **no** | n/a — reflective V14/V24 compat shim (`HasThemeVariant` absent in 14) | — | — | E | internal shim leaked as public; not upstream material |
@@ -75,7 +75,7 @@ Tags: `wc-side` = needs a vaadin/web-components change; `theme` = Lumo/Aura-boun
 | fc#1572 Upload clear (only in KDoc) | closed-completed 2022-02-07 → `clearFileList` 23.0 |
 | fc#1525 Login error message | closed-completed 2024-01-11 → `showErrorMessage` 24.4 |
 | vaadin-dialog#220 Dialog center | repo archived; moved to **wc#601**, open |
-| wc#2446 Notification getText | moved to **fc#2088**, open |
+| wc#2446 Notification getText | moved to **fc#2088**, closed by fc#10271 (25.4) |
 | wc#438 Notification close button | open (also fc#5531 open) |
 | platform#2601 / fc#1681 item label generators (KDoc only) | closed-completed 2022 → 23.0 |
 | fc#7682 FormLayout row break (KDoc only) | closed 2026-09-23 as obsolete (FormRow) |

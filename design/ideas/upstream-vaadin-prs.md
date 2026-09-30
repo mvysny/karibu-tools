@@ -12,10 +12,10 @@ newest Vaadin master (25.4-SNAPSHOT as of 2026-09-29).
 - **One utility function per PR**, even within a family (`findAncestor(predicate)`, `findAncestorOrSelf` and
   `isNestedIn` are three PRs). That keeps the scope small and easy to review, and lets upstream accept or
   reject each one on its own.
-- **#10269 is the probe PR.** It has no AI attribution and carries a "Reviewed by Martin Vysny (@mvysny)" note instead.
-  If it goes through, every further PR takes the same shape.
-- **First PRs**: `Notification.getText()` (fc#2088), `Dialog.requestClose()` (fc#6027),
-  `TabSheet.removeAll()`.
+- **#10269 was the probe PR, and it went through** (merged 2026-09-29). It has no AI attribution and carries a
+  "Reviewed by Martin Vysny (@mvysny)" note instead, so every further PR takes the same shape.
+- **First PRs**: `Notification.getText()` (fc#2088, merged), `Dialog.requestClose()` (fc#6027, no PR yet),
+  `TabSheet.removeAll()` (fc#10272, merged).
 - **Tickets are filed from here, PRs are made elsewhere.** Every A candidate without a ticket gets a
   feature request filed from this repo; the PR itself is written in a separate session inside the
   upstream checkout (`flow`, `flow-components`, …), linking that ticket.
@@ -78,24 +78,22 @@ flow (`vaadin/flow`):
 
 | Utility | Upstream shape | Ticket | Tags |
 |---|---|---|---|
-| `findAncestor(predicate)`, `findAncestorOrSelf`, `isNestedIn` | on `Component`; flow#14002 moved `findAncestor(Class)` *off* `ComponentUtil` on purpose ("ComponentUtil feels internal") | flow#26032 open (owner's) for `findAncestor(predicate)`; the other two on hold, no ticket yet | |
-| `Element.textRecursively2` | bug fix of `Element.getTextRecursively()` | flow#3668 open | |
+| `findAncestorOrSelf`, `isNestedIn` | on `Component`, next to `findAncestor(predicate)` (flow#26035 merged, 25.4) | on hold, no ticket yet | |
+| `Element.textRecursively2` | bug fix of `Element.getTextRecursively()` | flow#3668 open; draft PR flow#26027 (owner's) | |
 | `getRouteUrl(…, QueryParameters)` | `RouteConfiguration.getUrl(Class, RouteParameters, QueryParameters)` | flow#26033 open (owner's) | |
 | `RouterLink.target` (+ `setOpenInNewTab`) | `RouterLink.setTarget(AnchorTargetValue)` | flow#5791 open | |
 | `TextField.onEnter` | fix the stale value a shortcut listener sees, not add `onEnter` | flow#7046 open | |
-| `ExtendedClientDetails.timeZone` (+ `currentDateTime`) | `ExtendedClientDetails.getZoneId()`, falling back to the offset | flow#26034 open (owner's) | |
+| `ExtendedClientDetails.timeZone` (+ `currentDateTime`) | `ExtendedClientDetails.getZoneId()`, falling back to the offset | flow#26034 open (owner's); PR flow#26036 open | |
 
 flow-components (`vaadin/flow-components`):
 
 | Utility | Upstream shape | Ticket | Tags |
 |---|---|---|---|
-| `Notification.getText()` | `getText()` reading the `text` property; trivial | fc#2088 open (owner's) | |
 | `Dialog.requestClose()` | `Dialog.requestClose()` firing `DialogCloseActionEvent` | fc#6027 open (owner's) | |
-| `TabSheet.removeAll()` | same, matching `Tabs.removeAll()` | fc#10272 open (owner's) | |
-| `TabSheet.findTabContaining()` | same | fc#10273 open (owner's) | |
+| `TabSheet.findTabContaining()` | same | fc#10273 open (owner's); PR fc#10275 open | |
 | `FormItem.label` | a label getter on `FormItem` | fc#1015 open | |
 | text selection: `selectAll`, `selectNone`, `setCursorLocation`, `select(IntRange)` | `setSelectionRange(int, int)`, `setCursorPosition(int)`, `selectAll()` on `TextFieldBase` | fc#1377, fc#1152, wc#1375 open | maybe web-component-side |
-| `Grid.getColumnBySortProperty` (+ `getColumnBySortOrder`, `sort(QuerySortOrder...)`) | next to `getColumnByKey` | fc#10276 open (owner's); `sort(QuerySortOrder...)` is fc#10277 | |
+| `Grid.getColumnBySortProperty` (+ `getColumnBySortOrder`, `sort(QuerySortOrder...)`) | next to `getColumnByKey` | fc#10276 open (owner's), PR fc#10281 open by an outside contributor (chekalls); `sort(QuerySortOrder...)` is fc#10277, no PR | |
 | `TreeGrid.expandAll` (+ `getRootItems`) | needs an API discussion first: unbounded loading (fc#4411) | fc#1657 open (`collapseAll` / `expandAll`; the audit missed it) | |
 | `Dialog.center()` | re-center after a size change | wc#601 open | web-component-side |
 | `Notification.addCloseButton()` | a built-in close button | wc#438, fc#5531 open | web-component-side, theme-bound |
@@ -111,6 +109,9 @@ testing only).
 ### B: already upstream
 
 The README records each one, with its version and upstream name ("Built into Vaadin x.y+").
+Absorbed through this effort, all on `main` for 25.4 (fc ones shipped in 25.4.0-alpha1):
+`Component.findAncestor(SerializablePredicate)` (flow#26032 → flow#26035), `Notification.getText()`
+(fc#2088 → fc#10271), `TabSheet.removeAll()` (fc#10272 → fc#10274).
 Ticket housekeeping upstream: fc#1022 (SelectionMode getter) is still open though `Grid.getSelectionMode()`
 shipped in 24.4; comment to close it.
 

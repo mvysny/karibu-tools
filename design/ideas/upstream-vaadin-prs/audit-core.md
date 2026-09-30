@@ -21,7 +21,7 @@ Buckets: **A** PR candidate (A-low = weak value, needs your call) · **B** alrea
 | `Component.addContextMenuListener()` :67 | yes | `element.addEventListener("contextmenu", l).preventDefault()` | 24.2 (one-liner) | javap | none | **E** | One line once `preventDefault()` exists. |
 | `DomListenerRegistration.preventDefault()` :77 | **no** | `DomListenerRegistration.preventDefault()` | 24.2 | javap | — | **B** | Missing from README. |
 | `Component.removeFromParent()` :82 | yes | `Component.removeFromParent()` | 24.0 | javap | — | **B** | |
-| `Component.findAncestor(predicate)` :90 | yes | `Component.findAncestor(Class<T>)` only | 23.2 (Class variant) | javap | flow#14002 (merged, Class variant), flow#13984 | **A** | Predicate overload. Home: `Component` — in #14002 upstream moved it *from* ComponentUtil to a public Component method on purpose ("ComponentUtil feels internal", mstahv). |
+| `Component.findAncestor(predicate)` :90 | yes | `Component.findAncestor(Class<T>)` only | 23.2 (Class variant) | javap | flow#14002 (merged, Class variant), flow#13984, flow#26032 → **flow#26035 merged, 25.4** | **B** | Predicate overload, upstream since 25.4. Home: `Component` — in #14002 upstream moved it *from* ComponentUtil to a public Component method on purpose ("ComponentUtil feels internal", mstahv). |
 | `Component.findAncestorOrSelf()` :97 | yes | none | — | grep | none | **A** | Same PR as findAncestor(predicate). |
 | `Component.isNestedIn()` :108 | yes | none | — | grep | none | **A** | Same PR or ComponentUtil; trivially `findAncestor { it == x } != null`. |
 | `Component.isAttached()` :117 | yes | `Component.isAttached()` | 14.7 / 18.0 | javap | flow#7911 closed-completed | **B** | |
@@ -48,7 +48,7 @@ Buckets: **A** PR candidate (A-low = weak value, needs your call) · **B** alrea
 | `Element.setOrRemoveAttributeIfNullOrEmpty()` :31 | **no** | none | — | grep | none | **A-low** | Bundle with the one above. |
 | `ClassList.toggle()` :43 | yes | `ClassList.set(name, !contains(name))` | — | grep | flow#3688 open (Polymer, only loosely related) | **A-low** | Mirrors DOM `classList.toggle`. |
 | `Element.insertBefore()` :52 | yes | `insertChild(indexOfChild(existing), e)` | — | grep | none | **A-low** | Mirrors DOM; bundle with HasOrderedComponents.insertBefore. |
-| `Element.textRecursively2` :61 | yes | `Element.getTextRecursively()` still broken | — | gh | **flow#3668 open** | **A** | Bug-fix PR against #3668, not new API. |
+| `Element.textRecursively2` :61 | yes | `Element.getTextRecursively()` still broken | — | gh | **flow#3668 open**; draft PR flow#26027 | **A** | Bug-fix PR against #3668, not new API. |
 | `jsoup Node.textRecursively` :68 | **no** | — | — | — | — | **E** | jsoup helper, not Vaadin. |
 | `Element.getVirtualChildren()` :77 | yes | `ComponentUtil.getAllChildren()` (component-level, includes virtual children) | 25.2 | javap | flow#24408 merged | **B** | Partial: no Element-level accessor. Karibu reaches into internal `VirtualChildrenList`. |
 | `StateNode.element` :92 | yes | `Element.get(StateNode)` | 14.0 | — | — | **C** | |
@@ -93,7 +93,7 @@ Buckets: **A** PR candidate (A-low = weak value, needs your call) · **B** alrea
 
 | Symbol | README | Upstream on main | First | Ev | Tickets | Bucket | Note |
 |---|---|---|---|---|---|---|---|
-| `ExtendedClientDetails.timeZone: ZoneId` :15 | **no** | only `getTimeZoneId()` String, `getTimezoneOffset()`; `getBrowserTime(): Instant` | 25.3 (getBrowserTime) | grep / @since | flow#25480 merged (getBrowserTime) | **A** | `ExtendedClientDetails.getZoneId()` with the offset fallback. |
+| `ExtendedClientDetails.timeZone: ZoneId` :15 | **no** | only `getTimeZoneId()` String, `getTimezoneOffset()`; `getBrowserTime(): Instant` | 25.3 (getBrowserTime) | grep / @since | flow#25480 merged (getBrowserTime); flow#26034 → PR flow#26036 open | **A** | `ExtendedClientDetails.getZoneId()` with the offset fallback. |
 | `ExtendedClientDetails.currentDateTime` :27 | **no** | none | — | — | — | **A-low** | Bundle with getZoneId. |
 | `BrowserTimeZone.fetch()` :43, `.extendedClientDetails` :71 | yes / **no** | `Page.getExtendedClientDetails()`: collected automatically during UI init | 25.0 | javap / @since | — | **B** | The session cache is obsolete on 25. |
 | `BrowserTimeZone.get` :58, `.currentDateTime` :80, `.toLocalDateTime()` :64 | yes / yes / **no** | none (would follow from getZoneId) | — | — | — | **E** | Session-scoped facade; E once getZoneId lands upstream. |
@@ -134,7 +134,7 @@ Buckets: **A** PR candidate (A-low = weak value, needs your call) · **B** alrea
 
 ## Summary
 
-- **A (8):** findAncestor(predicate) + findAncestorOrSelf + isNestedIn (one PR, flow), FormItem label getter (flow-components#1015), textRecursively fix (flow#3668), RouteConfiguration.getUrl with QueryParameters, RouterLink target (flow#5791), shortcut value-sync fix (flow#7046), ExtendedClientDetails.getZoneId.
+- **A (8):** findAncestor(predicate) (now B: flow#26035, 25.4) + findAncestorOrSelf + isNestedIn, FormItem label getter (flow-components#1015), textRecursively fix (flow#3668), RouteConfiguration.getUrl with QueryParameters, RouterLink target (flow#5791), shortcut value-sync fix (flow#7046), ExtendedClientDetails.getZoneId.
 - **A-low (12):** insertBefore ×2, hasChildren, setOrRemoveAttribute ×2, ClassList.toggle, AfterNavigationEvent.routeClass, QueryParameters.isEmpty, RouterLink.setOpenInNewTab, currentDateTime, HtmlSpan, Validator.isValid.
 - **Stale README "Vote for" links:** flow#11709 (fixed in 14.8 / 22.0), flow#4068 (HasPlaceholder, 24.3). flow#3668 is still open and valid.
 - **README gaps in this scope:** preventDefault, setOrRemoveAttributeIfNullOrEmpty, Node.textRecursively, FormItem.label, Router.configuration, RouterLink.navigateTo, RouterLink.setRoute, QueryParameters.isEmpty/isNotEmpty, Key.shortcut / KeyShortcut / ModifierKey, the onlyWhenFocused param, ECD.timeZone / currentDateTime, BrowserTimeZone.toLocalDateTime / extendedClientDetails, all of MiscUtils, StreamResourceUtils, MimeType, SemanticVersion, VaadinVersion.vaadin / hilla, DepthFirstTreeIterator.

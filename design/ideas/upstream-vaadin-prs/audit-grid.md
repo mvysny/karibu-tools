@@ -35,7 +35,7 @@ Paths: G = karibu-tools/src/main/kotlin/GridUtils.kt, R = Renderers.kt, M = Menu
 | 27 | `Grid.setSortOrder(List)` | G:396 | **no** | `grid.sort(List)` | 14.0 (baseline) | javap | – | C | | Only exists so Kotlin gets a `sortOrder` property |
 | 28 | `Grid.sort(vararg QuerySortOrder)` | G:417 | yes | none | – | grep | none found | A | | `Grid.sort(QuerySortOrder...)`: sorts by sort-property name (for example restored from a URL). Low priority; depends on #30 |
 | 29 | `Grid.getColumnBySortOrder(QuerySortOrder)` | G:434 | **no** | none | – | grep | – | A | | Fold into the #30 PR; it is just `getColumnBySortProperty(order.getSorted())` |
-| 30 | `Grid.getColumnBySortProperty(String)` | G:442 | **no** | none | – | grep | none found (#1513 is unrelated) | A | | `Grid.getColumnBySortProperty(String)` next to `getColumnByKey`. Low–medium value |
+| 30 | `Grid.getColumnBySortProperty(String)` | G:442 | **no** | none | – | grep | fc#10276 (user's), PR fc#10281 open (outside contributor); #1513 is unrelated | A | | `Grid.getColumnBySortProperty(String)` next to `getColumnByKey`. Low–medium value |
 | 31 | `Column.asc` | G:455 | partially (in the sort example) | `GridSortOrder.asc(column)` | 14.0 (baseline) | javap | – | C | | property sugar |
 | 32 | `Column.desc` | G:459 | partially | `GridSortOrder.desc(column)` | 14.0 (baseline) | javap | – | C | | |
 | 33 | `TreeGrid.getRootItems()` | G:464 | yes | `getTreeData().getRootItems()`, only for a TreeDataProvider; generic: `getDataProvider().fetch(new HierarchicalQuery<>(null,null))` | 14.0 (baseline, partial) | javap | none found | A (fold into #34) | | Not worth a PR of its own |
@@ -55,14 +55,14 @@ Paths: G = karibu-tools/src/main/kotlin/GridUtils.kt, R = Renderers.kt, M = Menu
 | 47 | `Tab.ownerTabSheet` | T:30 | yes | none | – | grep | none found | E | | Low value; if anything, covered by a `ComponentUtil.findAncestor` PR (Q_bucket_d_alt_home) |
 | 48 | `Tab.contents` | T:54 | yes | `TabSheet.getComponent(Tab)` | 24.1 | javap+@since | – | B | | The Tab-side accessor is sugar |
 | 49 | `TabSheet.tabCount` | T:59 | yes | `TabSheet.getTabCount()` | 24.5 | javap+@since | – | B | | |
-| 50 | `TabSheet.removeAll()` | T:64 | yes | none (`Tabs.removeAll()` exists) | – | javap | none found | A | | `TabSheet.removeAll()`, matching `Tabs.removeAll()`. Small, clean PR |
+| 50 | `TabSheet.removeAll()` | T:64 | yes | none (`Tabs.removeAll()` exists) | – | javap | fc#10272 (user's) → **fc#10274 merged, 25.4** | B | | Upstream since 25.4, matching `Tabs.removeAll()` |
 | 51 | `TabSheet.tabs` (live List) | T:71 | yes | none; `getTabAt(i)` + `getTabCount()` | – | grep | #5232 (open, internal tabs customization; tangential) | A (low) | | Maybe `TabSheet.getTabs(): List<Tab>`. Upstream may prefer not to expose it |
 | 52 | `TabSheet.getTab(Component)` | T:82 | yes | `TabSheet.getTab(Component)` | 24.1 | javap+@since | – | B | | A port for 23 |
 | 53 | `TabSheet.getComponent(Tab)` | T:88 | yes | `TabSheet.getComponent(Tab)` | 24.1 | javap+@since | – | B | | A port for 23 |
-| 54 | `TabSheet.findTabContaining(Component)` | T:93 | yes | none | – | grep | none found | A | | For example, select the tab that holds a field with a validation error. Good PR candidate |
+| 54 | `TabSheet.findTabContaining(Component)` | T:93 | yes | none | – | grep | fc#10273 (user's), PR fc#10275 open | A | | For example, select the tab that holds a field with a validation error. Good PR candidate |
 
 ## Summary
-- **A (PR candidates):** #50 TabSheet.removeAll, #54 findTabContaining, #30 (+#29) getColumnBySortProperty, #28 sort(QuerySortOrder...), #34 (+#33) TreeGrid.expandAll, #51 TabSheet.getTabs, #40/#41 public renderer getters (low), #43/#44 MenuBar icon items (theme-bound, web-component-side; tickets open).
+- **A (PR candidates):** #50 TabSheet.removeAll (now B, 25.4), #54 findTabContaining, #30 (+#29) getColumnBySortProperty, #28 sort(QuerySortOrder...), #34 (+#33) TreeGrid.expandAll, #51 TabSheet.getTabs, #40/#41 public renderer getters (low), #43/#44 MenuBar icon items (theme-bound, web-component-side; tickets open).
 - **B (upstream):** refresh/refreshItem (baseline), selection-mode family (24.4), header/footer component (23.2), header2 → getHeaderText (23.2), MenuBar.close (24.4), TabSheet getTab/getComponent (24.1), tabCount (24.5), Tab.index (23.3/24.0), string-property addColumnFor/addHierarchyColumnFor (baseline, bean-typed grid).
 - **C (Kotlin-only):** KProperty column APIs, Optional/instanceof/isEmpty property sugar, vararg sort, asc/desc, setSortOrder, Tab.owner.
 - **E (obsolete):** Header/FooterCell.renderer (≤23), `_internalId`, isDoubleClick, Tab.ownerTabSheet.
