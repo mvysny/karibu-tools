@@ -83,7 +83,6 @@ flow (`vaadin/flow`):
 | `getRouteUrl(…, QueryParameters)` | `RouteConfiguration.getUrl(Class, RouteParameters, QueryParameters)` | flow#26033 open (owner's) | |
 | `RouterLink.target` (+ `setOpenInNewTab`) | `RouterLink.setTarget(String)` / `String getTarget()` + `setOpenInNewBrowserTab(boolean)` / `isOpenInNewBrowserTab()`, as on `SideNavItem`; not `AnchorTargetValue`, which lives in `flow-html-components`, downstream of `RouterLink`'s `flow-server` | flow#5791 open; [our comment](https://github.com/vaadin/flow/issues/5791#issuecomment-5906607130) (2026-09-30) proposes this shape, PR to follow once it's OK'd | |
 | `TextField.onEnter` | fix the stale value a shortcut listener sees, not add `onEnter` | flow#7046 open | |
-| `ExtendedClientDetails.timeZone` (+ `currentDateTime`) | `ExtendedClientDetails.getZoneId()`, falling back to the offset | flow#26034 open (owner's); PR flow#26036 open | |
 
 flow-components (`vaadin/flow-components`):
 
@@ -111,7 +110,8 @@ testing only).
 The README records each one, with its version and upstream name ("Built into Vaadin x.y+").
 Absorbed through this effort, all on `main` for 25.4 (fc ones shipped in 25.4.0-alpha1):
 `Component.findAncestor(SerializablePredicate)` (flow#26032 → flow#26035), `Notification.getText()`
-(fc#2088 → fc#10271), `TabSheet.removeAll()` (fc#10272 → fc#10274).
+(fc#2088 → fc#10271), `TabSheet.removeAll()` (fc#10272 → fc#10274), `ExtendedClientDetails.getZoneId()` +
+`getBrowserDateTime()` for karibu's `timeZone` / `currentDateTime` (flow#26034 → flow#26036, merged 2026-09-30).
 Ticket housekeeping upstream: fc#1022 (SelectionMode getter) is still open though `Grid.getSelectionMode()`
 shipped in 24.4; comment to close it.
 

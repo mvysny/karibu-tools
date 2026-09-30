@@ -171,8 +171,9 @@ is available without the fetch.
 * Call `BrowserTimeZone.toLocalDateTime(instant)` to convert an `Instant` to the browser's local date time.
 * `BrowserTimeZone.extendedClientDetails` returns the details `fetch()` stored in the session.
 * `ExtendedClientDetails.timeZone` returns the browser's `ZoneId`, falling back to the time zone offset.
-  Vote for [flow #26034](https://github.com/vaadin/flow/issues/26034).
+  Built into Vaadin 25.4+ as `ExtendedClientDetails.getZoneId()`.
 * `ExtendedClientDetails.currentDateTime` returns the current date time in that time zone.
+  Built into Vaadin 25.4+ as `ExtendedClientDetails.getBrowserDateTime()`, which returns a `ZonedDateTime`.
 
 ### Text selection utils
 

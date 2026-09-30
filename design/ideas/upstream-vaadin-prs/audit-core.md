@@ -93,8 +93,8 @@ Buckets: **A** PR candidate (A-low = weak value, needs your call) · **B** alrea
 
 | Symbol | README | Upstream on main | First | Ev | Tickets | Bucket | Note |
 |---|---|---|---|---|---|---|---|
-| `ExtendedClientDetails.timeZone: ZoneId` :15 | **no** | only `getTimeZoneId()` String, `getTimezoneOffset()`; `getBrowserTime(): Instant` | 25.3 (getBrowserTime) | grep / @since | flow#25480 merged (getBrowserTime); flow#26034 → PR flow#26036 open | **A** | `ExtendedClientDetails.getZoneId()` with the offset fallback. |
-| `ExtendedClientDetails.currentDateTime` :27 | **no** | none | — | — | — | **A-low** | Bundle with getZoneId. |
+| `ExtendedClientDetails.timeZone: ZoneId` :15 | **no** | only `getTimeZoneId()` String, `getTimezoneOffset()`; `getBrowserTime(): Instant` | 25.3 (getBrowserTime) | grep / @since | flow#25480 merged (getBrowserTime); flow#26034 → PR flow#26036 merged 2026-09-30 | **B** (was A) | `ExtendedClientDetails.getZoneId()` with the offset fallback, 25.4. |
+| `ExtendedClientDetails.currentDateTime` :27 | **no** | `ExtendedClientDetails.getBrowserDateTime(): ZonedDateTime` | 25.4 | gh pr diff | flow#26036 merged 2026-09-30 | **B** (was A-low) | Bundled with getZoneId. |
 | `BrowserTimeZone.fetch()` :43, `.extendedClientDetails` :71 | yes / **no** | `Page.getExtendedClientDetails()`: collected automatically during UI init | 25.0 | javap / @since | — | **B** | The session cache is obsolete on 25. |
 | `BrowserTimeZone.get` :58, `.currentDateTime` :80, `.toLocalDateTime()` :64 | yes / yes / **no** | none (would follow from getZoneId) | — | — | — | **E** | Session-scoped facade; E once getZoneId lands upstream. |
 
@@ -134,8 +134,8 @@ Buckets: **A** PR candidate (A-low = weak value, needs your call) · **B** alrea
 
 ## Summary
 
-- **A (8):** findAncestor(predicate) (now B: flow#26035, 25.4) + findAncestorOrSelf + isNestedIn, FormItem label getter (flow-components#1015), textRecursively fix (flow#3668), RouteConfiguration.getUrl with QueryParameters, RouterLink target (flow#5791), shortcut value-sync fix (flow#7046), ExtendedClientDetails.getZoneId.
-- **A-low (12):** insertBefore ×2, hasChildren, setOrRemoveAttribute ×2, ClassList.toggle, AfterNavigationEvent.routeClass, QueryParameters.isEmpty, RouterLink.setOpenInNewTab, currentDateTime, HtmlSpan, Validator.isValid.
+- **A (8):** findAncestor(predicate) (now B: flow#26035, 25.4) + findAncestorOrSelf + isNestedIn, FormItem label getter (flow-components#1015), textRecursively fix (flow#3668), RouteConfiguration.getUrl with QueryParameters, RouterLink target (flow#5791), shortcut value-sync fix (flow#7046), ExtendedClientDetails.getZoneId (now B: flow#26036, 25.4).
+- **A-low (12):** insertBefore ×2, hasChildren, setOrRemoveAttribute ×2, ClassList.toggle, AfterNavigationEvent.routeClass, QueryParameters.isEmpty, RouterLink.setOpenInNewTab, currentDateTime (now B: flow#26036, 25.4), HtmlSpan, Validator.isValid.
 - **Stale README "Vote for" links:** flow#11709 (fixed in 14.8 / 22.0), flow#4068 (HasPlaceholder, 24.3). flow#3668 is still open and valid.
 - **README gaps in this scope:** preventDefault, setOrRemoveAttributeIfNullOrEmpty, Node.textRecursively, FormItem.label, Router.configuration, RouterLink.navigateTo, RouterLink.setRoute, QueryParameters.isEmpty/isNotEmpty, Key.shortcut / KeyShortcut / ModifierKey, the onlyWhenFocused param, ECD.timeZone / currentDateTime, BrowserTimeZone.toLocalDateTime / extendedClientDetails, all of MiscUtils, StreamResourceUtils, MimeType, SemanticVersion, VaadinVersion.vaadin / hilla, DepthFirstTreeIterator.
 - **Bug found:** `setClassNames2` clears inline styles (`style.clear()`), not class names, and the test can't catch it.
