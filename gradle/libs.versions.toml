@@ -14,12 +14,12 @@ vaadin24 = "24.9.18"
 # Vaadin 24.10: Don't test on Vaadin 24.10.8 and higher: it requires the pro license
 vaadin24next = "24.10.7"
 vaadin25 = "25.2.9"
-vaadin25next = "25.3.0"
+vaadin25next = "25.4.0-alpha1"
 
 # Check newest Hilla version at https://github.com/vaadin/hilla/tags
 hilla2next = "2.5.8"
 hilla2 = "2.5.8"
-hilla1 = "1.3.35"
+hilla1 = "1.4.1"
 
 [libraries]
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
@@ -40,7 +40,7 @@ javax-servletapi = "javax.servlet:javax.servlet-api:4.0.1"
 jakarta-servletapi = "jakarta.servlet:jakarta.servlet-api:6.1.0"
 karibu-testing-v24 = "com.github.mvysny.kaributesting:karibu-testing-v24:2.4.4"
 karibu-testing-v25 = "com.github.mvysny.kaributesting:karibu-testing-v24:2.7.3"
-karibu-testing-v10 = "com.github.mvysny.kaributesting:karibu-testing-v10:1.3.24"
+karibu-testing-v10 = "com.github.mvysny.kaributesting:karibu-testing-v10:1.4.5"
 hilla-v2 = { module = "dev.hilla:hilla", version.ref = "hilla2" }
 hilla-v2next = { module = "dev.hilla:hilla", version.ref = "hilla2next" }
 hilla-v1 = { module = "dev.hilla:hilla", version.ref = "hilla1" }

@@ -7,7 +7,7 @@ plugins {
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
-    id("org.jetbrains.kotlinx.kover") version "0.9.10"
+    id("org.jetbrains.kotlinx.kover") version "0.9.11"
 }
 
 defaultTasks("clean", "build")
