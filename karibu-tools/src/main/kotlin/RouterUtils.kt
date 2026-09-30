@@ -216,6 +216,13 @@ public fun Anchor.setOpenInNewTab() {
 
 /**
  * Sets the target of this anchor ([RouterLink] is technically also an Anchor element).
+ *
+ * ```
+ * RouterLink("Report", ReportView::class.java).apply { target = AnchorTarget.BLANK }
+ * ```
+ *
+ * No target and `_self` are routed in place; any other target bypasses the client router, and the
+ * browser loads the route with a fresh UI (verified on Vaadin 25.2).
  */
 public var RouterLink.target: AnchorTargetValue
     get() = element.getAttribute("target")

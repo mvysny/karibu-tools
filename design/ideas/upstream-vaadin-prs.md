@@ -81,7 +81,7 @@ flow (`vaadin/flow`):
 | `findAncestorOrSelf`, `isNestedIn` | on `Component`, next to `findAncestor(predicate)` (flow#26035 merged, 25.4) | on hold, no ticket yet | |
 | `Element.textRecursively2` | bug fix of `Element.getTextRecursively()` | flow#3668 open; draft PR flow#26027 (owner's) | |
 | `getRouteUrl(…, QueryParameters)` | `RouteConfiguration.getUrl(Class, RouteParameters, QueryParameters)` | flow#26033 open (owner's) | |
-| `RouterLink.target` (+ `setOpenInNewTab`) | `RouterLink.setTarget(String)` / `String getTarget()` + `setOpenInNewBrowserTab(boolean)` / `isOpenInNewBrowserTab()`, as on `SideNavItem`; not `AnchorTargetValue`, which lives in `flow-html-components`, downstream of `RouterLink`'s `flow-server` | flow#5791 open | |
+| `RouterLink.target` (+ `setOpenInNewTab`) | `RouterLink.setTarget(String)` / `String getTarget()` + `setOpenInNewBrowserTab(boolean)` / `isOpenInNewBrowserTab()`, as on `SideNavItem`; not `AnchorTargetValue`, which lives in `flow-html-components`, downstream of `RouterLink`'s `flow-server` | flow#5791 open; [our comment](https://github.com/vaadin/flow/issues/5791#issuecomment-5906607130) (2026-09-30) proposes this shape, PR to follow once it's OK'd | |
 | `TextField.onEnter` | fix the stale value a shortcut listener sees, not add `onEnter` | flow#7046 open | |
 | `ExtendedClientDetails.timeZone` (+ `currentDateTime`) | `ExtendedClientDetails.getZoneId()`, falling back to the offset | flow#26034 open (owner's); PR flow#26036 open | |
 
