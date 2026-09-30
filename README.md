@@ -26,6 +26,9 @@ See the tag above for the latest version.
 newer, prefer the built-in API it names. "Deprecated" marks one Vaadin 14 already has built in,
 so the built-in works on every Vaadin this library supports. "Vote for" links an upstream ticket that is still open.
 
+To see some of the utilities live, run the demo app in [testapp](testapp) (Java 21+, Vaadin 25): `./gradlew :testapp:run`,
+then open http://localhost:8080.
+
 ## General Vaadin Utilities
 
 A set of general Vaadin utilities applicable to all components.
